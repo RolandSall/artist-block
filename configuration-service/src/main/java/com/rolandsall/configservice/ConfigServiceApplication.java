@@ -1,13 +1,13 @@
-package com.example.configurationservice;
+package com.rolandsall.configservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ConfigurationServiceApplication {
+public class ConfigServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ConfigurationServiceApplication.class, args);
+        SpringApplication.run(ConfigServiceApplication.class, args);
     }
 
 }
