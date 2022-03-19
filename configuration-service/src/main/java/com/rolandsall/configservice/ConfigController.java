@@ -10,8 +10,8 @@ public class ConfigController {
     @Value("${encrypt.key}")
     private String Key;
 
-    @GetMapping("/api/v1/key")
+ /*   @GetMapping("/api/v1/key")
     public String Configs(){
         return "Key: " + Key;
-    }
+    }*/
 }
