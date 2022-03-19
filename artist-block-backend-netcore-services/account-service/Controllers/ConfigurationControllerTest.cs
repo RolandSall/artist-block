@@ -3,16 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace account_service.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/v1/")]
 public class WeatherForecastController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-
-    public IConfiguration _configuration;
+  
+    private readonly IConfiguration _configuration;
 
     private readonly ILogger<WeatherForecastController> _logger;
 
@@ -22,9 +17,13 @@ public class WeatherForecastController : ControllerBase
         _configuration = configuration;
     }
 
-    [HttpGet(Name = "GetWeatherForecast")]
+    [HttpGet]
+    [Route("app-setting-config")]   
     public ActionResult Get()
     {
-        return Ok(_configuration["cascading:testx"]);
+        var stage = _configuration["env-version"];
+        var stageEncryption = _configuration["env-encrypt"];
+        return Content($"Stage: {stage} \n" +
+                       $"Encryption Variable Test: {stageEncryption}");
     }
 }
