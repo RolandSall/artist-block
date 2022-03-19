@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/RolandSall/artist-block-configuration
+          search-paths:
+            - 'dev'
+            - 'staging'
+            - 'production'
+
+server:
+  port: 8888
+
+management:
+  endpoint:
+    web:
+      exposure:
+        include: '*'
