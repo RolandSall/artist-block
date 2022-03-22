@@ -1,3 +1,4 @@
+using Steeltoe.Discovery.Client;
 using Steeltoe.Extensions.Configuration.ConfigServer;
 using Steeltoe.Management.Endpoint;
 
@@ -14,10 +15,11 @@ namespace account_service
             Host.CreateDefaultBuilder(args)
                 .AddRefreshActuator()
                 .AddConfigServer()
-                
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+            
+                .AddDiscoveryClient();
     }
 }

@@ -1,4 +1,9 @@
-﻿namespace account_service{
+﻿using Steeltoe.Common.Http.Discovery;
+using Steeltoe.Discovery.Client;
+using Steeltoe.Discovery.Client.SimpleClients;
+
+
+namespace account_service{
     public class Startup {
         
         public Startup(IConfiguration configuration) {
@@ -11,7 +16,7 @@
         public void ConfigureServices(IServiceCollection services) {
             services.AddControllers();
             services.AddSwaggerGen();
-            
+          
             var dbConfig = Configuration["test"];
             Console.Write(dbConfig);
        
@@ -40,6 +45,9 @@
             {
                 endpoints.MapControllers();
             });
+
+            
+            
         }
     }
 }
