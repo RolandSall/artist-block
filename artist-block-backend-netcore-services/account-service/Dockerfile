@@ -19,8 +19,5 @@ WORKDIR /app
 
 COPY --from=build-env /app/out .
 
-
-ENV ASPNETCORE_ENVIRONMENT=Developement
-
 # Locally
 ENTRYPOINT dotnet "account-service.dll"

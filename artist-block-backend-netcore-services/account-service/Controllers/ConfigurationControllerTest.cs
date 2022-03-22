@@ -23,7 +23,10 @@ public class WeatherForecastController : ControllerBase
     {
         var stage = _configuration["env-version"];
         var stageEncryption = _configuration["env-encrypt"];
+        var localStageVar = _configuration["Local-Property-AppSetting"];
         return Content($"Stage: {stage} \n" +
-                       $"Encryption Variable Test: {stageEncryption}");
+                       $"Encryption Variable Test: {stageEncryption} \n" +
+                       $"Local Variable Test: {localStageVar} \n");
+        
     }
 }

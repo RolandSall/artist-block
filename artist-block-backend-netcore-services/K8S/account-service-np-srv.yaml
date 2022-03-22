@@ -1,0 +1,13 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: accountservice-srv
+spec:
+  type: NodePort
+  selector:
+    app: accountservice
+  ports:
+    - name: accountservice
+      protocol: TCP
+      port: 80
+      targetPort: 80
