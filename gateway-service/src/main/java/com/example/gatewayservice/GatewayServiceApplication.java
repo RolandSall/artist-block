@@ -13,7 +13,6 @@ public class GatewayServiceApplication {
         SpringApplication.run(GatewayServiceApplication.class, args);
     }
 
-
     @Bean
     public RouteLocator staticRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
