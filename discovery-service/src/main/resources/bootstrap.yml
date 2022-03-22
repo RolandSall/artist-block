@@ -8,3 +8,7 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
+    serviceUrl:
+      defaultZone: "https://artist-block-discovery-service.herokuapp.com/"
+    healthcheck:
+      enabled: true
