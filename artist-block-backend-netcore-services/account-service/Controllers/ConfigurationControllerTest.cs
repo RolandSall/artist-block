@@ -3,15 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace account_service.Controllers;
 
 [ApiController]
-[Route("api/v1/")]
-public class WeatherForecastController : ControllerBase
+[Route("api/v1/account-service")]
+public class ConfigurationController : ControllerBase
 {
   
     private readonly IConfiguration _configuration;
 
-    private readonly ILogger<WeatherForecastController> _logger;
+    private readonly ILogger<ConfigurationController> _logger;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger, IConfiguration configuration)
+    public ConfigurationController(ILogger<ConfigurationController> logger, IConfiguration configuration)
     {
         _logger = logger;
         _configuration = configuration;
