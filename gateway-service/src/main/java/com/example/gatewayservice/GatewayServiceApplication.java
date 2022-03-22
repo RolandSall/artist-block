@@ -19,7 +19,7 @@ public class GatewayServiceApplication {
     public RouteLocator staticRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(r -> r.path("/api/v1/account-service/**")
-                        .uri("http://localhost:5111/"))
+                        .uri("lb://ACCOUNT-SERVICE"))
                 .build();
     }
 }
