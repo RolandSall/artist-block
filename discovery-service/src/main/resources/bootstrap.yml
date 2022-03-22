@@ -12,3 +12,6 @@ eureka:
       defaultZone: "https://artist-block-discovery-service.herokuapp.com/"
     healthcheck:
       enabled: true
+  server:
+    renewal-percent-threshold: 0.85
+    registry-sync-retry-wait-ms: 0
