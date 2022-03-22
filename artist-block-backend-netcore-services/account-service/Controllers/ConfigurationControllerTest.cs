@@ -27,6 +27,5 @@ public class ConfigurationController : ControllerBase
         return Content($"Stage: {stage} \n" +
                        $"Encryption Variable Test: {stageEncryption} \n" +
                        $"Local Variable Test: {localStageVar} \n");
-        
     }
 }
