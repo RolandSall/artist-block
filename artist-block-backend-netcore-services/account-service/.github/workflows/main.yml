@@ -1,0 +1,18 @@
+﻿name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy_haqq_backend_to_stagging_env_heroku:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+        
+      -  
+        name: Check Directory 
+        run: ls
