@@ -1,2 +1,2 @@
 cd ..
-git subtree push --prefix configuration-service heroku master
+git subtree push --prefix configuration-service heroku-config-service-staging master
