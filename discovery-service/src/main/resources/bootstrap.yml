@@ -1,6 +1,7 @@
 server:
   port: 8761
 
+
 eureka:
   instance:
     prefer-ip-address: true
@@ -15,3 +16,4 @@ eureka:
   server:
     renewal-percent-threshold: 0.85
     registry-sync-retry-wait-ms: 0
+    enable-self-preservation: false
