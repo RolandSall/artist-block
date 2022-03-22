@@ -1,3 +1,5 @@
+
+
 spring:
   cloud:
     config:
@@ -8,6 +10,16 @@ spring:
             - 'dev'
             - 'staging'
             - 'production'
+  application:
+    name: configuration_service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: "https://artist-block-discovery-service.herokuapp.com/eureka"
+  instance:
+    prefer-ip-address: true
+
 
 server:
   port: 8888
