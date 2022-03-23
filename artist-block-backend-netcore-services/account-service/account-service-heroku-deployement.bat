@@ -1,9 +1,9 @@
 ﻿echo "Starting"
 
-docker build -f staging.Dockerfile -t rolandsall24/haqq-staging-env:1.0.4 .
+docker build -f staging.Dockerfile -t rolandsall24/artist-block-account-service:1.0.4 .
 
-docker tag rolandsall24/haqq-staging-env:1.0.0 registry.heroku.com/haqq-staging/web
+docker tag rolandsall24/artist-block-account-service:1.0.4 registry.heroku.com/artist-block-account-service/web
 
-docker push registry.heroku.com/haqq-staging/web
+docker push registry.heroku.com/artist-block-account-service/web
 
-heroku container:release web -a haqq-staging
+heroku container:release web -a artist-block-account-service
