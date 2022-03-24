@@ -38,19 +38,24 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN  }}   
+
       -
         name: Extract metadata for Docker
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: ${{ secrets.DOCKER_HUB_USERNAME }}/artist-block-account-service
+
+      - 
+        name: Run Bat file
+        run: start account-service-heroku-deployement.bat
+
       -
         name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
-        working-directory: artist-block-backend-netcore-services/account-service/
         with:
           context: .
-          file: ./Dockerfile
+          file: ./staging.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
