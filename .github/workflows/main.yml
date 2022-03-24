@@ -48,7 +48,7 @@ jobs:
 
       - 
         name: Run Bat file
-        run: start account-service-heroku-deployement.bat
+        run: ./account-service-heroku-deployement.bat
 
       -
         name: Build and push Docker image
