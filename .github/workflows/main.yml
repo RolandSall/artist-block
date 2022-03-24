@@ -48,17 +48,7 @@ jobs:
 
       - 
         name: Run Bat file
-        run: ./account-service-heroku-deployement.bat
-
-      -
-        name: Build and push Docker image
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
-        with:
-          context: .
-          file: ./staging.Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+        run: ./account-service-heroku-deployement-workflow.bat
           
       - 
         name: login to heroku container
@@ -66,7 +56,7 @@ jobs:
         
       -
         name: Tag Image for heroku deployement
-        run: docker tag rolandsall24/artist-block-account-service:develop-heroku registry.heroku.com/artist-block-account-service/web
+        run: docker tag rolandsall24/artist-block-account-service:1.0.5 registry.heroku.com/artist-block-account-service/web
 
       -  
         name: Check for current images
