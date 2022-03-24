@@ -15,11 +15,12 @@ public class GatewayServiceApplication {
         SpringApplication.run(GatewayServiceApplication.class, args);
     }
 
+
     @Bean
     public RouteLocator staticRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(r -> r.path("/api/v1/account-service/**")
-                        .uri("lb://ACCOUNT-SERVICE/")
+                        .uri("https://artist-block-gateway-service.herokuapp.com/")
                        )
                 .build();
     }
