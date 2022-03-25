@@ -1,12 +1,20 @@
-﻿using Steeltoe.Common.Http.Discovery;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Steeltoe.Common.Http.Discovery;
 using Steeltoe.Discovery.Client;
 using Steeltoe.Discovery.Client.SimpleClients;
 
 
 namespace account_service{
     public class Startup {
+             private readonly string _CORSPolicy = "_CORSPolicy";
+        private readonly IWebHostEnvironment _env;
         
-        public Startup(IConfiguration configuration) {
+        public Startup(IConfiguration configuration, IWebHostEnvironment env) {
+            _env = env;
             Configuration = configuration;
         }
 
@@ -15,39 +23,126 @@ namespace account_service{
        
         public void ConfigureServices(IServiceCollection services) {
             services.AddControllers();
-            services.AddSwaggerGen();
-          
-            var dbConfig = Configuration["test"];
-            Console.Write(dbConfig);
-       
+            
+            services.AddCors(options => {
+                options.AddPolicy(name: _CORSPolicy,
+                    builder => {
+                        if (_env.IsDevelopment()) {
+                            builder
+                                .WithOrigins("http://localhost:3000") 
+                                .AllowAnyHeader()
+                                .AllowAnyMethod()
+                                .AllowCredentials();
+
+                        }
+                        else if(_env.IsStaging()){
+                            builder.AllowAnyHeader()
+                                .WithOrigins("https://haqq-staging-enviroment-f8b93911-clnxo.ondigitalocean.app")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod()
+                                .AllowCredentials();
+                        }
+                        else
+                        {
+                            builder.AllowAnyHeader()
+                                .WithMethods("POST", "GET", "PUT")
+                                .WithOrigins("https://domain1.com", "https://domain2.com");
+                        }
+                    });
+            });
+            
+            services.AddSwaggerGen(setup =>
+            {
+                // Include 'SecurityScheme' to use JWT Authentication
+                var jwtSecurityScheme = new OpenApiSecurityScheme
+                {
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Name = "JWT Authentication",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
+
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+
+                setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { jwtSecurityScheme, Array.Empty<string>() }
+                });
+
+            });
+            
+            services.AddMvc(option => option.EnableEndpointRouting = false) ;
+            string domain = $"https://{Configuration["Auth0:Domain"]}/";
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = domain;
+                    options.Audience = Configuration["Auth0:Audience"];
+                    // If the access token does not have a `sub` claim, `User.Identity.Name` will be `null`.
+                    // Map it to a different claim by setting the NameClaimType below.
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = ClaimTypes.NameIdentifier
+                    };
+                });
+            
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("read:messages", policy => policy.Requirements.Add(new HasScopeRequirement("read:messages", domain)));
+            });
+
+            
+            // Run the following before migrations: set ASPNETCORE_ENVIRONMENT=Staging {env that you are in <--> Branch}
+            var dbConfig = Configuration["Db-Connections:ConnectionDbString"];
+            /*services.AddDbContext<DbContext>(opt => 
+                    opt.UseNpgsql(dbConfig)
+            );*/
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+
             
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            } else if (env.IsStaging())
+            if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
-          
+            if (_env.IsStaging())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+            
+            
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            
             app.UseRouting();
+            
+            app.UseCors(_CORSPolicy);
+            
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-
-            
-            
-        }
+        } 
+       
     }
 }
