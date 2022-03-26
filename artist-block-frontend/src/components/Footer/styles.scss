@@ -1,0 +1,63 @@
+.footer-container {
+  background-color: #00af98;
+  padding: 50px 10%;
+  height: fit-content;
+  display: flex;
+  color: white;
+}
+
+.footer-logo {
+  text-align: center;
+}
+
+
+.flex {
+  display: flex;
+  &.column {
+    flex-direction: column;
+    place-content: center;
+  }
+  &.spaced {
+    place-content: space-evenly;
+  }
+}
+.grow {
+  flex-grow: 1;
+}
+
+.social-media-button {
+  cursor: pointer;
+  margin: 10px;
+}
+
+.links {
+  height: 100%;
+}
+
+.link {
+  text-decoration: none !important;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  place-content: center;
+}
+
+.subscribe {
+  text-align: center;
+}
+
+@media screen and (max-width: 900px){
+  .subscribe {
+    width: 300px;
+    margin: 20px auto auto;
+  }
+}
+
+.subscribe-field-container {
+  margin-top: 20px;
+}
+
+.subscribe-field {
+  color: white !important;
+  place-content: end;
+}

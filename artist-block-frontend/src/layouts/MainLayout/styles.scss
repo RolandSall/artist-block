@@ -1,0 +1,9 @@
+.main-container{
+    min-height: calc( 100vh - 74px );
+}
+
+@media screen and (max-width: 600px)  {
+    .main-container {
+    //margin-top: 56px;
+    }
+}
