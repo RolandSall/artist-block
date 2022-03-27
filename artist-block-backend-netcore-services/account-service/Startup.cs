@@ -1,6 +1,8 @@
 ﻿using System.Security.Claims;
+using account_service.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Steeltoe.Common.Http.Discovery;
@@ -103,10 +105,10 @@ namespace account_service{
             
             // Run the following before migrations: set ASPNETCORE_ENVIRONMENT=Staging {env that you are in <--> Branch}
             var dbConfig = Configuration["Db-Connections:ConnectionDbString"];
-            /*services.AddDbContext<DbContext>(opt => 
-                    opt.UseNpgsql(dbConfig)
-            );*/
-            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddDbContext<ArtistBlockDbContext>(opt => 
+                opt.UseNpgsql(dbConfig)
+            );
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
             
