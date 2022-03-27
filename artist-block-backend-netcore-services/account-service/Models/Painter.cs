@@ -13,6 +13,15 @@ public class Painter
     [Required]
     [Column("Location")]
     public string?  Location { get; set; }
+    
+    [Required]
+    [Column("years_of_experience")]
+    public string?  YearsOfExperience { get; set; }
+    
+    [Required]
+    [Column("bio")]
+    public string?  Bio { get; set; }
+
       
     [Column("FK_painter_registered_user_id")]
     public Guid RegisteredUserId { get; set; }

@@ -28,4 +28,12 @@ public class ConfigurationController : ControllerBase
                        $"Encryption Variable Test: {stageEncryption} \n" +
                        $"Local Variable Test: {localStageVar} \n");
     }
+    
+    [HttpGet]
+    [Route("test")]   
+    public ActionResult GetConnection()
+    {
+        var dbConfig = _configuration["Db-Connections:ConnectionDbString"];
+        return Content(dbConfig);
+    }
 }

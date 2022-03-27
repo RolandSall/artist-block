@@ -103,8 +103,11 @@ namespace account_service{
             });
 
             
-            // Run the following before migrations: set ASPNETCORE_ENVIRONMENT=Staging {env that you are in <--> Branch}
+            // Run the following before migrations: set ASPNETCORE_ENVIRONMENT=Staging
+            // set ASPNETCORE_ENVIRONMENT=Development
             var dbConfig = Configuration["Db-Connections:ConnectionDbString"];
+            Console.Write(Configuration["Local-Property-AppSetting"]);
+            Console.Write(dbConfig);
             services.AddDbContext<ArtistBlockDbContext>(opt => 
                 opt.UseNpgsql(dbConfig)
             );

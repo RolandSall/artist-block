@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace account_service.Models;
 
-[Table("Speciality")]
+[Table("speciality")]
 public class Speciality
 {
     [Key]

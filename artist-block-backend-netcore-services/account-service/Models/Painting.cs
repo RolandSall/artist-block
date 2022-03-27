@@ -8,7 +8,7 @@ public class Painting
 {
     [Key]
     [Column("PK_painting_id")]
-    public Guid PainterId{ get; set; }
+    public Guid PaintingId{ get; set; }
     
     [Required]
     [Column("painting_name")]
