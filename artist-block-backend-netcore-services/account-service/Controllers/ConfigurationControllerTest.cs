@@ -18,14 +18,6 @@ public class ConfigurationController : ControllerBase
     }
 
     [HttpGet]
-    [Route("hello")]   
-    public ActionResult Hello()
-    {
-        return Ok("This Test is for Anis to be happy!");
-    }
-    
-
-    [HttpGet]
     [Route("app-setting-config")]   
     public ActionResult Get()
     {
