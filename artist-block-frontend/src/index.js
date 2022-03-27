@@ -5,17 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createTheme, CssBaseline} from "@mui/material";
 import Unna from './assets/fonts/Unna-Regular.ttf';
-import {ARTIST_BLOCK_GOLD, ARTIST_BLOCK_PURPLE} from "./utils/constants";
 import {ThemeProvider} from "@emotion/react";
 import {BrowserRouter as Router} from "react-router-dom";
+import {ARTIST_GREEN, ARTIST_PINK} from "./utils/constants";
+import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history";
 
 const Theme = createTheme({
     palette: {
         primary: {
-            main: ARTIST_BLOCK_PURPLE,
+            main: ARTIST_GREEN,
         },
         secondary: {
-            main: ARTIST_BLOCK_GOLD
+            main: ARTIST_PINK
         },
 
     },
@@ -40,10 +41,12 @@ const Theme = createTheme({
 
 ReactDOM.render(
     <Router>
-        <ThemeProvider theme={Theme}>
-            <CssBaseline />
-            <App/>
-        </ThemeProvider>
+        <Auth0ProviderWithHistory>
+            <ThemeProvider theme={Theme}>
+                <CssBaseline />
+                <App/>
+            </ThemeProvider>
+        </Auth0ProviderWithHistory>
     </Router>,
     document.getElementById('root')
 );

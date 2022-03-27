@@ -1,0 +1,74 @@
+@import "src/assets/styles/variables";
+
+.react-draggable strong {
+  background: #ddd;
+  border: 1px solid #999;
+  border-radius: 3px;
+  display: block;
+  margin-bottom: 10px;
+  padding: 3px 5px;
+  text-align: center;
+}
+
+.scroll-handle {
+  visibility: initial;
+  cursor: ns-resize;
+  z-index: 1000;
+  //box-shadow: 4px 3px 5px 1px #000000;
+  border: 1px solid #00af98;
+  border-right-width: 0;
+  padding: 2px;
+  float: left;
+  width: 25px;
+  display: flex;
+  border-radius: 20px 0 0 20px;
+  background-size: 20px !important;
+}
+
+.scroll-handle-logo {
+  margin: auto;
+  user-select: none;
+}
+
+::-webkit-scrollbar {
+  width: 0;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+.no-pointer-events {
+  pointer-events: none;
+}
+
+.hovered {
+  background-color: gray;
+}
+
+.dashboard-container {
+  transform: translateY(calc( -50% + 45px));
+  z-index: 10000;
+  -webkit-transition: opacity 600ms, visibility 600ms;
+  transition: opacity 600ms, visibility 600ms;
+  visibility: hidden;
+  //display: none;
+  &.open {
+    display: block;
+    visibility: visible;
+  }
+  //cursor: auto;
+}
+
+.draggable-dashboard-container {
+  z-index: 1000;
+  max-height: 100%;
+  position: absolute;
+  right: 0;
+  transition: all 400ms ease-in-out;
+  visibility: hidden;
+}
+
+#scroll-id {
+  min-height: calc( 100vh - 58px );
+  &.fifty-more{
+    min-height: calc( 100vh - 108px );
+  }
+}
