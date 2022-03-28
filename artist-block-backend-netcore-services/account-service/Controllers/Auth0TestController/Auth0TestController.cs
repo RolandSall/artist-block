@@ -19,13 +19,12 @@ public class Auth0TestController : ControllerBase
     [Authorize]
     public IActionResult Private() // getUserId
     {
-        // var auth0Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var claims = User.Claims;
+        var auth0Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
         
         return Ok(new
         {
             Message = "Hello from a private endpoint! You need to be authenticated to see this!",
-            claims = claims,
+            Id = auth0Id,
         });
     }
 
