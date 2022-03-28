@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using System.Text.Json.Serialization;
 using account_service.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -24,7 +25,10 @@ namespace account_service{
 
        
         public void ConfigureServices(IServiceCollection services) {
-            services.AddControllers();
+            // services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+            
             
             services.AddCors(options => {
                 options.AddPolicy(name: _CORSPolicy,
