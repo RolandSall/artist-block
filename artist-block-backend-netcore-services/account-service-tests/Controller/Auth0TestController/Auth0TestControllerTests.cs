@@ -22,6 +22,6 @@ public class Auth0TestControllerTests
         var returned = (returnedValue as OkObjectResult).Value;
 
         returned.Should()
-            .BeEquivalentTo("/ from a public endpoint! You don't need to be authenticated to see this!!!");
+            .BeEquivalentTo("Hello from a public endpoint! You don't need to be authenticated to see this!!!");
     }
 }
