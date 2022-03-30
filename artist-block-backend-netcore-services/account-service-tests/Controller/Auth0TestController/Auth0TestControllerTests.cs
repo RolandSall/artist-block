@@ -8,7 +8,6 @@ using Xunit;
 
 public class Auth0TestControllerTests
 {
-    
     [Fact]
     public void Public_Void_ReturnOkStatus()
     {
