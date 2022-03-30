@@ -32,4 +32,12 @@ public class RegistrationRepo: IRegistrationRepo
         _context.SaveChanges();
         return savedRegisteredUser;
     }
+
+    public Painter RegisterPainter(Painter painter)
+    {
+        var registeredPainter = _context.Painters.Add(painter).Entity;
+
+        _context.SaveChanges();
+        return registeredPainter;
+    }
 }

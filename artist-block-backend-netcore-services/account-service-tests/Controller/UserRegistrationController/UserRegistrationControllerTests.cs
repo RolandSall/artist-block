@@ -23,14 +23,27 @@ public class UserRegistrationControllerTests
 {
     //private readonly Mock<IRegistrationRepo> _repositoryStub = new();
     // create an automapper instance for unit tests
-    private readonly IMapper _mapper = new MapperConfiguration(mc => mc.AddProfile(new ClientProfile())).CreateMapper();
+    private readonly IMapper _mapperClient = new MapperConfiguration(mc => mc.AddProfile(new ClientProfile())).CreateMapper();
     private readonly Mock<IRegistrationService> _registrationServiceStub = new() ;
+    private static readonly  DateTime _dateTime = DateTime.Now;
     private readonly CreateClientDto _providedCreateDto = new CreateClientDto()
     {
         Email = "user@example.com",
         Nationality = "Nationality",
         Title = "Title",
-        BirthDate = DateTime.Now,
+        BirthDate = _dateTime,
+        FirstName = "FirstName",
+        LastName = "LastName",
+        PhoneNumber = "1111",
+    };
+    
+    private readonly ReadClientDto _expectedReadDto = new ReadClientDto()
+    {
+        RegisteredUserId = Guid.NewGuid(),
+        Email = "user@example.com",
+        Nationality = "Nationality",
+        Title = "Title",
+        BirthDate = _dateTime,
         FirstName = "FirstName",
         LastName = "LastName",
         PhoneNumber = "1111",
@@ -43,9 +56,12 @@ public class UserRegistrationControllerTests
         // Arrange
 
         // setup the stub
+        var returnedValueRegisteredUserStub = _mapperClient.Map<RegisteredUser>(_providedCreateDto);
+        returnedValueRegisteredUserStub.RegisteredUserId = _expectedReadDto.RegisteredUserId;
+        
         _registrationServiceStub.Setup(
             service => service.RegisterClient( It.IsAny<RegisteredUser>() , It.IsAny<string>()))
-            .Returns(_mapper.Map<RegisteredUser>(_providedCreateDto));
+            .Returns( returnedValueRegisteredUserStub );
         
         // Create Mock for User 
         var identity = new ClaimsIdentity();
@@ -58,7 +74,7 @@ public class UserRegistrationControllerTests
         
         // Setup the controller with out Mocked User
         var controllerContext = new ControllerContext { HttpContext = new DefaultHttpContext { User = user } };
-        var controller = new account_service.Controllers.UserRegistrationController.UserRegistrationController(_mapper,_registrationServiceStub.Object)
+        var controller = new account_service.Controllers.UserRegistrationController.UserRegistrationController(_mapperClient,_registrationServiceStub.Object)
         {
             ControllerContext = controllerContext,
         };
@@ -66,13 +82,13 @@ public class UserRegistrationControllerTests
         // Act
         var returnedValue = controller.RegisterClient(_providedCreateDto);
         var value = ( ReadClientDto ) (returnedValue as OkObjectResult).Value;
-        
+
         // Assert
-        value.Should().BeEquivalentTo(_providedCreateDto , opt => opt.ComparingByMembers<ReadClientDto>().ExcludingMissingMembers());
+        value.Should().BeEquivalentTo(_expectedReadDto , opt => opt.ComparingByMembers<ReadClientDto>());
     }
 
     [Fact]
-    public void RegisterClient_AlreadyRegisteredClientDto_ThrowsException()
+    public void RegisterClient_AlreadyRegisteredClientDto_ThrowsUserAlreadyRegisteredException()
     {
         // Arrange
 
@@ -92,7 +108,7 @@ public class UserRegistrationControllerTests
         
         // Setup the controller with out Mocked User
         var controllerContext = new ControllerContext { HttpContext = new DefaultHttpContext { User = user } };
-        var controller = new account_service.Controllers.UserRegistrationController.UserRegistrationController(_mapper,_registrationServiceStub.Object)
+        var controller = new account_service.Controllers.UserRegistrationController.UserRegistrationController(_mapperClient,_registrationServiceStub.Object)
         {
             ControllerContext = controllerContext,
         };

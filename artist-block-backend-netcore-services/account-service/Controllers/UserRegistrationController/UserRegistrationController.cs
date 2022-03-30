@@ -13,7 +13,6 @@ namespace account_service.Controllers.UserRegistrationController;
 [ApiController]     
 public class UserRegistrationController: ControllerBase
 {
-    
     private readonly IRegistrationService _registrationService;
     private readonly IMapper _mapper;
 
@@ -43,6 +42,29 @@ public class UserRegistrationController: ControllerBase
         catch (Exception e) {
             Console.WriteLine(e);
             return Problem(e.GetBaseException().ToString());
+        }
+    }
+    
+    [HttpPost]
+    [Route("register-painter")]
+    [Authorize]
+    public ActionResult RegisterPainter(CreatePainterDto painterDto)
+    {
+        try
+        {
+            var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var registeredPainter = _mapper.Map<Painter>(painterDto);
+            var painter = _registrationService.RegisterPainter( registeredPainter, auth0UserId );
+            var readPainterDto = _mapper.Map<ReadPainterDto>(painter);
+            return Ok(readPainterDto);
+        }
+        catch (ClientAlreadyExistException e)
+        {
+            return Conflict(e.message);
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            return Problem(e.Message);
         }
     }
 }
