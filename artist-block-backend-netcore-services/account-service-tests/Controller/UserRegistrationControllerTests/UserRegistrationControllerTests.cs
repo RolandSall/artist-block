@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using account_service.Controllers.UserRegistrationController;
 using account_service.DTO.Registration;
 using account_service.Models;
 using account_service.Profile.ClientProfile;
@@ -14,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
-namespace account_service_tests.Controller.UserRegistrationController;
+namespace account_service_tests.Controller.UserRegistrationControllerTests;
 
 public class UserRegistrationControllerTests
 {
@@ -85,6 +86,9 @@ public class UserRegistrationControllerTests
     }
     
     // TESTS *************
+    
+    
+    // REGISTER CLIENT ENDPOINT TESTS ************
 
     [Fact]
     public void RegisterClient_NewCreateClientDto_ReturnsOkObject()
@@ -100,7 +104,7 @@ public class UserRegistrationControllerTests
             .Returns( returnedValueRegisteredUserStub );
         
         
-        var controller = new account_service.Controllers.UserRegistrationController.UserRegistrationController(_mapper,_registrationServiceStub.Object)
+        var controller = new UserRegistrationController(_mapper,_registrationServiceStub.Object)
         {
             ControllerContext = getStubControllerContext(),
         };
@@ -123,7 +127,7 @@ public class UserRegistrationControllerTests
                 service => service.RegisterClient( It.IsAny<RegisteredUser>() , It.IsAny<string>()))
             .Throws(new ClientAlreadyExistException("User Already Registered"));
         
-        var controller = new account_service.Controllers.UserRegistrationController.UserRegistrationController(_mapper,_registrationServiceStub.Object)
+        var controller = new UserRegistrationController(_mapper,_registrationServiceStub.Object)
         {
             ControllerContext = getStubControllerContext(),
         };
@@ -145,7 +149,7 @@ public class UserRegistrationControllerTests
                 service => service.RegisterClient( It.IsAny<RegisteredUser>() , It.IsAny<string>()))
             .Throws(new Exception("Some Problem Occured"));
         
-        var controller = new account_service.Controllers.UserRegistrationController.UserRegistrationController(_mapper,_registrationServiceStub.Object)
+        var controller = new UserRegistrationController(_mapper,_registrationServiceStub.Object)
         {
             ControllerContext = getStubControllerContext(),
         };
@@ -156,7 +160,9 @@ public class UserRegistrationControllerTests
         // Assert
         returnedValue.Should().BeOfType<ObjectResult>();
     }
-
+    
+    // REGISTER PAINTER ENDPOINT TESTS ************
+    
     [Fact]
     public void RegisterPainter_NewCreatePainterDto_ReturnsOkObject()
     {
@@ -172,7 +178,7 @@ public class UserRegistrationControllerTests
                 service => service.RegisterPainter( It.IsAny<Painter>() , It.IsAny<string>()))
             .Returns( returnedValueRegisteredPainterStub );
         
-        var controller = new account_service.Controllers.UserRegistrationController.UserRegistrationController(_mapper,_registrationServiceStub.Object)
+        var controller = new UserRegistrationController(_mapper,_registrationServiceStub.Object)
         {
             ControllerContext = getStubControllerContext(),
         };
@@ -184,5 +190,47 @@ public class UserRegistrationControllerTests
 
         // Assert
         value.Should().BeEquivalentTo(_expectedPainterReadDto, opt => opt.ComparingByMembers<ReadPainterDto>());
+    }
+    
+    [Fact]
+    public void RegisterPainter_AlreadyRegisteredPainterDto_ReturnsAlreadyRegisteredException()
+    {
+        // Arrange
+        _registrationServiceStub.Setup(
+                service => service.RegisterPainter( It.IsAny<Painter>() , It.IsAny<string>()))
+            .Throws( new ClientAlreadyExistException("User Already Registered") );
+        
+        var controller = new UserRegistrationController(_mapper,_registrationServiceStub.Object)
+        {
+            ControllerContext = getStubControllerContext(),
+        };
+
+        // Act
+
+        var returnedValue = controller.RegisterPainter( _providedCreatePainterDto );
+
+        // Assert
+        returnedValue.Should().BeOfType<ConflictObjectResult>();
+    }
+    
+    [Fact]
+    public void RegisterPainter_CreatePainterDto_ReturnsGenericException()
+    {
+        // Arrange
+        _registrationServiceStub.Setup(
+                service => service.RegisterPainter( It.IsAny<Painter>() , It.IsAny<string>()))
+            .Throws( new Exception("Some Problem Occured") );
+        
+        var controller = new UserRegistrationController(_mapper,_registrationServiceStub.Object)
+        {
+            ControllerContext = getStubControllerContext(),
+        };
+
+        // Act
+
+        var returnedValue = controller.RegisterPainter( _providedCreatePainterDto );
+
+        // Assert
+        returnedValue.Should().BeOfType<ObjectResult>();
     }
 }
