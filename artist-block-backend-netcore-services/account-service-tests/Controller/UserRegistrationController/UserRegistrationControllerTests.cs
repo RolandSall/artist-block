@@ -146,6 +146,39 @@ public class UserRegistrationControllerTests
     }
 
     [Fact]
+    public void RegisterClient_ClientDto_ThrowGenericException()
+    {
+        // Arrange
+
+        // setup the stub, now it throws an exception
+        _registrationServiceStub.Setup(
+                service => service.RegisterClient( It.IsAny<RegisteredUser>() , It.IsAny<string>()))
+            .Throws(new Exception("Some Problem Occured"));
+        
+        // Create Mock for User 
+        var identity = new ClaimsIdentity();
+        identity.AddClaims(new[]
+        {
+            new Claim(ClaimTypes.NameIdentifier, "auth0|123123123123"),
+            new Claim(ClaimTypes.Name, "Roland Salloum"),
+        });
+        var user = new ClaimsPrincipal(identity);
+        
+        // Setup the controller with out Mocked User
+        var controllerContext = new ControllerContext { HttpContext = new DefaultHttpContext { User = user } };
+        var controller = new account_service.Controllers.UserRegistrationController.UserRegistrationController(_mapperClient,_registrationServiceStub.Object)
+        {
+            ControllerContext = controllerContext,
+        };
+        
+        // Act
+        var returnedValue = controller.RegisterClient(_providedCreateClientDto);
+        
+        // Assert
+        returnedValue.Should().BeOfType<ObjectResult>();
+    }
+
+    [Fact]
     public void RegisterPainter_NewCreatePainterDto_ReturnsOkObject()
     {
         // Arrange
