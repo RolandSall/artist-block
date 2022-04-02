@@ -6,4 +6,5 @@ public interface IRegistrationRepo
 {
     RegisteredUser RegisterClient(RegisteredUser registeredUser, string auth0UserId);
     Painter RegisterPainter(Painter registeredPainter);
+    Painter GetPainterById(Guid painterId);
 }

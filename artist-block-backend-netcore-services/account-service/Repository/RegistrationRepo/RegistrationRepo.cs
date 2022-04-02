@@ -1,4 +1,6 @@
 ﻿using account_service.Models;
+using AutoMapper.Internal;
+using Microsoft.EntityFrameworkCore;
 
 namespace account_service.Repository.RegistrationRepo;
 
@@ -39,5 +41,18 @@ public class RegistrationRepo: IRegistrationRepo
 
         _context.SaveChanges();
         return registeredPainter;
+    }
+
+    public Painter GetPainterById(Guid painterId)
+    {
+        var painter = _context.Painters.Where(painter => painter.PainterId.Equals(painterId))
+            .Include(painter => painter.RegisteredUser)
+            .Include(painter => painter.PainterSpecialities)
+            .ThenInclude(ps => ps.Speciality)
+            
+            
+            
+            .FirstOrDefault();
+        return painter;
     }
 }
