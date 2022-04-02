@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using account_service.CustomException;
 using account_service.DTO.Registration;
 using account_service.Models;
 using account_service.Repository.RegistrationRepo;
@@ -9,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace account_service.Controllers.UserRegistrationController;
 
-[Route("api/v1/")]
+[Route("api/v1/account-service")]
 [ApiController]     
 public class UserRegistrationController: ControllerBase
 {
@@ -67,4 +68,49 @@ public class UserRegistrationController: ControllerBase
             return Problem(e.Message);
         }
     }
+    
+    
+    [HttpGet]
+    [Route("register-painter/{painterId}")]
+    [Authorize]
+    public ActionResult GetPainterById(Guid painterId)
+    {
+        try
+        {
+            var painter = _registrationService.GetPainterById(painterId);
+            var readPainterDto = _mapper.Map<ReadPainterDto>(painter);
+            return Ok(readPainterDto);
+        }
+        catch (ClientAlreadyExistException e)
+        {
+            return Conflict(e.message);
+        }
+        catch (RegistrationFailedException e)
+        {
+            return Problem(e.message);
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            return Problem(e.Message);
+        }
+    }
+    
+            
+    [HttpPost]
+    [Route("register-client/image")]
+    /*[Authorize]*/
+    public async Task<ActionResult> UploadImage(IFormFile image)
+    {
+        try
+        {   
+            var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await _registrationService.UploadImage(image, auth0UserId);
+            return Ok("Image Added");
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            return Problem(e.GetBaseException().ToString());
+        }
+    }
+
 }

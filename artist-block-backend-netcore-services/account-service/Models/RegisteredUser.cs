@@ -30,6 +30,9 @@ public class RegisteredUser {
     [EmailAddress]
     [Column("email")]
     public string? Email { get; set; }
+    
+    [Column("image_url")]
+    public string? Image { get; set; }
         
     [Required]
     [Phone]

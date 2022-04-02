@@ -1,6 +1,6 @@
 ﻿namespace account_service.Repository.RegistrationRepo;
 
-public class ClientAlreadyExistException: Exception
+public class ClientAlreadyExistException: System.Exception
 {
     public string? message { get;  }
 

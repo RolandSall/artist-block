@@ -17,6 +17,8 @@ public class PainterSpeciality
 
         [Column("FK_painter_id")]
         public Guid PainterId { get; set; }
+
+        public virtual Speciality Speciality { get; set; }
        
         [Column("priority")]
         public int Priority { get; set; }
