@@ -8,9 +8,10 @@ public class PainterProfile : AutoMapper.Profile
     public PainterProfile()
     {
         CreateMap<CreatePainterDto, Painter>()
-            .ForMember(p => p.RegisteredUser, opts => opts.MapFrom(pdto => pdto.CreateClientDto));
-        
-        CreateMap<Painter, ReadPainterDto>()
+            .ForMember(p => p.RegisteredUser, opts => opts.MapFrom(pdto => pdto.CreateClientDto))
+            .ForPath(p => p.PainterSpecialities, opts => opts.MapFrom(pdto => pdto.AddPainterSpecialityDtos));
+            
+            CreateMap<Painter, ReadPainterDto>()
             .ForMember(rpd => rpd.readClientDto, opts => opts.MapFrom(p => p.RegisteredUser));
     }
 }

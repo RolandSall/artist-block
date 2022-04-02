@@ -32,10 +32,21 @@ public class RegistrationService: IRegistrationService
         // TODO : automatic add 
         //registeredPainter.RegisteredUserId = Guid.NewGuid();
         
+        
+        // Register as Client
         painter.PainterId = painterId;
         var registeredClient = RegisterClient(painter.RegisteredUser, auth0UserId);
         painter.RegisteredUserId = registeredClient.RegisteredUserId;
-
+        
+        // assign for each speciality a unique Id to to the db and give FK to the newly generated lawyerId
+        foreach (var painterSpeciality in painter.PainterSpecialities)
+        {
+            Guid painterSpecialityId = Guid.NewGuid();;
+            painterSpeciality.PainterSpecialityId = painterSpecialityId;
+            painterSpeciality.PainterId = painterId;
+        }
+    
+        // Register as painter
         var registeredPainter = _registrationRepo.RegisterPainter( painter );
         return registeredPainter;
     }
