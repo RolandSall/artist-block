@@ -60,4 +60,21 @@ public class RegistrationRepo: IRegistrationRepo
             .FirstOrDefault();
         return painter;
     }
+    
+    public RegisteredUser GetUserInfromation(string auth0UserId)
+    {
+        var ru = _context.AuthUsers
+            .Where(auth => auth.Auth0Id.Equals(auth0UserId))
+            .Include(auth => auth.RegisteredUser)
+            .FirstOrDefault().RegisteredUser;
+
+        return ru;
+    }
+
+    public Task AddImageReference(RegisteredUser currentUser, string ImageUrl)
+    {
+        currentUser.Image = ImageUrl;
+        _context.SaveChanges();
+        return Task.CompletedTask;
+    }
 }

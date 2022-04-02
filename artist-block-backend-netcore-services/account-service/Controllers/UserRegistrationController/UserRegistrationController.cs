@@ -90,4 +90,23 @@ public class UserRegistrationController: ControllerBase
             return Problem(e.Message);
         }
     }
+    
+            
+    [HttpPost]
+    [Route("register-client/image")]
+    /*[Authorize]*/
+    public async Task<ActionResult> UploadImage(IFormFile image)
+    {
+        try
+        {   
+            var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await _registrationService.UploadImage(image, auth0UserId);
+            return Ok("Image Added");
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            return Problem(e.GetBaseException().ToString());
+        }
+    }
+
 }
