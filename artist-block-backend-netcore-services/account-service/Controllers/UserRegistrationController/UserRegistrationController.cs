@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using account_service.CustomException;
 using account_service.DTO.Registration;
 using account_service.Models;
 using account_service.Repository.RegistrationRepo;
@@ -76,7 +77,6 @@ public class UserRegistrationController: ControllerBase
     {
         try
         {
-           
             var painter = _registrationService.GetPainterById(painterId);
             var readPainterDto = _mapper.Map<ReadPainterDto>(painter);
             return Ok(readPainterDto);
@@ -84,6 +84,10 @@ public class UserRegistrationController: ControllerBase
         catch (ClientAlreadyExistException e)
         {
             return Conflict(e.message);
+        }
+        catch (RegistrationFailedException e)
+        {
+            return Problem(e.message);
         }
         catch (Exception e) {
             Console.WriteLine(e);

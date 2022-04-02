@@ -9,4 +9,5 @@ public interface IRegistrationRepo
     Painter GetPainterById(Guid painterId);
     RegisteredUser GetUserInfromation(string auth0UserId);
     Task AddImageReference(RegisteredUser currentUser, string toString);
+    Guid DeleteUserById(Guid registeredClientRegisteredUserId);
 }

@@ -77,4 +77,12 @@ public class RegistrationRepo: IRegistrationRepo
         _context.SaveChanges();
         return Task.CompletedTask;
     }
+
+    public Guid DeleteUserById(Guid registeredClientRegisteredUserId)
+    {
+        var user = _context.RegisteredUsers.First(ru => ru.RegisteredUserId.Equals(registeredClientRegisteredUserId));
+        _context.RegisteredUsers.Remove(user);
+        _context.SaveChanges();
+        return registeredClientRegisteredUserId;
+    }
 }

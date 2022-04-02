@@ -1,4 +1,5 @@
-﻿using account_service.Models;
+﻿using account_service.CustomException;
+using account_service.Models;
 using account_service.Repository.RegistrationRepo;
 using AutoMapper;
 using Microsoft.WindowsAzure.Storage;
@@ -47,10 +48,19 @@ public class RegistrationService: IRegistrationService
             painterSpeciality.PainterSpecialityId = painterSpecialityId;
             painterSpeciality.PainterId = painterId;
         }
+        
+        try
+        {
+            var registeredPainter = _registrationRepo.RegisterPainter( painter );
+            return registeredPainter;
+        }
+        catch
+        {
+            Guid uuid = _registrationRepo.DeleteUserById(registeredClient.RegisteredUserId);
+            throw new RegistrationFailedException("Failed To Complete Lawyer Registration. Please Try Again");
+        }
     
-        // Register as painter
-        var registeredPainter = _registrationRepo.RegisterPainter( painter );
-        return registeredPainter;
+      
     }
 
     public Painter GetPainterById(Guid painterId)
