@@ -50,5 +50,9 @@ public class RegistrationService: IRegistrationService
         var registeredPainter = _registrationRepo.RegisterPainter( painter );
         return registeredPainter;
     }
-    
+
+    public Painter GetPainterById(Guid painterId)
+    {
+        return _registrationRepo.GetPainterById(painterId);
+    }
 }

@@ -67,4 +67,27 @@ public class UserRegistrationController: ControllerBase
             return Problem(e.Message);
         }
     }
+    
+    
+    [HttpGet]
+    [Route("register-painter/{painterId}")]
+    [Authorize]
+    public ActionResult GetPainterById(Guid painterId)
+    {
+        try
+        {
+           
+            var painter = _registrationService.GetPainterById(painterId);
+            var readPainterDto = _mapper.Map<ReadPainterDto>(painter);
+            return Ok(readPainterDto);
+        }
+        catch (ClientAlreadyExistException e)
+        {
+            return Conflict(e.message);
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            return Problem(e.Message);
+        }
+    }
 }

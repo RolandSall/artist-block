@@ -12,6 +12,7 @@ public class PainterProfile : AutoMapper.Profile
             .ForPath(p => p.PainterSpecialities, opts => opts.MapFrom(pdto => pdto.AddPainterSpecialityDtos));
             
             CreateMap<Painter, ReadPainterDto>()
-            .ForMember(rpd => rpd.readClientDto, opts => opts.MapFrom(p => p.RegisteredUser));
+            .ForMember(rpd => rpd.readClientDto, opts => opts.MapFrom(p => p.RegisteredUser))
+            .ForPath(p => p.PainterSpecialityDtos, opts => opts.MapFrom(pdto => pdto.PainterSpecialities));
     }
 }
