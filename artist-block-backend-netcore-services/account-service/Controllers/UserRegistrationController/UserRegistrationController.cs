@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace account_service.Controllers.UserRegistrationController;
 
-[Route("api/v1/")]
+[Route("api/v1/account-service")]
 [ApiController]     
 public class UserRegistrationController: ControllerBase
 {
