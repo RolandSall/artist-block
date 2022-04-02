@@ -36,7 +36,7 @@ jobs:
 
       - 
         name: Run Test
-        run: cd .. & dotnet test
+        run: cd .. && dotnet test
 
       -  
         name: Log in to Docker Hub

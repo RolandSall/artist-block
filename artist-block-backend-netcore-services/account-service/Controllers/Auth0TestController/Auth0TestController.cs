@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Linq;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace account_service.Controllers.Auth0TestController;
@@ -10,19 +12,19 @@ public class Auth0TestController : ControllerBase
     [HttpGet("public")]
     public IActionResult Public()
     {
-        return Ok(new
-        {
-            Message = "Hello from a public endpoint! You don't need to be authenticated to see this!!!"
-        });
+        return Ok("Hello from a public endpoint! You don't need to be authenticated to see this!!!");
     }
 
     [HttpGet("private")]
     [Authorize]
-    public IActionResult Private()
+    public IActionResult Private() // getUserId
     {
+        var auth0Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        
         return Ok(new
         {
-            Message = "Hello from a private endpoint! You need to be authenticated to see this!"
+            Message = "Hello from a private endpoint! You need to be authenticated to see this!",
+            Id = auth0Id,
         });
     }
 

@@ -22,7 +22,6 @@ public class Painter
     [Column("bio")]
     public string?  Bio { get; set; }
 
-      
     [Column("FK_painter_registered_user_id")]
     public Guid RegisteredUserId { get; set; }
         

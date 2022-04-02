@@ -1,4 +1,7 @@
+using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace account_service.Controllers;
 

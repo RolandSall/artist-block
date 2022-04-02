@@ -15,8 +15,8 @@ public class Painting
     public string? PaintingName { get; set; }
     
     [Required]
-    [Column("painting_information")]
-    public string? PaintingInformation { get; set; }
+    [Column("painting_description")]
+    public string? PaintingDescription { get; set; }
     
     [Required]
     [Column("painted_year")]
@@ -24,7 +24,24 @@ public class Painting
     
     [Required]
     [Column("painting_price")]
-    public string? PaintingPrice { get; set; }
+    public int? PaintingPrice { get; set; }
+    
+    
+    [Required]
+    [Column("status")]
+    // on sale, sold ...
+    public int? PaintingStatus { get; set; }
+    
+    
+    [Column("FK_painting_registered_user_id")]
+    public Guid RegisteredUserId { get; set; }
+
+    
+    [Column("FK_painting_painter_id")]
+    [Required]
+    public Guid PainterId { get; set; }
+
+
     
     
     

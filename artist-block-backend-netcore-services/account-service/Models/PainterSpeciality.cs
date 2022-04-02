@@ -16,7 +16,7 @@ public class PainterSpeciality
         public Guid SpecialityId { get; set; }
 
         [Column("FK_painter_id")]
-        public Guid LawyerId { get; set; }
+        public Guid PainterId { get; set; }
        
         [Column("priority")]
         public int Priority { get; set; }
