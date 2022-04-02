@@ -27,7 +27,7 @@ public class SpecialityController: ControllerBase
 
     [HttpPost]
     [Route("speciality")]
-
+    [Authorize]
     public ActionResult AddSpeciality(CreateSpecialityDto specialityDto)
     {
         try
@@ -50,7 +50,7 @@ public class SpecialityController: ControllerBase
     
     [HttpGet]
     [Route("specialities")]
-
+    [Authorize]
     public ActionResult GetAllSpecialities()
     {
         try
