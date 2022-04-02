@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace account_service.Repository;
 
@@ -15,7 +16,8 @@ public class ArtistBlockDbContext: DbContext {
         public DbSet<Models.Speciality> Specialities { get; set; }
         public DbSet<Models.PainterSpeciality> PainterSpecialities { get; set; }
         
-        
+        public DbSet<Models.Painting> Paintings { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }

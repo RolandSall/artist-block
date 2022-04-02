@@ -34,17 +34,10 @@ public class Painting
     
     
     [Column("FK_painting_registered_user_id")]
-    public Guid RegisteredUserId { get; set; }
-
+    public Guid? RegisteredUserId { get; set; }
     
     [Column("FK_painting_painter_id")]
     [Required]
     public Guid PainterId { get; set; }
-
-
-    
-    
-    
-
     
 }
