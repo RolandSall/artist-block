@@ -1,16 +1,13 @@
-using System.Reflection.Metadata.Ecma335;
-using account_service.DTO.Painting;
 using account_service.Models;
-using Microsoft.EntityFrameworkCore;
 
-namespace account_service.Repository.CreatePaintingRepo;
+namespace account_service.Repository.PaintingRepo;
 
-public class CreatePaintingRepo : ICreatePaintingRepo
+public class PaintingRepo : IPaintingRepo
 {
     private readonly ArtistBlockDbContext _context;
-    private ICreatePaintingRepo _createPaintingRepoImplementation;
+    private IPaintingRepo _paintingRepoImplementation;
 
-    public CreatePaintingRepo(ArtistBlockDbContext dbContext)
+    public PaintingRepo(ArtistBlockDbContext dbContext)
     {
         _context = dbContext;
     }
@@ -18,7 +15,7 @@ public class CreatePaintingRepo : ICreatePaintingRepo
     public Painting CreatePainting(Painting painting , Guid painterId)
     {
         // make sure the painting's painter exists
-        var painter = _context.Painters.FirstOrDefault(painter => painter.PainterId == painterId);
+        var painter = _context.Painters.FirstOrDefault(painter => painter.PainterId.Equals(painterId));
         
         //TODO: handle the case where there is an identical painting in the db
 
@@ -30,5 +27,12 @@ public class CreatePaintingRepo : ICreatePaintingRepo
 
         _context.SaveChanges();
         return createdPainting;
+    }
+
+    public IEnumerable<Painting> GetPaintingsForPainter(Guid painterId)
+    {
+        var paintings = _context.Paintings.Where(painter => painter.PainterId.Equals(painterId)).ToList();
+
+        return paintings;
     }
 }

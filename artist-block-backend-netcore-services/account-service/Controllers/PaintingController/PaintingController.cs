@@ -1,35 +1,37 @@
 using account_service.DTO.Painting;
 using account_service.Models;
-using account_service.Repository.CreatePaintingRepo;
-using account_service.Service.CreatePaintingService;
+using account_service.Repository.PaintingRepo;
+using account_service.Service.PaintingService;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace account_service.Controllers.CreatePaintingController;
+namespace account_service.Controllers.PaintingController;
 
 [Route("api/v1")]
 [ApiController]
 public class CreatePaintingController : ControllerBase
 {
-    private readonly ICreatePaintingService _createPaintingService;
+    private readonly IPaintingService _paintingService;
     private readonly IMapper _mapper;
 
-    public CreatePaintingController(IMapper mapper, ICreatePaintingService createPaintingService)
+    public CreatePaintingController(IMapper mapper, IPaintingService paintingService)
     {
         _mapper = mapper;
-        _createPaintingService = createPaintingService;
+        _paintingService = paintingService;
     }
 
     [HttpPost]
-    [Route("create-painting/{painterId:guid}")]
+    [Route("create-painting/{painterId}")]
     [Authorize]
+    
+    //TODO: get id from Auth0, not urgent
     public ActionResult CreatePainting(CreatePaintingDto paintingDto , Guid painterId )
     {
         try
         {
             var painting = _mapper.Map<Painting>(paintingDto);
-            var createdPainting = _createPaintingService.CreatePainting(painting, painterId);
+            var createdPainting = _paintingService.CreatePainting(painting, painterId);
             var readPaintingDto = _mapper.Map<ReadPaintingDto>(createdPainting);
             return Ok(readPaintingDto);
         }
@@ -42,5 +44,19 @@ public class CreatePaintingController : ControllerBase
             return Problem(other.Message);
         }
     }
+
+    // TODO: add try and catch please
+    [HttpGet]
+    [Route("paintings/{painterId}")]
+    public ActionResult<IEnumerable<ReadPaintingDto>> GetPaintingsForPainter( Guid painterId )
+    {
+        var paintings = _paintingService.GetPaintingsForPainter(painterId);
+        
+        var paintingDto = _mapper.Map<IEnumerable<ReadPaintingDto>>(paintings);
+
+        return Ok(paintingDto);
+    }
     
+    //TODO: get 3 random paintings endpoint that are not sold
+
 }

@@ -1,9 +1,9 @@
 ﻿using System.Security.Claims;
 using System.Text.Json.Serialization;
 using account_service.Repository;
-using account_service.Repository.CreatePaintingRepo;
+using account_service.Repository.PaintingRepo;
 using account_service.Repository.RegistrationRepo;
-using account_service.Service.CreatePaintingService;
+using account_service.Service.PaintingService;
 using account_service.Service.RegistrationService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -37,8 +37,8 @@ namespace account_service{
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<IRegistrationRepo, RegistrationRepo>();
 
-            services.AddScoped<ICreatePaintingService, CreatePaintingService>();
-            services.AddScoped<ICreatePaintingRepo , CreatePaintingRepo>();
+            services.AddScoped<IPaintingService, PaintingService>();
+            services.AddScoped<IPaintingRepo , PaintingRepo>();
 
             services.AddCors(options => {
                 options.AddPolicy(name: _CORSPolicy,

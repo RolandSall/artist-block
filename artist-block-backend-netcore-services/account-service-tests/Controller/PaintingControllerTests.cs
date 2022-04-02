@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using account_service.Controllers.CreatePaintingController;
+using account_service.Controllers.PaintingController;
 using account_service.DTO.Painting;
 using account_service.Models;
 using account_service.Profile.Painting;
-using account_service.Repository.CreatePaintingRepo;
-using account_service.Service.CreatePaintingService;
+using account_service.Repository.PaintingRepo;
+using account_service.Service.PaintingService;
 using AutoMapper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +21,7 @@ public class PaintingController
     private readonly IMapper _mapper = new MapperConfiguration(mc => mc.AddProfiles(profiles)).CreateMapper();
 
     // Mock for create painting service
-    private readonly Mock<ICreatePaintingService> _createPaintingServiceStub = new() ;
+    private readonly Mock<IPaintingService> _createPaintingServiceStub = new() ;
 
     private readonly CreatePaintingDto _providedCreatePaintingDto = new()
     {
@@ -29,7 +29,7 @@ public class PaintingController
         PaintingDescription = "very beautiful",
         PaintingName = "tres belle",
         PaintingPrice = 2000,
-        PaintingStatus = 0,
+        PaintingStatus = "For Sale",
     };
 
     private readonly ReadPaintingDto _expectedReadPaintingDto = new()
@@ -40,7 +40,7 @@ public class PaintingController
         PaintingDescription = "very beautiful",
         PaintingName = "tres belle",
         PaintingPrice = 2000,
-        PaintingStatus = 0,
+        PaintingStatus = "For Sale",
     };
     
     [Fact]

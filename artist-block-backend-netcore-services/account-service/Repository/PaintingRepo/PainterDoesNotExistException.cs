@@ -1,4 +1,4 @@
-namespace account_service.Repository.CreatePaintingRepo;
+namespace account_service.Repository.PaintingRepo;
 
 public class PainterDoesNotExistException : Exception
 {

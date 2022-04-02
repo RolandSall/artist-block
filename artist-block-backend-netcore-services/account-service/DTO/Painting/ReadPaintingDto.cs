@@ -21,13 +21,17 @@ public class ReadPaintingDto
     
     [Required]
     // on sale, sold ...
-    public int? PaintingStatus { get; set; }
+    public string? PaintingStatus { get; set; }
     
+    public string? PaintingUrl { get; set; }
+
     [Required]
     public Guid? RegisteredUserId { get; set; }
 
     [Required]
     public Guid PainterId { get; set; }
+    
+
 
     //
     // [Column("FK_painting_registered_user_id")]

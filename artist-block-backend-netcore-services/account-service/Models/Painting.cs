@@ -26,12 +26,13 @@ public class Painting
     [Column("painting_price")]
     public int? PaintingPrice { get; set; }
     
-    
     [Required]
     [Column("status")]
     // on sale, sold ...
-    public int? PaintingStatus { get; set; }
+    public string? PaintingStatus { get; set; }
     
+    [Column("painting_url")]
+    public string? PaintingUrl { get; set; }
     
     [Column("FK_painting_registered_user_id")]
     public Guid? RegisteredUserId { get; set; }
@@ -39,5 +40,4 @@ public class Painting
     [Column("FK_painting_painter_id")]
     [Required]
     public Guid PainterId { get; set; }
-    
 }

@@ -1,15 +1,15 @@
 using account_service.Models;
-using account_service.Repository.CreatePaintingRepo;
+using account_service.Repository.PaintingRepo;
 
-namespace account_service.Service.CreatePaintingService;
+namespace account_service.Service.PaintingService;
 
-public class CreatePaintingService : ICreatePaintingService
+public class PaintingService : IPaintingService
 {
-    private readonly ICreatePaintingRepo _createPaintingRepo;
+    private readonly IPaintingRepo _paintingRepo;
     
-    public CreatePaintingService(ICreatePaintingRepo createPaintingRepo)
+    public PaintingService(IPaintingRepo paintingRepo)
     {
-        _createPaintingRepo = createPaintingRepo;
+        _paintingRepo = paintingRepo;
     }   
     
     public Painting CreatePainting(Painting painting , Guid painterId )
@@ -17,9 +17,16 @@ public class CreatePaintingService : ICreatePaintingService
         painting.PaintingId = Guid.NewGuid();
         painting.PainterId = painterId;
         painting.RegisteredUserId = null; // no buyer yet
-        
-        var createdPainting = _createPaintingRepo.CreatePainting(painting , painterId);
+
+        var createdPainting = _paintingRepo.CreatePainting(painting , painterId);
 
         return createdPainting;
+    }
+
+    public IEnumerable<Painting> GetPaintingsForPainter(Guid painterId)
+    {
+        var paintings = _paintingRepo.GetPaintingsForPainter(painterId);
+
+        return paintings;
     }
 }
