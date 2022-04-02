@@ -19,6 +19,8 @@ public class CreatePaintingRepo : ICreatePaintingRepo
     {
         // make sure the painting's painter exists
         var painter = _context.Painters.FirstOrDefault(painter => painter.PainterId == painterId);
+        
+        //TODO: handle the case where there is an identical painting in the db
 
         if (painter == null)
             throw new PainterDoesNotExistException("does not exist");

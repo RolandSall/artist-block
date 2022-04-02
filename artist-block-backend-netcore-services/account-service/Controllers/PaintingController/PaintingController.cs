@@ -23,7 +23,7 @@ public class CreatePaintingController : ControllerBase
 
     [HttpPost]
     [Route("create-painting/{painterId:guid}")]
-    // [Authorize] just for testing
+    [Authorize]
     public ActionResult CreatePainting(CreatePaintingDto paintingDto , Guid painterId )
     {
         try
@@ -42,4 +42,5 @@ public class CreatePaintingController : ControllerBase
             return Problem(other.Message);
         }
     }
+    
 }

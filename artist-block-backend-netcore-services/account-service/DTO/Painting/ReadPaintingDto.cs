@@ -23,7 +23,12 @@ public class ReadPaintingDto
     // on sale, sold ...
     public int? PaintingStatus { get; set; }
     
-    
+    [Required]
+    public Guid? RegisteredUserId { get; set; }
+
+    [Required]
+    public Guid PainterId { get; set; }
+
     //
     // [Column("FK_painting_registered_user_id")]
     // public Guid RegisteredUserId { get; set; }
@@ -32,5 +37,5 @@ public class ReadPaintingDto
     // [Column("FK_painting_painter_id")]
     // [Required]
     // public Guid PainterId { get; set; }
-    
+
 }

@@ -26,7 +26,7 @@ public class UserRegistrationControllerTests
     private readonly Mock<IRegistrationService> _registrationServiceStub = new() ;
     private static readonly  DateTime _dateTime = DateTime.Now;
     
-    private static readonly CreateClientDto _providedCreateClientDto = new CreateClientDto()
+    private static readonly CreateClientDto _providedCreateClientDto = new ()
     {
         Email = "user@example.com",
         Nationality = "Nationality",
@@ -37,7 +37,7 @@ public class UserRegistrationControllerTests
         PhoneNumber = "1111",
     };
     
-    private readonly CreatePainterDto _providedCreatePainterDto = new CreatePainterDto()
+    private readonly CreatePainterDto _providedCreatePainterDto = new ()
     {
         CreateClientDto = _providedCreateClientDto,
         Bio = "Very experienced at painting stuff",
@@ -45,7 +45,7 @@ public class UserRegistrationControllerTests
         YearsOfExperience = "23+",
     };
     
-    private static readonly ReadClientDto _expectedClientReadDto = new ReadClientDto()
+    private static readonly ReadClientDto _expectedClientReadDto = new ()
     {
         RegisteredUserId = Guid.NewGuid(),
         Email = "user@example.com",
@@ -57,7 +57,7 @@ public class UserRegistrationControllerTests
         PhoneNumber = "1111",
     };
 
-    private readonly ReadPainterDto _expectedPainterReadDto = new ReadPainterDto()
+    private readonly ReadPainterDto _expectedPainterReadDto = new ()
     {
         PainterId = Guid.NewGuid(),
         Bio = "Very experienced at painting stuff",

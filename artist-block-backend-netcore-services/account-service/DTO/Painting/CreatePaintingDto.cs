@@ -22,7 +22,6 @@ public class CreatePaintingDto
     public int? PaintingStatus { get; set; }
     
     
-    
     // [Column("FK_painting_registered_user_id")]
     // public Guid RegisteredUserId { get; set; }
     //
