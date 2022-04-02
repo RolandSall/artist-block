@@ -38,9 +38,14 @@ public class RegistrationRepo: IRegistrationRepo
     public Painter RegisterPainter(Painter painter)
     {
         var registeredPainter = _context.Painters.Add(painter).Entity;
-
         _context.SaveChanges();
-        return registeredPainter;
+        
+        // This is needed just to get a full response to join the tables
+        // if you do not want to show the full response ( the specialities how they map to him)
+        // no need to do the extra call below.
+       
+
+        return GetPainterById(registeredPainter.PainterId);;
     }
 
     public Painter GetPainterById(Guid painterId)
