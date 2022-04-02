@@ -25,6 +25,7 @@ public class SpecialityRepo: ISpecialityRepo
 
 
         var savedSpeciality = _context.Specialities.Add(speciality).Entity;
+        _context.SaveChanges();
         return savedSpeciality;
     }
 

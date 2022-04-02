@@ -27,16 +27,16 @@ public class SpecialityController: ControllerBase
 
     [HttpPost]
     [Route("speciality")]
-    [Authorize]
+
     public ActionResult AddSpeciality(CreateSpecialityDto specialityDto)
     {
         try
         {
          
             var speciality = _mapper.Map<Speciality>(specialityDto);
-            var registerClient = _specialityService.AddSpeciality(speciality);
-            var readClientDto = _mapper.Map<ReadSpecialityDto>(registerClient);
-            return Ok(readClientDto);
+            var savedSpeciality = _specialityService.AddSpeciality(speciality);
+            var specialityReadDto = _mapper.Map<ReadSpecialityDto>(savedSpeciality);
+            return Ok(specialityReadDto);
         }
         catch (SpecialityAlreadyExistException e)
         {
@@ -50,16 +50,16 @@ public class SpecialityController: ControllerBase
     
     [HttpGet]
     [Route("specialities")]
-    [Authorize]
+
     public ActionResult GetAllSpecialities()
     {
         try
         {
          
            
-            var registerClient = _specialityService.GetAllSpecialities();
-            var readClientDto = _mapper.Map<ReadSpecialityDto>(registerClient);
-            return Ok(readClientDto);
+            var listOfSpeciality = _specialityService.GetAllSpecialities();
+            var listOfSpecialityDto = _mapper.Map<IEnumerable<ReadSpecialityDto>>(listOfSpeciality);
+            return Ok(listOfSpecialityDto);
         }
         catch (SpecialityAlreadyExistException e)
         {
