@@ -163,6 +163,7 @@ public class UserRegistrationControllerTests
     
     // REGISTER PAINTER ENDPOINT TESTS ************
     
+    /*
     [Fact]
     public void RegisterPainter_NewCreatePainterDto_ReturnsOkObject()
     {
@@ -190,7 +191,7 @@ public class UserRegistrationControllerTests
 
         // Assert
         value.Should().BeEquivalentTo(_expectedPainterReadDto, opt => opt.ComparingByMembers<ReadPainterDto>());
-    }
+    }*/
     
     [Fact]
     public void RegisterPainter_AlreadyRegisteredPainterDto_ReturnsAlreadyRegisteredException()

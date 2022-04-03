@@ -27,6 +27,8 @@ public class ReadClientDto
     [Required]
     [Phone]
     public string? PhoneNumber { get; set; }
+    
+    public string? Image { get; set; }
         
     [Required]
     public DateTime? BirthDate { get; set; }
