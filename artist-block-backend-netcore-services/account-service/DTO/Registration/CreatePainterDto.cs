@@ -20,6 +20,7 @@ public class CreatePainterDto
     [JsonPropertyName("client")]
     public virtual CreateClientDto? CreateClientDto { get; set; }
     
+    [JsonPropertyName("specialities")]
     public virtual ICollection<AddPainterSpecialityDto>? AddPainterSpecialityDtos { get; set; }
     
     

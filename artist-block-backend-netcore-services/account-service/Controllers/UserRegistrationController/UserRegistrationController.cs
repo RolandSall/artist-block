@@ -98,7 +98,7 @@ public class UserRegistrationController: ControllerBase
             
     [HttpPost]
     [Route("register-client/image")]
-    /*[Authorize]*/
+    [Authorize]
     public async Task<ActionResult> UploadImage(IFormFile image)
     {
         try

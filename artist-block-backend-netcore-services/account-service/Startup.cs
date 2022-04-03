@@ -6,6 +6,7 @@ using account_service.Repository.PaintingRepo;
 using account_service.Repository.RegistrationRepo;
 using account_service.Service.PaintingService;
 using account_service.Repository.SpecialityRepo;
+using account_service.Service.CurrentLoggedInService;
 using account_service.Service.RegistrationService;
 using account_service.Service.SpecialityService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -46,6 +47,10 @@ namespace account_service{
 
             services.AddScoped<ISpecialityRepo, SpecialityRepo>();
             services.AddScoped<ISpecialityService, SpecialityService>();
+
+
+
+            services.AddScoped<ICurrentLoggedInService, CurrentLoggedInService>();
 
             services.AddCors(options => {
                 options.AddPolicy(name: _CORSPolicy,
