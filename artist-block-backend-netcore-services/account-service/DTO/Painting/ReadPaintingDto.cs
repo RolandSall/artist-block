@@ -1,43 +1,45 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace account_service.Models;
+namespace account_service.DTO.Painting;
 
-[Table("painting")]
-public class Painting
+public class ReadPaintingDto
 {
     [Key]
-    [Column("PK_painting_id")]
     public Guid PaintingId{ get; set; }
     
     [Required]
-    [Column("painting_name")]
     public string? PaintingName { get; set; }
     
     [Required]
-    [Column("painting_description")]
     public string? PaintingDescription { get; set; }
     
     [Required]
-    [Column("painted_year")]
     public string? PaintedYear { get; set; }
     
     [Required]
-    [Column("painting_price")]
     public int? PaintingPrice { get; set; }
     
     [Required]
-    [Column("status")]
     // on sale, sold ...
     public string? PaintingStatus { get; set; }
     
-    [Column("painting_url")]
     public string? PaintingUrl { get; set; }
-    
-    [Column("FK_painting_registered_user_id")]
+
+    [Required]
     public Guid? RegisteredUserId { get; set; }
-    
-    [Column("FK_painting_painter_id")]
+
     [Required]
     public Guid PainterId { get; set; }
+    
+
+
+    //
+    // [Column("FK_painting_registered_user_id")]
+    // public Guid RegisteredUserId { get; set; }
+    //
+    //
+    // [Column("FK_painting_painter_id")]
+    // [Required]
+    // public Guid PainterId { get; set; }
+
 }
