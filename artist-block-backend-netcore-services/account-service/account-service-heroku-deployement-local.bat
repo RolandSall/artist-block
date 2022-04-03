@@ -1,8 +1,8 @@
 ﻿echo "Starting"
 
-docker build -f staging.Dockerfile -t rolandsall24/artist-block-account-service:1.0.4 .
+docker build -f staging.Dockerfile -t rolandsall24/artist-block-account-service:2.0.0 .
 
-docker tag rolandsall24/artist-block-account-service:1.0.4 registry.heroku.com/artist-block-account-service/web
+docker tag rolandsall24/artist-block-account-service:2.0.0 registry.heroku.com/artist-block-account-service/web
 
 docker push registry.heroku.com/artist-block-account-service/web
 

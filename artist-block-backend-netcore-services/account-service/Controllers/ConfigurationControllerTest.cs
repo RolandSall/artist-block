@@ -37,6 +37,8 @@ public class ConfigurationController : ControllerBase
     public ActionResult GetConnection()
     {
         var dbConfig = _configuration["Db-Connections:ConnectionDbString"];
-        return Content(dbConfig);
+        var dbConfigDummy = _configuration["Db-Connections:ConnectingDbStringDummy"];
+        return Content($"dbConfig: {dbConfig} \n" +
+                       $"dbConfigDummy: {dbConfigDummy} \n");
     }
 }
