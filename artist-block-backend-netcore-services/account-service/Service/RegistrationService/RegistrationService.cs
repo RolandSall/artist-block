@@ -41,7 +41,7 @@ public class RegistrationService: IRegistrationService
         var registeredClient = RegisterClient(painter.RegisteredUser, auth0UserId);
         painter.RegisteredUserId = registeredClient.RegisteredUserId;
         
-        // assign for each speciality a unique Id to to the db and give FK to the newly generated lawyerId
+        // assign for each speciality a unique Id to to the db and give FK to the newly generated painter
         foreach (var painterSpeciality in painter.PainterSpecialities)
         {
             Guid painterSpecialityId = Guid.NewGuid();;
@@ -57,7 +57,7 @@ public class RegistrationService: IRegistrationService
         catch
         {
             Guid uuid = _registrationRepo.DeleteUserById(registeredClient.RegisteredUserId);
-            throw new RegistrationFailedException("Failed To Complete Lawyer Registration. Please Try Again");
+            throw new RegistrationFailedException("Failed To Complete Painter Registration. Please Try Again");
         }
     
       
