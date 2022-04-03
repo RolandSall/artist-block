@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using account_service.Controllers.UserRegistrationController;
+using account_service.DTO.PainterSpecialityDto;
 using account_service.DTO.Registration;
 using account_service.Models;
 using account_service.Profile.ClientProfile;
@@ -43,6 +44,7 @@ public class UserRegistrationControllerTests
         Bio = "Very experienced at painting stuff",
         Location = "Congo",
         YearsOfExperience = "23+",
+        AddPainterSpecialityDtos = new List<AddPainterSpecialityDto>(),
     };
     
     private static readonly ReadClientDto _expectedClientReadDto = new ()
@@ -64,6 +66,7 @@ public class UserRegistrationControllerTests
         Location = "Congo",
         YearsOfExperience = "23+",
         readClientDto = _expectedClientReadDto,
+        PainterSpecialityDtos = new List<ReadPainterSpecialityDto>(),
     };
     
     // HELPERS *********
