@@ -20,6 +20,8 @@ public class BuyService: IBuyService
     public void BuyPainting(Guid paintingId, string auth0UserId)
     {
         var currentUser = _currentLoggedInService.GetCurrentLoggedInUser(auth0UserId);
-        _buyRepo.BuyPainting(paintingId, currentUser.RegisteredUser.RegisteredUserId);
+        
+        if (currentUser.RegisteredUser != null)
+            _buyRepo.BuyPainting(paintingId, currentUser.RegisteredUser.RegisteredUserId);
     }
 }

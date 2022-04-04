@@ -2,5 +2,5 @@
 
 public interface IBuyRepo
 {
-    void BuyPainting(Guid guid, Guid paintingId);
+    void BuyPainting(Guid paintingId, Guid userId);
 }

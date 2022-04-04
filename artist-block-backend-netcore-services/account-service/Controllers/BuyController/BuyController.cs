@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using account_service.CustomException;
 using account_service.DTO.Painting;
 using account_service.Models;
 using account_service.Repository.PaintingRepo;
@@ -32,12 +33,17 @@ public class BuyController: ControllerBase
         try
         {
             var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            _buyService.BuyPainting(paintingId,auth0UserId);
+            _buyService.BuyPainting(paintingId, auth0UserId);
             return Ok("Success");
         }
         catch (PainterDoesNotExistException e)
         {
             return Problem(e.Message);
+        }
+        catch (PaintingDoesNotExist e)
+        {
+            return NotFound(e.Message);
+
         }
         catch (Exception other)
         {
