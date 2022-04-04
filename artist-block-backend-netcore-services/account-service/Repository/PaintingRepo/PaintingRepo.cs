@@ -35,4 +35,20 @@ public class PaintingRepo : IPaintingRepo
 
         return paintings;
     }
+
+    public Painting GetPaintingInformation(Guid paintingId)
+    {
+
+        var painting = _context.Paintings
+            .FirstOrDefault(painting => painting.PaintingId.Equals(paintingId));
+
+            return painting;
+    }
+
+    public Task AddImageReference(Painting currentPainting, string url)
+    {
+        currentPainting.PaintingUrl = url;
+        _context.SaveChanges();
+        return Task.CompletedTask;
+    }
 }
