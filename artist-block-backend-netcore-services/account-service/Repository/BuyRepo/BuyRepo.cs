@@ -20,7 +20,7 @@ public class BuyRepo: IBuyRepo
     public void BuyPainting(Guid paintingId, Guid userId)
     {
 
-        var painting = _context.Paintings.AsNoTracking().FirstOrDefault(painting => painting.PainterId.Equals(paintingId));
+        var painting = _context.Paintings.AsNoTracking().FirstOrDefault(painting => painting.PaintingId.Equals(paintingId));
 
         if (painting == null)
         {
