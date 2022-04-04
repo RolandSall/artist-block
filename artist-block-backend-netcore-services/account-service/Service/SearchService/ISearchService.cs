@@ -5,5 +5,5 @@ namespace account_service.Service.SearchService;
 
 public interface ISearchService
 {
-    PainterSearchResult FilterRegisterPainterForHomePage(PainterSearchField painter);
+    SearchResult FilterRegisterPainterForHomePage(PainterSearchField painter);
 }

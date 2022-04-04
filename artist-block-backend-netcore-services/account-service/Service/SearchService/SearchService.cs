@@ -15,9 +15,9 @@ public class SearchService: ISearchService
     }
 
 
-    public PainterSearchResult FilterRegisterPainterForHomePage(PainterSearchField painter)
+    public SearchResult FilterRegisterPainterForHomePage(PainterSearchField painter)
     {
-       var x = _searchRepository.FilterRegisterPainterForHomePage(painter);
-       return x;
+       return _searchRepository.FilterRegisterPainterForHomePage(painter);
+     
     }
 }
