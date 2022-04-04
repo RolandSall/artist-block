@@ -62,7 +62,7 @@ public class CreatePaintingController : ControllerBase
     
     
     [HttpPost]
-    [Route("register-client/image/{paintingId}")]
+    [Route("create-painting/image/{paintingId}")]
     [Authorize]
     public async Task<ActionResult> UploadImage(IFormFile image, Guid paintingId)
     {
