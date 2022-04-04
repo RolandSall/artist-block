@@ -2,10 +2,12 @@
 using System.Text.Json.Serialization;
 using account_service.Models;
 using account_service.Repository;
+using account_service.Repository.CollectionRepo;
 using account_service.Repository.PaintingRepo;
 using account_service.Repository.RegistrationRepo;
 using account_service.Service.PaintingService;
 using account_service.Repository.SpecialityRepo;
+using account_service.Service.CollectionService;
 using account_service.Service.CurrentLoggedInService;
 using account_service.Service.RegistrationService;
 using account_service.Service.SpecialityService;
@@ -47,6 +49,9 @@ namespace account_service{
 
             services.AddScoped<ISpecialityRepo, SpecialityRepo>();
             services.AddScoped<ISpecialityService, SpecialityService>();
+            
+            services.AddScoped<ICollectionRepo, CollectionRepo>();
+            services.AddScoped<ICollectionService, CollectionService>();
 
 
 
