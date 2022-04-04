@@ -2,7 +2,9 @@
 using System.Text.Json.Serialization;
 using account_service.Models;
 using account_service.Repository;
+using account_service.Repository.PaintingRepo;
 using account_service.Repository.RegistrationRepo;
+using account_service.Service.PaintingService;
 using account_service.Repository.SpecialityRepo;
 using account_service.Service.CurrentLoggedInService;
 using account_service.Service.RegistrationService;
@@ -34,14 +36,22 @@ namespace account_service{
             // services.AddControllers();
             services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+            
+            // Injections
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<IRegistrationRepo, RegistrationRepo>();
+
+            services.AddScoped<IPaintingService, PaintingService>();
+            services.AddScoped<IPaintingRepo , PaintingRepo>();
+
+
             services.AddScoped<ISpecialityRepo, SpecialityRepo>();
             services.AddScoped<ISpecialityService, SpecialityService>();
 
 
 
             services.AddScoped<ICurrentLoggedInService, CurrentLoggedInService>();
+
             services.AddCors(options => {
                 options.AddPolicy(name: _CORSPolicy,
                     builder => {
