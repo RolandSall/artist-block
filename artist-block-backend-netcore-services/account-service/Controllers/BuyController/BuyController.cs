@@ -51,4 +51,30 @@ public class BuyController: ControllerBase
         }
     }
     
+    [HttpPost]
+    [Route("sell/{paintingId}")]
+    [Authorize]
+    public ActionResult SellPainting(Guid paintingId, PaintingStatusRequest request)
+    {
+        try
+        {
+            var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _buyService.SellPainting(paintingId, auth0UserId, request);
+            return Ok("Status Updated");
+        }
+        catch (PainterDoesNotExistException e)
+        {
+            return Problem(e.Message);
+        }
+        catch (PaintingDoesNotExist e)
+        {
+            return NotFound(e.Message);
+
+        }
+        catch (Exception other)
+        {
+            return Problem(other.Message);
+        }
+    }
+    
 }
