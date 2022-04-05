@@ -4,10 +4,14 @@ using account_service.Models;
 using account_service.Repository;
 using account_service.Repository.PaintingRepo;
 using account_service.Repository.RegistrationRepo;
+using account_service.Repository.SearchRepo;
+
 using account_service.Service.PaintingService;
+
 using account_service.Repository.SpecialityRepo;
 using account_service.Service.CurrentLoggedInService;
 using account_service.Service.RegistrationService;
+using account_service.Service.SearchService;
 using account_service.Service.SpecialityService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -51,6 +55,9 @@ namespace account_service{
 
 
             services.AddScoped<ICurrentLoggedInService, CurrentLoggedInService>();
+
+            services.AddScoped<ISearchService, SearchService>();
+            services.AddScoped<ISearchRepository, SearchRepository>();
 
             services.AddCors(options => {
                 options.AddPolicy(name: _CORSPolicy,
