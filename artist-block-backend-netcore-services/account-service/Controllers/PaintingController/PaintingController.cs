@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using account_service.CustomException;
 using account_service.DTO.Painting;
 using account_service.Models;
 using account_service.Repository.PaintingRepo;
@@ -67,10 +68,14 @@ public class CreatePaintingController : ControllerBase
     public async Task<ActionResult> UploadImage(IFormFile image, Guid paintingId)
     {
         try
-        {   
+        {
             var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             await _paintingService.UploadImage(image, auth0UserId, paintingId);
             return Ok("Image Added");
+        }
+        catch (PaintingDoesNotExist exc)
+        {
+            return Problem(exc.Message);
         }
         catch (Exception e) {
             Console.WriteLine(e);

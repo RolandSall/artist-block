@@ -1,3 +1,4 @@
+using account_service.CustomException;
 using account_service.Models;
 using account_service.Repository.PaintingRepo;
 using account_service.Repository.RegistrationRepo;
@@ -38,11 +39,10 @@ public class PaintingService : IPaintingService
 
   public async Task UploadImage(IFormFile image, string auth0UserId, Guid paintingId)
     {
-
- 
-        
         var currentPainting = _paintingRepo.GetPaintingInformation(paintingId);
-        
+
+        if (currentPainting == null)
+            throw new PaintingDoesNotExist();
         
         string systemFileName = currentPainting.PaintingName + image.FileName;
         currentPainting.PaintingUrl = systemFileName;
@@ -64,6 +64,5 @@ public class PaintingService : IPaintingService
         }
 
         await _paintingRepo.AddImageReference(currentPainting, blockBlob.Uri.ToString());
-
     }
 }
