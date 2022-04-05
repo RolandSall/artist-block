@@ -53,7 +53,7 @@ public class GanController : ControllerBase
         }
     } 
     
-    [HttpPost]
+    [HttpGet]
     [Route("gan-image/collection")]
     [Authorize]
     public ActionResult GetAllClaimedGanImagesForClient()
