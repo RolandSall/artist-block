@@ -22,7 +22,6 @@ public class SearchController: ControllerBase
     [Route("registered-painter/home-search")]
     public ActionResult FilterRegisterPainterForHomePage([FromQuery] PainterSearchField painter)
     {
-
         var filteredRegisteredLawyers = _searchService.FilterRegisterPainterForHomePage(painter);
         return Ok(filteredRegisteredLawyers);
     }
