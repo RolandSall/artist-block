@@ -39,6 +39,34 @@ namespace account_service.Migrations
                     b.ToTable("auth_user");
                 });
 
+            modelBuilder.Entity("account_service.Models.GanGeneratedImage", b =>
+                {
+                    b.Property<Guid>("GanImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("PK_gan_image_id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("gan_image_description");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("gan_image_url");
+
+                    b.Property<Guid?>("RegisteredUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("FK_painting_registered_user_id");
+
+                    b.HasKey("GanImageId");
+
+                    b.HasIndex("RegisteredUserId");
+
+                    b.ToTable("gan_image");
+                });
+
             modelBuilder.Entity("account_service.Models.Painter", b =>
                 {
                     b.Property<Guid>("PainterId")
@@ -233,6 +261,13 @@ namespace account_service.Migrations
                     b.Navigation("RegisteredUser");
                 });
 
+            modelBuilder.Entity("account_service.Models.GanGeneratedImage", b =>
+                {
+                    b.HasOne("account_service.Models.RegisteredUser", null)
+                        .WithMany("ClaimedGanImages")
+                        .HasForeignKey("RegisteredUserId");
+                });
+
             modelBuilder.Entity("account_service.Models.Painter", b =>
                 {
                     b.HasOne("account_service.Models.RegisteredUser", "RegisteredUser")
@@ -283,6 +318,8 @@ namespace account_service.Migrations
 
             modelBuilder.Entity("account_service.Models.RegisteredUser", b =>
                 {
+                    b.Navigation("ClaimedGanImages");
+
                     b.Navigation("Painter")
                         .IsRequired();
 
