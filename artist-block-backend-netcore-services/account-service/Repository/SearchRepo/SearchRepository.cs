@@ -27,7 +27,6 @@ public class SearchRepository: ISearchRepository
 
         switch (searchCriteria.Type)
         {
-            //TODO: Extend for painting search 
             case SearchCriteriaType.Painter:
             {
                 if (words.Length == 1)
