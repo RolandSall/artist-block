@@ -1,4 +1,5 @@
-﻿using account_service.Models;
+﻿using account_service.CustomException;
+using account_service.Models;
 using account_service.Repository.GanRepo;
 using account_service.Service.CurrentLoggedInService;
 using account_service.Service.RegistrationService;
@@ -25,7 +26,13 @@ public class GanService: IGanService
     {
         var currentLoggedInUser = _currentLoggedInService.GetCurrentLoggedInUser(auth0UserId);
         var currentGanImage = _ganRepo.GetPaintingInformation(ganPaintingId);
-        string systemFileName = currentLoggedInUser.RegisteredUser.RegisteredUserId + image.FileName;
+
+        if (currentGanImage == null)
+        {
+            throw new GanGeneratedImageNotFoundException("Generated Image Not Found");
+        }
+        
+        string systemFileName = currentLoggedInUser.RegisteredUser.RegisteredUserId.ToString() + '-' + image.FileName + '-' + currentGanImage.GanImageId;
         currentGanImage.ImageUrl = systemFileName;
         
             string blobstorageconnection = _configuration.GetValue<string>("BlobConnectionString");  
@@ -47,7 +54,7 @@ public class GanService: IGanService
         
     }
 
-    public Task ClaimGanImage(string? description, string auth0UserId)
+    public Guid ClaimGanImage(string? description, string auth0UserId)
     {
         Guid ganPaintingId = Guid.NewGuid();
         var RegisteredIdForCurrentLoggedInUser = _currentLoggedInService.GetCurrentLoggedInUser(auth0UserId).RegisteredUser.RegisteredUserId;
@@ -59,8 +66,8 @@ public class GanService: IGanService
            //TODO: Remove Required Field for Image URL at This stage
            ImageUrl = "",
         };
-        _ganRepo.ClaimGanImage(ganGeneratedImage);
-        return Task.CompletedTask;
+        var claimGanImageId = _ganRepo.ClaimGanImage(ganGeneratedImage);
+        return claimGanImageId;
     }
 
     public IEnumerable<GanGeneratedImage> GetAllClaimedGanImagesForClient(string auth0UserId)

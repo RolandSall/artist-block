@@ -7,6 +7,6 @@ public interface IGanRepo
 {
     GanGeneratedImage GetPaintingInformation(Guid ganPaintingId);
     Task AddGanImageReference(GanGeneratedImage currentGanImage, string url);
-    void ClaimGanImage(GanGeneratedImage ganGeneratedImage);
+    Guid ClaimGanImage(GanGeneratedImage ganGeneratedImage);
     IEnumerable<GanGeneratedImage> GetAllClaimedGanImagesForClient(Guid userId);
 }

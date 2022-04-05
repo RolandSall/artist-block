@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using account_service.CustomException;
 using account_service.DTO.Gan;
 using account_service.Service.GanService;
 using Microsoft.AspNetCore.Authorization;
@@ -21,14 +22,19 @@ public class GanController : ControllerBase
     [HttpPost]
     [Route("gan-image/claim")]
     [Authorize]
-    public async Task<ActionResult> UploadImage(ClaimGanImageDto claimGanImageDto)
+    public ActionResult ClaimImage(ClaimGanImageDto claimGanImageDto)
     {
         try
         {   
             var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             // TODO: Create A Mapper Once The Object Becomes Bigger
-            await _ganService.ClaimGanImage(claimGanImageDto.Description, auth0UserId);
-            return Ok("Image Saved!");
+            Guid paintingId = _ganService.ClaimGanImage(claimGanImageDto.Description, auth0UserId);
+            //TODO: Same for Read Mapper
+            ReadClaimGanImageDto readClaimGanImageDto = new ReadClaimGanImageDto()
+            {
+                GanImageId = paintingId
+            };
+            return Ok(readClaimGanImageDto);
         }
         catch (Exception e) {
             Console.WriteLine(e);
@@ -42,10 +48,14 @@ public class GanController : ControllerBase
     public async Task<ActionResult> UploadImage(IFormFile image, Guid ganPaintingId)
     {
         try
-        {   
+        {
             var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await _ganService.UploadImage(image, auth0UserId,ganPaintingId);
+            await _ganService.UploadImage(image, auth0UserId, ganPaintingId);
             return Ok("Image Saved!");
+        }
+        catch (GanGeneratedImageNotFoundException e)
+        {
+            return NotFound(e.message);
         }
         catch (Exception e) {
             Console.WriteLine(e);

@@ -23,10 +23,11 @@ public class GanRepo: IGanRepo
         return Task.CompletedTask;
     }
 
-    public void ClaimGanImage(GanGeneratedImage generatedImage)
+    public Guid ClaimGanImage(GanGeneratedImage generatedImage)
     {
-        _context.GanGeneratedImages.Add(generatedImage);
+        var painting = _context.GanGeneratedImages.Add(generatedImage).Entity;
         _context.SaveChanges();
+        return painting.GanImageId;
     }
 
     public IEnumerable<GanGeneratedImage> GetAllClaimedGanImagesForClient(Guid userId)
