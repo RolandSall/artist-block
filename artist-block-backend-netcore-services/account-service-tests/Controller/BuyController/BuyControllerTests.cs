@@ -36,6 +36,8 @@ public class BuyControllerTests
 
         value.Should().BeOfType<OkObjectResult>();
     }
+    
+    
 
     [Fact]
     public void BuyPainting_PaintingIdButPainterDoesNotExist_ThrowsPainterDoesNotExistException()
@@ -81,7 +83,29 @@ public class BuyControllerTests
         value.Should().BeOfType<NotFoundObjectResult>();
     }
     
-    
+    [Fact]
+    public void BuyPainting_ThrowsGenericException()
+    {
+        // Arrange
+
+        // Arrange
+
+        var paintingId = Guid.NewGuid();
+        var controller = new account_service.Controllers.BuyController.BuyController( _mapperMock.Object , _buyServiceStub.Object )
+        {
+            ControllerContext = ControllerContextHelper.getStubControllerContext(),
+        };
+
+        _buyServiceStub.Setup(service => service.BuyPainting(It.IsAny<Guid>(), It.IsAny<string>()))
+            .Throws( new Exception("Some Problem Occured"));
+
+        // Act
+        var value = controller.BuyPainting( paintingId );
+
+        // Assert
+
+        value.Should().BeOfType<ObjectResult>();
+    }
     
     
     [Fact]
@@ -152,5 +176,28 @@ public class BuyControllerTests
         // Assert
 
         value.Should().BeOfType<NotFoundObjectResult>();
+    }
+    
+    [Fact]
+    public void SellPainting_ThrowGenericException()
+    {
+        // Arrange
+
+        var paintingId = Guid.NewGuid();
+        Mock<PaintingStatusRequest> request = new(); // Mock the request
+        var controller = new account_service.Controllers.BuyController.BuyController( _mapperMock.Object , _buyServiceStub.Object )
+        {
+            ControllerContext = ControllerContextHelper.getStubControllerContext(),
+        };
+
+        _buyServiceStub.Setup(service => service.SellPainting(It.IsAny<Guid>(), It.IsAny<string>() , It.IsAny<PaintingStatusRequest>()))
+            .Throws( new Exception("Some Problem Occured"));
+
+        // Act
+        var value = controller.SellPainting( paintingId , request.Object );
+
+        // Assert
+
+        value.Should().BeOfType<ObjectResult>();
     }
 }
