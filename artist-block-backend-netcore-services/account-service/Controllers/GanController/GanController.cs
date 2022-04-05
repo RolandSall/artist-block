@@ -51,5 +51,25 @@ public class GanController : ControllerBase
             Console.WriteLine(e);
             return Problem(e.GetBaseException().ToString());
         }
+    } 
+    
+    [HttpPost]
+    [Route("gan-image/collection")]
+    [Authorize]
+    public ActionResult GetAllClaimedGanImagesForClient()
+    {
+        try
+        {   
+            
+            var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        
+            var ganImagesList = _ganService.GetAllClaimedGanImagesForClient(auth0UserId);
+            //TODO: READ MAPPER IS NEEDED 
+            return Ok(ganImagesList);
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            return Problem(e.GetBaseException().ToString());
+        }
     }
 }

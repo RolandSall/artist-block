@@ -28,4 +28,10 @@ public class GanRepo: IGanRepo
         _context.GanGeneratedImages.Add(generatedImage);
         _context.SaveChanges();
     }
+
+    public IEnumerable<GanGeneratedImage> GetAllClaimedGanImagesForClient(Guid userId)
+    {
+        var ganList = _context.GanGeneratedImages.Where(ganImg => ganImg.RegisteredUserId.Equals(userId));
+        return ganList;
+    }
 }

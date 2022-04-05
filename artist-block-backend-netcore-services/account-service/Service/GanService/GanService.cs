@@ -62,4 +62,10 @@ public class GanService: IGanService
         _ganRepo.ClaimGanImage(ganGeneratedImage);
         return Task.CompletedTask;
     }
+
+    public IEnumerable<GanGeneratedImage> GetAllClaimedGanImagesForClient(string auth0UserId)
+    {
+        var userId = _currentLoggedInService.GetCurrentLoggedInUser(auth0UserId).RegisteredUser.RegisteredUserId;
+        return _ganRepo.GetAllClaimedGanImagesForClient(userId);
+    }
 }
