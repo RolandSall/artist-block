@@ -136,4 +136,21 @@ public class PaintingController
         value.Should().BeOfType<ObjectResult>();
     }
 
+    [Fact]
+    public void GetNRandomPaintingsForSale_Number_ReturnsOkResult()
+    {
+        // Arrange
+        var numberOfRandom = 3;
+        var controller = new CreatePaintingController(_mapper, _paintingServiceStub.Object);
+
+        _paintingServiceStub.Setup(service => service.GetNRandomPaintingsForSale(It.IsAny<int>()))
+            .Returns(new List<Painting>());
+
+        // Act
+        var value = controller.getNRandomPaintingsForSale(numberOfRandom);
+
+        // Assert
+        value.Result.Should().BeOfType<OkObjectResult>();
+    }
+
 }
