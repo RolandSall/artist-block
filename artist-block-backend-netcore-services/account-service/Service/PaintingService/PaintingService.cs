@@ -1,7 +1,9 @@
 using account_service.CustomException;
+using account_service.DTO.Painting;
 using account_service.Models;
 using account_service.Repository.PaintingRepo;
 using account_service.Repository.RegistrationRepo;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
@@ -65,4 +67,10 @@ public class PaintingService : IPaintingService
 
         await _paintingRepo.AddImageReference(currentPainting, blockBlob.Uri.ToString());
     }
+
+  public  IEnumerable<Painting> GetNRandomPaintingsForSale(int number)
+  {
+      var paintings = _paintingRepo.GetNRandomPaintingsForSale(number);
+      return paintings;
+  }
 }

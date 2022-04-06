@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using account_service.CustomException;
 using account_service.DTO.Painting;
@@ -58,10 +59,18 @@ public class CreatePaintingController : ControllerBase
 
         return Ok(paintingDto);
     }
-    
-    //TODO: get 3 random paintings endpoint that are not sold
-    
-    
+
+    [HttpPost]
+    [Route("paintings/get-random/{number}")]
+    public ActionResult<IEnumerable<ReadPaintingDto>> getNRandomPaintingsForSale( int number )
+    {
+        //TODO: error handling ? 
+        var paintings = _paintingService.GetNRandomPaintingsForSale(number);
+
+        return Ok(paintings);
+    }
+
+
     [HttpPost]
     [Route("create-painting/image/{paintingId}")]
     [Authorize]
