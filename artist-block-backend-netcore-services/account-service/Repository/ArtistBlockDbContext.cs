@@ -15,6 +15,7 @@ public class ArtistBlockDbContext: DbContext {
         public DbSet<Models.AuthUser> AuthUsers { get; set; }
         public DbSet<Models.Speciality> Specialities { get; set; }
         public DbSet<Models.PainterSpeciality> PainterSpecialities { get; set; }
+        public DbSet<Models.GanGeneratedImage> GanGeneratedImages { get; set; }
         
         public DbSet<Models.Painting> Paintings { get; set; }
 

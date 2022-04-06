@@ -1,25 +1,27 @@
 ﻿using System.Security.Claims;
 using System.Text.Json.Serialization;
-using account_service.Models;
 using account_service.Repository;
 using account_service.Repository.CollectionRepo;
+using account_service.Repository.GanRepo;
+using account_service.Repository.BuyRepo;
+
 using account_service.Repository.PaintingRepo;
 using account_service.Repository.RegistrationRepo;
-using account_service.Service.PaintingService;
+using account_service.Repository.SearchRepo;
 using account_service.Repository.SpecialityRepo;
 using account_service.Service.CollectionService;
+using account_service.Service.BuyController;
 using account_service.Service.CurrentLoggedInService;
+using account_service.Service.GanService;
+using account_service.Service.PaintingService;
 using account_service.Service.RegistrationService;
+using account_service.Service.SearchService;
 using account_service.Service.SpecialityService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Steeltoe.Common.Http.Discovery;
-using Steeltoe.Discovery.Client;
-using Steeltoe.Discovery.Client.SimpleClients;
-
 
 namespace account_service{
     public class Startup {
@@ -37,7 +39,8 @@ namespace account_service{
         public void ConfigureServices(IServiceCollection services) {
             // services.AddControllers();
             services.AddControllers().AddJsonOptions(x =>
-                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles) // to make enum values appear as string in swagger
+                .AddJsonOptions( x=> x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
             
             // Injections
             services.AddScoped<IRegistrationService, RegistrationService>();
@@ -53,9 +56,16 @@ namespace account_service{
             services.AddScoped<ICollectionRepo, CollectionRepo>();
             services.AddScoped<ICollectionService, CollectionService>();
 
+            services.AddScoped<IBuyService, BuyService>();
+            services.AddScoped<IBuyRepo, BuyRepo>();
 
+            services.AddScoped<IGanService, GanService>();
+            services.AddScoped<IGanRepo, GanRepo>();
 
             services.AddScoped<ICurrentLoggedInService, CurrentLoggedInService>();
+
+            services.AddScoped<ISearchService, SearchService>();
+            services.AddScoped<ISearchRepository, SearchRepository>();
 
             services.AddCors(options => {
                 options.AddPolicy(name: _CORSPolicy,

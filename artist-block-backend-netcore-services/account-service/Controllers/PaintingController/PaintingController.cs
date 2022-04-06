@@ -1,3 +1,6 @@
+using System.Reflection.Metadata.Ecma335;
+using System.Security.Claims;
+using account_service.CustomException;
 using account_service.DTO.Painting;
 using account_service.Models;
 using account_service.Repository.PaintingRepo;
@@ -56,7 +59,37 @@ public class CreatePaintingController : ControllerBase
 
         return Ok(paintingDto);
     }
-    
-    //TODO: get 3 random paintings endpoint that are not sold
+
+    [HttpPost]
+    [Route("paintings/get-random/{number}")]
+    public ActionResult<IEnumerable<ReadPaintingDto>> getNRandomPaintingsForSale( int number )
+    {
+        //TODO: error handling ? 
+        var paintings = _paintingService.GetNRandomPaintingsForSale(number);
+
+        return Ok(paintings);
+    }
+
+
+    [HttpPost]
+    [Route("create-painting/image/{paintingId}")]
+    [Authorize]
+    public async Task<ActionResult> UploadImage(IFormFile image, Guid paintingId)
+    {
+        try
+        {
+            var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await _paintingService.UploadImage(image, auth0UserId, paintingId);
+            return Ok("Image Added");
+        }
+        catch (PaintingDoesNotExist exc)
+        {
+            return Problem(exc.Message);
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            return Problem(e.GetBaseException().ToString());
+        }
+    }
 
 }
