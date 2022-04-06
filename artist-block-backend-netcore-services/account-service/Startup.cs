@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Text.Json.Serialization;
 using account_service.Repository;
+using account_service.Repository.CollectionRepo;
 using account_service.Repository.GanRepo;
 using account_service.Repository.BuyRepo;
 
@@ -8,6 +9,7 @@ using account_service.Repository.PaintingRepo;
 using account_service.Repository.RegistrationRepo;
 using account_service.Repository.SearchRepo;
 using account_service.Repository.SpecialityRepo;
+using account_service.Service.CollectionService;
 using account_service.Service.BuyController;
 using account_service.Service.CurrentLoggedInService;
 using account_service.Service.GanService;
@@ -51,6 +53,9 @@ namespace account_service{
             services.AddScoped<ISpecialityRepo, SpecialityRepo>();
             services.AddScoped<ISpecialityService, SpecialityService>();
             
+            services.AddScoped<ICollectionRepo, CollectionRepo>();
+            services.AddScoped<ICollectionService, CollectionService>();
+
             services.AddScoped<IBuyService, BuyService>();
             services.AddScoped<IBuyRepo, BuyRepo>();
 
