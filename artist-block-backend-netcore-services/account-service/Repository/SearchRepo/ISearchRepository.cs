@@ -5,5 +5,5 @@ namespace account_service.Repository.SearchRepo;
 
 public interface ISearchRepository
 {
-    PainterSearchResult FilterRegisterPainterForHomePage(PainterSearchField painter);
+    SearchResult FilterRegisterPainterForHomePage(PainterSearchField painter);
 }
