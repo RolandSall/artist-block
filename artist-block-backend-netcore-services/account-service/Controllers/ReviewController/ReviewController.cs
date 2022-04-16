@@ -1,8 +1,11 @@
+using System.Collections;
 using System.Security.Claims;
+using account_service.CustomException;
 using account_service.DTO.PaintingReview;
 using account_service.Models;
 using account_service.Service.ReviewService;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace account_service.Controllers.ReviewController;
@@ -20,14 +23,44 @@ public class ReviewController : ControllerBase
     }
 
     [HttpPost]
-    [Route("review-painting/{paintingId:guid}")]
+    [Authorize]
+    [Route("painting-review/{paintingId:guid}")]
     public ActionResult<ReadPaintingReviewDto> CreatePaintingReview(CreatePaintingReviewDto paintingReviewDto , Guid paintingId)
     {
-        var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        try
+        {
+            var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         
-        var paintingReview = _mapper.Map<PaintingReview>(paintingReviewDto);
-        var createdPaintingReview = _reviewService.CreatePaintingReview(paintingReview , paintingId , auth0UserId);
-        return Ok(createdPaintingReview);
+            var paintingReview = _mapper.Map<PaintingReview>(paintingReviewDto);
+            var createdPaintingReview = _reviewService.CreatePaintingReview(paintingReview , paintingId , auth0UserId);
+            
+            return Ok(createdPaintingReview);
+        }
+        catch (PaintingReviewAlreadyPresentException exc)
+        {
+            Console.WriteLine(exc);
+            return Problem(exc.Message);
+        }
+        catch (Exception exc)
+        {
+            return Problem(exc.Message);
+        }
     }
     
+    [HttpGet]
+    [Route("painting-reviews/{paintingId:guid}")]
+    public ActionResult<IEnumerable<ReadPaintingReviewDto>> GetPaintingReviews(Guid paintingId)
+    {
+        var paintingReviews = _reviewService.GetPaintingReviews(paintingId);
+        
+        return Ok(_mapper.Map<IEnumerable<ReadPaintingReviewDto>>(paintingReviews));
+    }
+
+    [HttpGet]
+    [Route("painting-review/{paintingReviewId:guid}")]
+    public ActionResult<ReadPaintingReviewDto> GetPaintingReview(Guid paintingReviewId)
+    {
+        var paintingReview = _reviewService.GetPaintingReviewById(paintingReviewId);
+        return Ok(_mapper.Map<ReadPaintingReviewDto>(paintingReview));
+    }
 }
