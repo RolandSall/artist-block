@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using account_service.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace account_service.Repository;
@@ -10,14 +10,14 @@ public class ArtistBlockDbContext: DbContext {
       
             
         }
-        public DbSet<Models.Painter> Painters { get; set; }
-        public DbSet<Models.RegisteredUser> RegisteredUsers { get; set; }
-        public DbSet<Models.AuthUser> AuthUsers { get; set; }
-        public DbSet<Models.Speciality> Specialities { get; set; }
-        public DbSet<Models.PainterSpeciality> PainterSpecialities { get; set; }
-        public DbSet<Models.GanGeneratedImage> GanGeneratedImages { get; set; }
-        
-        public DbSet<Models.Painting> Paintings { get; set; }
+        public DbSet<Painter> Painters { get; set; }
+        public DbSet<RegisteredUser> RegisteredUsers { get; set; }
+        public DbSet<AuthUser> AuthUsers { get; set; }
+        public DbSet<Speciality> Specialities { get; set; }
+        public DbSet<PainterSpeciality> PainterSpecialities { get; set; }
+        public DbSet<GanGeneratedImage> GanGeneratedImages { get; set; }
+        public DbSet<Painting> Paintings { get; set; }
+        public DbSet<PaintingReview> PaintingReview { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

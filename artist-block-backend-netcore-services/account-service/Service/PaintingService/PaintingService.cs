@@ -39,7 +39,7 @@ public class PaintingService : IPaintingService
         return paintings;
     }
 
-  public async Task UploadImage(IFormFile image, string auth0UserId, Guid paintingId)
+    public async Task UploadImage(IFormFile image, string auth0UserId, Guid paintingId)
     {
         var currentPainting = _paintingRepo.GetPaintingInformation(paintingId);
 
