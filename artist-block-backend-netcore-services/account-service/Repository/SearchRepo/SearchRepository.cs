@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using account_service.Controllers.Helper;
 using account_service.Controllers.SearchController;
+using account_service.Models;
 using account_service.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
@@ -118,5 +120,56 @@ public class SearchRepository: ISearchRepository
             default:
                 return SearchResult;
         }
+    }
+
+    public PagedList<Painting> FilterPainting(FindPaintingFilter filter, string auth0UserId)
+    {
+        var auth0 = _context.AuthUsers
+            .FirstOrDefault(auth => auth.Auth0Id.Equals(auth0UserId));
+
+            if (auth0 == null)
+            {
+                filter.PageNumber = 1;
+                filter.PageSize = 3;
+            }
+            
+           
+
+            if (FiltersNotApplied(filter))
+            {
+                var queryWithoutFilters = _context.Paintings
+                    .Where(l => l.PaintingStatus.Equals("For Sale"));
+                
+                   var pagedList = PagedList<Painting>.ToPagedList(queryWithoutFilters, filter.PageNumber,
+                       filter.PageSize);
+               pagedList.TotalPages = 1;
+               return pagedList;
+            }
+
+            IQueryable<Painting>  paintingQuery = _context.Paintings
+                .Where(painting => painting.PaintingStatus.Equals("For Sale"))
+                .Where(painting => filter.PaintingYear == null
+                        ? true
+                        : painting.PaintedYear.Equals(filter.PaintingYear))
+                .Where(painting => filter.PaintingDescription == null 
+                    ? true
+                    : painting.PaintingDescription.ToLower().StartsWith(filter.PaintingDescription.ToLower())
+                      | painting.PaintingName.ToLower().StartsWith(filter.PaintingDescription.ToLower()))
+                .Where(l => (filter.RateStart == null || filter.RateEnd == null)
+                    ? true
+                    : l.PaintingPrice >= filter.RateStart && l.PaintingPrice <= filter.RateEnd
+                );
+
+            IQueryable<Painting> filteredPainting = _context.Paintings.Where(l => l.PaintingStatus.Equals("For Sale"));
+            return new PagedList<Painting>(paintingQuery.ToList(),  filteredPainting.Count(),
+                filter.PageNumber, filter.PageSize);
+         
+    }
+
+    private bool FiltersNotApplied(FindPaintingFilter paintingFilter)
+    {
+        return paintingFilter.PaintingDescription == null  && paintingFilter.RateStart == null &&
+               paintingFilter.RateEnd == null &&         paintingFilter.PaintingYear == null
+            ;
     }
 }
