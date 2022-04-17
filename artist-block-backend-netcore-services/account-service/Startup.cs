@@ -80,7 +80,7 @@ namespace account_service{
                         }
                         else if(_env.IsStaging()){
                             builder.AllowAnyHeader()
-                                .WithOrigins("https://haqq-staging-enviroment-f8b93911-clnxo.ondigitalocean.app")
+                                .WithOrigins("http://localhost:3000")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod()
                                 .AllowCredentials();
