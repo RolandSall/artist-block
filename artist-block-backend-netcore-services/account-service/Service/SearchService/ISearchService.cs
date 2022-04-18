@@ -8,5 +8,5 @@ namespace account_service.Service.SearchService;
 public interface ISearchService
 {
     SearchResult FilterRegisterPainterForHomePage(PainterSearchField painter);
-    PagedList<Painting> FilterPainting(FindPaintingFilter hireLawyerFilter, string auth0UserId);
+    PagedList<Painting> FilterPainting(FindPaintingFilter hirePainterFilter, string auth0UserId);
 }

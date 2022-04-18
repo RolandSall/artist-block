@@ -26,8 +26,8 @@ public class SearchController: ControllerBase
     [Route("registered-painter/home-search")]
     public ActionResult FilterRegisterPainterForHomePage([FromQuery] PainterSearchField painter)
     {
-        var filteredRegisteredLawyers = _searchService.FilterRegisterPainterForHomePage(painter);
-        return Ok(filteredRegisteredLawyers);
+        var filteredRegisteredPainterAndPainting = _searchService.FilterRegisterPainterForHomePage(painter);
+        return Ok(filteredRegisteredPainterAndPainting);
     }
     
     
@@ -50,7 +50,7 @@ public class SearchController: ControllerBase
         };
             
         Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
-        var readFilteredLawyersDtos = _mapper.Map<IEnumerable<Painting>>(filteredPaintings);
-        return Ok(readFilteredLawyersDtos);
+        var readFilteredPainterDtos = _mapper.Map<IEnumerable<Painting>>(filteredPaintings);
+        return Ok(readFilteredPainterDtos);
     }
 }

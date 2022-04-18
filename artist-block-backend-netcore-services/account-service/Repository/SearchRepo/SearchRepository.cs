@@ -80,6 +80,8 @@ public class SearchRepository: ISearchRepository
                 PaintingId = x.PainterId,
                 PaintingName = x.PaintingName,
                 PaintingYear = x.PaintedYear,
+                PaintingUrl = x.PaintingUrl
+                
             }).ToList();
            
         List<PaintingSearchHeader> PaintingsortedList = new List<PaintingSearchHeader>();
