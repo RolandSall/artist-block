@@ -49,9 +49,12 @@ public class BuyRepo: IBuyRepo
         }
         
         GetPaintingToBeUpdatedForPainter.PaintingStatus = request.Status;
-        
-        if ( request.Price != null )
+
+        if (request.Price != null)
+        {
             GetPaintingToBeUpdatedForPainter.PaintingPrice = request.Price;
+            GetPaintingToBeUpdatedForPainter.BuyTimeStamp = request.BuyTimeStamp;
+        }
 
         _context.Paintings.Update(GetPaintingToBeUpdatedForPainter);
         _context.SaveChanges();

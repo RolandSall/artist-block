@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using OpenTelemetry.Trace;
 
 namespace account_service.Controllers.BuyController;
@@ -10,7 +11,8 @@ public class PaintingStatusRequest
 
    
     public int? Price { get; set; }
+    
 
-    //TODO: added buy out timeline
+    public DateTime? BuyTimeStamp { get; set; }
     
 }

@@ -31,6 +31,10 @@ public class Painting
     // on sale, sold ...
     public string? PaintingStatus { get; set; }
     
+    
+    [Column("buy_timestamp")]
+    public DateTime? BuyTimeStamp { get; set; }
+    
     [Column("painting_url")]
     public string? PaintingUrl { get; set; }
     
