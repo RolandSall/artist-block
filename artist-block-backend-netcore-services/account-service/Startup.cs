@@ -75,6 +75,7 @@ namespace account_service{
                                 .WithOrigins("http://localhost:3000") 
                                 .AllowAnyHeader()
                                 .AllowAnyMethod()
+                                .WithExposedHeaders("X-Pagination")
                                 .AllowCredentials();
 
                         }
@@ -83,12 +84,14 @@ namespace account_service{
                                 .WithOrigins("http://localhost:3000")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod()
+                                .WithExposedHeaders("X-Pagination")
                                 .AllowCredentials();
                         }
                         else
                         {
                             builder.AllowAnyHeader()
                                 .WithMethods("POST", "GET", "PUT")
+                                .WithExposedHeaders("X-Pagination")
                                 .WithOrigins("https://domain1.com", "https://domain2.com");
                         }
                     });
