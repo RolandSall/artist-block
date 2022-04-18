@@ -40,6 +40,7 @@ public class SearchRepository: ISearchRepository
                     PainterId = x.PainterId,
                     FirstName = x.RegisteredUser.FirstName,
                     LastName = x.RegisteredUser.LastName,
+                    PainterUrl = x.RegisteredUser.Image
                 }).ToList();
         }
         else
@@ -54,7 +55,7 @@ public class SearchRepository: ISearchRepository
                     PainterId = x.PainterId,
                     FirstName = x.RegisteredUser.FirstName,
                     LastName = x.RegisteredUser.LastName,
-                    PaintingUrl = x.RegisteredUser.Image
+                    PainterUrl = x.RegisteredUser.Image
                 }).ToList();
         }
 
