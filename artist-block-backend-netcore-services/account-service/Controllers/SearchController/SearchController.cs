@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace account_service.Controllers.SearchController;
 
-[Microsoft.AspNetCore.Components.Route("api/v1/account-service")]
-[ApiController]    
 
+
+[ApiController]    
+[Route("api/v1/account-service")]
 public class SearchController: ControllerBase
 {
     private readonly ISearchService _searchService;
