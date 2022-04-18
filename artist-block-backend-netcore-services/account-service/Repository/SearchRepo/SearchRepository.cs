@@ -54,6 +54,7 @@ public class SearchRepository: ISearchRepository
                     PainterId = x.PainterId,
                     FirstName = x.RegisteredUser.FirstName,
                     LastName = x.RegisteredUser.LastName,
+                    PaintingUrl = x.RegisteredUser.Image
                 }).ToList();
         }
 
