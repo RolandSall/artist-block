@@ -22,7 +22,7 @@ public class PaintingController
     private static readonly List<Profile> Profiles = new() { new PaintingProfile() };
     private readonly IMapper _mapper = new MapperConfiguration(mc => mc.AddProfiles(Profiles)).CreateMapper();
 
-    // Mock for create painting service
+    // Stub for create painting service
     private readonly Mock<IPaintingService> _paintingServiceStub = new() ;
 
     private readonly CreatePaintingDto _providedCreatePaintingDto = new()

@@ -18,7 +18,7 @@ public class CollectionService: ICollectionService
 
     public IEnumerable<Painting> GetCurrentLoggedInUserPaintingCollection(string auth0UserId)
     {
-        var currentLoggedInUserId = _registrationRepo.GetUserInfromation(auth0UserId).RegisteredUserId;
+        var currentLoggedInUserId = _registrationRepo.GetUserInformation(auth0UserId).RegisteredUserId;
         return _collectionRepo.GetCurrentLoggedInUserPaintingCollection(currentLoggedInUserId);
     }
 

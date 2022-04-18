@@ -70,7 +70,7 @@ public class RegistrationService: IRegistrationService
 
     public async Task UploadImage(IFormFile image, string auth0UserId)
     {
-        var currentUser = _registrationRepo.GetUserInfromation(auth0UserId);
+        var currentUser = _registrationRepo.GetUserInformation(auth0UserId);
         string systemFileName = currentUser.RegisteredUserId + image.FileName;
         currentUser.Image = systemFileName;
         
