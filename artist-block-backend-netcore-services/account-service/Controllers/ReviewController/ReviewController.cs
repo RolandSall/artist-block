@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Security.Claims;
 using account_service.CustomException;
 using account_service.DTO.PaintingReview;
@@ -12,7 +11,6 @@ namespace account_service.Controllers.ReviewController;
 
 public class ReviewController : ControllerBase
 {
-
     private readonly IReviewService _reviewService;
     private readonly IMapper _mapper;
     
@@ -47,6 +45,23 @@ public class ReviewController : ControllerBase
         }
     }
     
+    
+    [HttpDelete]
+    [Route("painting-review-delete/{Id:Guid}")]
+    public ActionResult DeletePaintingReview( Guid Id )
+    {
+        try
+        {
+            _reviewService.DeletePaintingReview(Id);
+        }
+        catch (Exception exc)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
+    
     [HttpGet]
     [Route("painting-reviews/{paintingId:guid}")]
     public ActionResult<IEnumerable<ReadPaintingReviewDto>> GetPaintingReviews(Guid paintingId)
@@ -56,6 +71,7 @@ public class ReviewController : ControllerBase
         return Ok(_mapper.Map<IEnumerable<ReadPaintingReviewDto>>(paintingReviews));
     }
 
+    // Not used for now but kept 
     [HttpGet]
     [Route("painting-review/{paintingReviewId:guid}")]
     public ActionResult<ReadPaintingReviewDto> GetPaintingReview(Guid paintingReviewId)

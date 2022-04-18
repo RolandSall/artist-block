@@ -44,4 +44,9 @@ public class ReviewService : IReviewService
         var paintingReview = _reviewRepo.GetPaintingReviewById(paintingReviewId);
         return paintingReview;
     }
+
+    public void DeletePaintingReview(Guid Id)
+    {
+        _reviewRepo.DeletePaintingReview(Id);
+    }
 }

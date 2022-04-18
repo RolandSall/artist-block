@@ -10,4 +10,5 @@ public interface IReviewRepo
     public PaintingReview CreatePaintingReview(PaintingReview paintingReview);
     IEnumerable<PaintingReview> GetPaintingReviews(Guid paintingId);
     PaintingReview GetPaintingReviewById(Guid paintingReviewId);
+    void DeletePaintingReview(Guid id);
 }

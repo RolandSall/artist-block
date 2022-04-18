@@ -1,8 +1,6 @@
 using account_service.CustomException;
-using account_service.DTO.PaintingReview;
 using account_service.Models;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 
 namespace account_service.Repository.ReviewRepo;
 
@@ -41,5 +39,16 @@ public class ReviewRepo : IReviewRepo
     {
         var review = _context.PaintingReview.First(paintingReview => paintingReview.PaintingReviewId == paintingReviewId);
         return review;
+    }
+
+    public void DeletePaintingReview(Guid Id)
+    {
+        var toRemove = _context.PaintingReview.First(review => review.PaintingReviewId == Id);
+
+        if (toRemove == null)
+            throw new ContentNotFoundById($"painting review with {Id} does not exist!");
+        
+        _context.PaintingReview.Remove(toRemove);
+        _context.SaveChanges();
     }
 }
