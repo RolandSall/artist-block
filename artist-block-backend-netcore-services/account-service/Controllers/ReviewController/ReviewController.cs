@@ -23,18 +23,23 @@ public class ReviewController : ControllerBase
     [HttpPost]
     [Authorize]
     [Route("painting-review/{paintingId:guid}")]
-    public ActionResult<ReadPaintingReviewDto> CreatePaintingReview(CreatePaintingReviewDto paintingReviewDto , Guid paintingId)
+    public ActionResult CreatePaintingReview(CreatePaintingReviewDto paintingReviewDto , Guid paintingId)
     {
         try
         {
             var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        
+
             var paintingReview = _mapper.Map<PaintingReview>(paintingReviewDto);
-            var createdPaintingReview = _reviewService.CreatePaintingReview(paintingReview , paintingId , auth0UserId);
-            
-            return Ok(createdPaintingReview);
+            var createdPaintingReview = _reviewService.CreatePaintingReview(paintingReview, paintingId, auth0UserId);
+
+            return Ok(_mapper.Map<ReadPaintingReviewDto>(createdPaintingReview));
         }
         catch (PaintingReviewAlreadyPresentException exc)
+        {
+            Console.WriteLine(exc);
+            return Problem(exc.Message);
+        }
+        catch (ContentNotFoundById exc)
         {
             Console.WriteLine(exc);
             return Problem(exc.Message);
@@ -44,31 +49,20 @@ public class ReviewController : ControllerBase
             return Problem(exc.Message);
         }
     }
-    
-    
-    [HttpDelete]
-    [Route("painting-review-delete/{Id:Guid}")]
-    public ActionResult DeletePaintingReview( Guid Id )
-    {
-        try
-        {
-            _reviewService.DeletePaintingReview(Id);
-        }
-        catch (Exception exc)
-        {
-            return NotFound();
-        }
 
-        return NoContent();
-    }
-    
     [HttpGet]
     [Route("painting-reviews/{paintingId:guid}")]
     public ActionResult<IEnumerable<ReadPaintingReviewDto>> GetPaintingReviews(Guid paintingId)
     {
-        var paintingReviews = _reviewService.GetPaintingReviews(paintingId);
-        
-        return Ok(_mapper.Map<IEnumerable<ReadPaintingReviewDto>>(paintingReviews));
+        try
+        {
+            var paintingReviews = _reviewService.GetPaintingReviews(paintingId);
+            return Ok(_mapper.Map<IEnumerable<ReadPaintingReviewDto>>(paintingReviews));
+        }
+        catch (ContentNotFoundById exc)
+        {
+            return Problem(exc.Message);
+        }
     }
 
     // Not used for now but kept 
@@ -78,5 +72,21 @@ public class ReviewController : ControllerBase
     {
         var paintingReview = _reviewService.GetPaintingReviewById(paintingReviewId);
         return Ok(_mapper.Map<ReadPaintingReviewDto>(paintingReview));
+    }
+    
+    [HttpDelete]
+    [Route("painting-review-delete/{paintingReviewId:Guid}")]
+    public ActionResult DeletePaintingReview( Guid paintingReviewId )
+    {
+        try
+        {
+            _reviewService.DeletePaintingReview(paintingReviewId);
+        }
+        catch (ContentNotFoundById exc)
+        {
+            return Problem(exc.Message);
+        }
+
+        return NoContent();
     }
 }

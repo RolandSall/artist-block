@@ -9,5 +9,5 @@ public interface IReviewService
     PaintingReview CreatePaintingReview(PaintingReview paintingReview, Guid paintingId, string auth0Id);
     IEnumerable<PaintingReview> GetPaintingReviews(Guid paintingId);
     PaintingReview GetPaintingReviewById(Guid paintingReviewId);
-    void DeletePaintingReview(Guid id);
+    void DeletePaintingReview(Guid paintingReviewId);
 }
