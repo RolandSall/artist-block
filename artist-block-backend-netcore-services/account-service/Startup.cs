@@ -10,6 +10,7 @@ using account_service.Repository.RegistrationRepo;
 using account_service.Repository.ReviewRepo;
 using account_service.Repository.SearchRepo;
 using account_service.Repository.SpecialityRepo;
+using account_service.Repository.StatsRepo;
 using account_service.Service.CollectionService;
 using account_service.Service.BuyController;
 using account_service.Service.CurrentLoggedInService;
@@ -19,6 +20,7 @@ using account_service.Service.RegistrationService;
 using account_service.Service.ReviewService;
 using account_service.Service.SearchService;
 using account_service.Service.SpecialityService;
+using account_service.Service.StatsService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -36,8 +38,7 @@ namespace account_service{
         }
 
         public IConfiguration Configuration { get; }
-
-       
+        
         public void ConfigureServices(IServiceCollection services) {
             // services.AddControllers();
             services.AddControllers().AddJsonOptions(x =>
@@ -71,6 +72,9 @@ namespace account_service{
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<ISearchRepository, SearchRepository>();
 
+            services.AddScoped<IStatsService, StatsService>();
+            services.AddScoped<IStatsRepo, StatsRepo>();
+            
             services.AddCors(options => {
                 options.AddPolicy(name: _CORSPolicy,
                     builder => {
