@@ -7,4 +7,5 @@ public interface ICollectionService
 {
     IEnumerable<Painting> GetCurrentLoggedInUserPaintingCollection(string auth0UserId);
     IEnumerable<Painting> GetPaintingCollectionByUserId(Guid userId);
+    IEnumerable<Painting> GetCurrentPainterOwnedPaintings(string auth0UserId);
 }

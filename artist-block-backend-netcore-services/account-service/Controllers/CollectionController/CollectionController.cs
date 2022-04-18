@@ -46,6 +46,27 @@ public class CollectionController: ControllerBase
     }
     
     [HttpGet]
+    [Route("current-painter/paintings")]
+    [Authorize]
+    public ActionResult GetCurrentPainterOwnedPaintings()
+    {
+        try
+        {
+            var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var currentLoggedInUserPainting = _collectionService.GetCurrentPainterOwnedPaintings(auth0UserId);
+            var currentLoggedInUserPaintingDto = _mapper.Map<IEnumerable<ReadPaintingDto>>(currentLoggedInUserPainting);
+            return Ok(currentLoggedInUserPaintingDto);
+        }catch (UserNotFoundException e)
+        {
+            return NotFound(e.message);
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            return Problem(e.GetBaseException().ToString());
+        }
+    }
+    
+    [HttpGet]
     [Route("collection/paintings/{userId}")]
     [Authorize]
     public ActionResult GetPaintingCollectionByUserId(Guid userId)

@@ -24,6 +24,8 @@ public class ReadPaintingDto
     public string? PaintingStatus { get; set; }
     
     public string? PaintingUrl { get; set; }
+    
+    public DateTime? BuyTimeStamp { get; set; }
 
     [Required]
     public Guid? RegisteredUserId { get; set; }
