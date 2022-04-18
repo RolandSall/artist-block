@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace account_service.Controllers.GanController;
 
-[Route("api/v1")]
 [ApiController]
+[Route("api/v1/account-service")]
 public class GanController : ControllerBase
 {
 

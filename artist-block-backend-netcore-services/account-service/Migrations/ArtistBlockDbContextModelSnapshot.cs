@@ -136,6 +136,10 @@ namespace account_service.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("PK_painting_id");
 
+                    b.Property<DateTime?>("BuyTimeStamp")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("buy_timestamp");
+
                     b.Property<string>("PaintedYear")
                         .IsRequired()
                         .HasColumnType("text")
@@ -180,6 +184,41 @@ namespace account_service.Migrations
                     b.HasIndex("RegisteredUserId");
 
                     b.ToTable("painting");
+                });
+
+            modelBuilder.Entity("account_service.Models.PaintingReview", b =>
+                {
+                    b.Property<Guid>("PaintingReviewId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("PK_painting_review_id");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("comment");
+
+                    b.Property<bool>("LikeStatus")
+                        .HasColumnType("boolean")
+                        .HasColumnName("like_status");
+
+                    b.Property<Guid>("PaintingId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("FK_painting_id");
+
+                    b.Property<Guid?>("RegisteredUserId")
+                        .IsRequired()
+                        .HasColumnType("uuid")
+                        .HasColumnName("FK_registered_user_id");
+
+                    b.Property<DateTime?>("Timestamp")
+                        .IsRequired()
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("timestamp");
+
+                    b.HasKey("PaintingReviewId");
+
+                    b.ToTable("PaintingReview");
                 });
 
             modelBuilder.Entity("account_service.Models.RegisteredUser", b =>

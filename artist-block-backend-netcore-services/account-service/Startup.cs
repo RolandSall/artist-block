@@ -7,6 +7,7 @@ using account_service.Repository.BuyRepo;
 
 using account_service.Repository.PaintingRepo;
 using account_service.Repository.RegistrationRepo;
+using account_service.Repository.ReviewRepo;
 using account_service.Repository.SearchRepo;
 using account_service.Repository.SpecialityRepo;
 using account_service.Service.CollectionService;
@@ -15,6 +16,7 @@ using account_service.Service.CurrentLoggedInService;
 using account_service.Service.GanService;
 using account_service.Service.PaintingService;
 using account_service.Service.RegistrationService;
+using account_service.Service.ReviewService;
 using account_service.Service.SearchService;
 using account_service.Service.SpecialityService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -49,7 +51,9 @@ namespace account_service{
             services.AddScoped<IPaintingService, PaintingService>();
             services.AddScoped<IPaintingRepo , PaintingRepo>();
 
-
+            services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IReviewRepo, ReviewRepo>();
+            
             services.AddScoped<ISpecialityRepo, SpecialityRepo>();
             services.AddScoped<ISpecialityService, SpecialityService>();
             
@@ -75,6 +79,7 @@ namespace account_service{
                                 .WithOrigins("http://localhost:3000") 
                                 .AllowAnyHeader()
                                 .AllowAnyMethod()
+                                .WithExposedHeaders("X-Pagination")
                                 .AllowCredentials();
 
                         }
@@ -83,12 +88,14 @@ namespace account_service{
                                 .WithOrigins("http://localhost:3000")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod()
+                                .WithExposedHeaders("X-Pagination")
                                 .AllowCredentials();
                         }
                         else
                         {
                             builder.AllowAnyHeader()
                                 .WithMethods("POST", "GET", "PUT")
+                                .WithExposedHeaders("X-Pagination")
                                 .WithOrigins("https://domain1.com", "https://domain2.com");
                         }
                     });

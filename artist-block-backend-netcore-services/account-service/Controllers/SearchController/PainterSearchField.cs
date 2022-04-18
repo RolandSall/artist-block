@@ -3,5 +3,5 @@
 public class PainterSearchField
 {
     public string? SearchCriteria { get; set; }
-    public SearchCriteriaType Type { get; set; }
+    //public SearchCriteriaType Type { get; set; }
 }

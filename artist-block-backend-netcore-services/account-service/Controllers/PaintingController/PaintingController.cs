@@ -1,4 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using account_service.CustomException;
 using account_service.DTO.Painting;
