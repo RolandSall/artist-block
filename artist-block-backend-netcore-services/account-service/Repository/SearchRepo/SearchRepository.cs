@@ -26,101 +26,87 @@ public class SearchRepository: ISearchRepository
             PaintingList = null,
             PainterList = null
         };
-
-        switch (searchCriteria.Type)
+        
+        if (words.Length == 1)
         {
-            case SearchCriteriaType.Painter:
-            {
-                if (words.Length == 1)
+            filterPainter = _context.Painters
+                .Include(l => l.RegisteredUser)
+                .Where(l => l.RegisteredUser.FirstName.ToLower().StartsWith(searchCriteria.SearchCriteria.ToLower())
+                            | l.RegisteredUser.LastName.ToLower()
+                                .StartsWith(searchCriteria.SearchCriteria.ToLower())
+                )
+                .Select(x => new PainterSearchHeader()
                 {
-                    filterPainter = _context.Painters
-                        .Include(l => l.RegisteredUser)
-                        .Where(l => l.RegisteredUser.FirstName.ToLower().StartsWith(searchCriteria.SearchCriteria.ToLower())
-                                    | l.RegisteredUser.LastName.ToLower()
-                                        .StartsWith(searchCriteria.SearchCriteria.ToLower())
-                        )
-                        .Select(x => new PainterSearchHeader()
-                        {
-                            PainterId = x.PainterId,
-                            FirstName = x.RegisteredUser.FirstName,
-                            LastName = x.RegisteredUser.LastName,
-                        }).ToList();
-                }
-                else
-                {
-                    filterPainter = _context.Painters
-                        .Include(l => l.RegisteredUser)
-                        .Where(l => l.RegisteredUser.FirstName.ToLower().Equals(words[0].ToLower())
-                                    && l.RegisteredUser.LastName.ToLower().StartsWith(words[1].ToLower())
-                        )
-                        .Select(x => new PainterSearchHeader()
-                        {
-                            PainterId = x.PainterId,
-                            FirstName = x.RegisteredUser.FirstName,
-                            LastName = x.RegisteredUser.LastName,
-                        }).ToList();
-                }
-
-                List<PainterSearchHeader> sortedList = new List<PainterSearchHeader>();
-
-                foreach (PainterSearchHeader painter in filterPainter)
-                {
-                    if (painter.FirstName[0].Equals(searchCriteria.SearchCriteria[0]))
-                    {
-                        sortedList.Insert(0, painter);
-                    }
-                    else
-                    {
-                        sortedList.Add(painter);
-                    }
-                }
-
-
-                SearchResult = new SearchResult()
-                {
-                    PainterList = sortedList
-                };
-                return SearchResult;
-            }
-            case SearchCriteriaType.Painting:
-            {
-                var filterPainting = _context.Paintings
-                    .Where(painting => painting.PaintingName.ToLower().StartsWith(searchCriteria.SearchCriteria.ToLower())
-                                       | painting.PaintedYear.ToLower().StartsWith(searchCriteria.SearchCriteria.ToLower())
-                    )
-                    .Select(x => new PaintingSearchHeader()
-                    {
-                        PaintingId = x.PainterId,
-                        PaintingName = x.PaintingName,
-                        PaintingYear = x.PaintedYear,
-                    }).ToList();
-           
-                List<PaintingSearchHeader> sortedList = new List<PaintingSearchHeader>();
-
-                foreach (PaintingSearchHeader paintingEntry in filterPainting)
-                {
-                    if (paintingEntry.PaintingName[0].Equals(searchCriteria.SearchCriteria[0]))
-                    {
-                        sortedList.Insert(0, paintingEntry);
-                    }
-                    else
-                    {
-                        sortedList.Add(paintingEntry);
-                    }
-                }
-
-                SearchResult = new SearchResult()
-                {
-                    PaintingList = sortedList,
-                
-                };
-
-                return SearchResult;
-            }
-            default:
-                return SearchResult;
+                    PainterId = x.PainterId,
+                    FirstName = x.RegisteredUser.FirstName,
+                    LastName = x.RegisteredUser.LastName,
+                }).ToList();
         }
+        else
+        {
+            filterPainter = _context.Painters
+                .Include(l => l.RegisteredUser)
+                .Where(l => l.RegisteredUser.FirstName.ToLower().Equals(words[0].ToLower())
+                            && l.RegisteredUser.LastName.ToLower().StartsWith(words[1].ToLower())
+                )
+                .Select(x => new PainterSearchHeader()
+                {
+                    PainterId = x.PainterId,
+                    FirstName = x.RegisteredUser.FirstName,
+                    LastName = x.RegisteredUser.LastName,
+                }).ToList();
+        }
+
+        List<PainterSearchHeader> PaintersortedList = new List<PainterSearchHeader>();
+
+        foreach (PainterSearchHeader painter in filterPainter)
+        {
+            if (painter.FirstName[0].Equals(searchCriteria.SearchCriteria[0]))
+            {
+                PaintersortedList.Insert(0, painter);
+            }
+            else
+            {
+                PaintersortedList.Add(painter);
+            }
+        }
+                
+        var filterPainting = _context.Paintings
+            .Where(painting => painting.PaintingName.ToLower().StartsWith(searchCriteria.SearchCriteria.ToLower())
+                               | painting.PaintedYear.ToLower().StartsWith(searchCriteria.SearchCriteria.ToLower())
+            )
+            .Select(x => new PaintingSearchHeader()
+            {
+                PaintingId = x.PainterId,
+                PaintingName = x.PaintingName,
+                PaintingYear = x.PaintedYear,
+            }).ToList();
+           
+        List<PaintingSearchHeader> PaintingsortedList = new List<PaintingSearchHeader>();
+
+        foreach (PaintingSearchHeader paintingEntry in filterPainting)
+        {
+            if (paintingEntry.PaintingName[0].Equals(searchCriteria.SearchCriteria[0]))
+            {
+                PaintingsortedList.Insert(0, paintingEntry);
+            }
+            else
+            {
+                PaintingsortedList.Add(paintingEntry);
+            }
+        }
+
+
+
+        SearchResult = new SearchResult()
+        {
+            PainterList = PaintersortedList,
+            PaintingList = PaintingsortedList
+        };
+
+        return SearchResult;
     }
+    
 
     public PagedList<Painting> FilterPainting(FindPaintingFilter filter, string auth0UserId)
     {
