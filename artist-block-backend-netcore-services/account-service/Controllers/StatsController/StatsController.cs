@@ -26,16 +26,19 @@ public class StatsController : ControllerBase
 
     [HttpGet]
     [Route("stats-users")]
-    public ActionResult GetNumPaintersAndUsers()
+    // Tuple: Number of Clients , Number of Painters
+    public ActionResult<Tuple<int,int>> GetNumPaintersAndUsers()
     {
-        // do not double count painters
-        return Ok();
+        var pair = _statsService.GetNumPaintersAndUsers();
+        return Ok(pair);
     }
 
     [HttpGet]
     [Route("stats-paintings")]
-    public ActionResult GetNumGanAndNormalPaintings()
+    // Tuple: Number of Normal Paintings, Number of Gan Images
+    public ActionResult<Tuple<int,int>> GetNumGanAndNormalPaintings()
     {
-        return Ok();
+        var pair = _statsService.GetNumGanAndNormalPaintings();
+        return Ok(pair);
     }
 }

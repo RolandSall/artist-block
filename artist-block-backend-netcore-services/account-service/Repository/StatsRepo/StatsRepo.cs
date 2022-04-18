@@ -22,4 +22,21 @@ public class StatsRepo : IStatsRepo
 
         return toReturn;
     }
+
+    public Tuple<int, int> GetNumPaintersAndUsers()
+    {
+        var totalUsers = _context.RegisteredUsers.Count();
+        var painters = _context.Painters.Count();
+        
+        // exclusively Users = total - painters
+        return new Tuple<int, int>( totalUsers - painters , painters  );
+    }
+
+    public Tuple<int, int> GetNumGanAndNormalPaintings()
+    {
+        var numGanImages = _context.GanGeneratedImages.Count();
+        var numPaintings = _context.Paintings.Count();
+
+        return new Tuple<int, int>( numPaintings , numGanImages );
+    }
 }

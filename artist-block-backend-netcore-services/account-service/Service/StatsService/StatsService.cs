@@ -16,4 +16,14 @@ public class StatsService : IStatsService
     {
         return _statsRepo.GetNumPaintersByCountry();
     }
+
+    public Tuple<int, int> GetNumPaintersAndUsers()
+    {
+        return _statsRepo.GetNumPaintersAndUsers();
+    }
+
+    public Tuple<int, int> GetNumGanAndNormalPaintings()
+    {
+        return _statsRepo.GetNumGanAndNormalPaintings();
+    }
 }

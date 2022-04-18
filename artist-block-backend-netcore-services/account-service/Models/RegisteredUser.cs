@@ -45,11 +45,8 @@ public class RegisteredUser {
     
     
     public virtual Painter Painter { get; set; }
-
     
     public virtual ICollection<Painting>? PaintingsBought { get; set; }
     
     public virtual ICollection<GanGeneratedImage>? ClaimedGanImages { get; set; }
-
-        
 }

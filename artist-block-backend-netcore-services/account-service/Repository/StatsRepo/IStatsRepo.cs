@@ -5,4 +5,6 @@ namespace account_service.Repository.StatsRepo;
 public interface IStatsRepo
 {
     IEnumerable<PaintersByCountry> GetNumPaintersByCountry();
+    Tuple<int,int> GetNumPaintersAndUsers();
+    Tuple<int,int> GetNumGanAndNormalPaintings();
 }
