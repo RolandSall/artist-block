@@ -3,6 +3,7 @@ using System.Text.Json;
 using account_service.Models;
 using account_service.Service.SearchService;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace account_service.Controllers.SearchController;
@@ -35,6 +36,7 @@ public class SearchController: ControllerBase
     
     [HttpGet]
     [Route("paintings/search")]
+    [Authorize]
     public ActionResult FilterPainting([FromQuery] FindPaintingFilter filter)
     {
         var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
