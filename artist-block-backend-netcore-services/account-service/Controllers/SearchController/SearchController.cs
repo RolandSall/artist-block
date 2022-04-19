@@ -36,7 +36,6 @@ public class SearchController: ControllerBase
     
     [HttpGet]
     [Route("paintings/search")]
-    [Authorize]
     public ActionResult FilterPainting([FromQuery] FindPaintingFilter filter)
     {
         var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
