@@ -132,7 +132,6 @@ public class SearchRepository: ISearchRepository
                 
                    var pagedList = PagedList<Painting>.ToPagedList(queryWithoutFilters, filter.PageNumber,
                        filter.PageSize);
-               pagedList.TotalPages = 1;
                return pagedList;
             }
 
