@@ -24,4 +24,10 @@ public class CollectionRepo: ICollectionRepo
             _context.Paintings.Where(painting => painting.RegisteredUserId.Equals(userId));
         return currentLoggedInUserPaintings;
     }
+
+    public IEnumerable<Painting> GetCurrentPainterOwnedPaintings(Guid painterId)
+    {
+        var ownedPainting = _context.Paintings.Where(painting => painting.PainterId.Equals(painterId));
+        return ownedPainting;
+    }
 }

@@ -66,7 +66,7 @@ public class RegistrationRepo: IRegistrationRepo
         return painter;
     }
     
-    public RegisteredUser GetUserInfromation(string auth0UserId)
+    public RegisteredUser GetUserInformation(string auth0UserId)
     {
         var ru = _context.AuthUsers
             .Where(auth => auth.Auth0Id.Equals(auth0UserId))
