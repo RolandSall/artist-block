@@ -17,12 +17,12 @@ public class StatsService : IStatsService
         return _statsRepo.GetNumPaintersByCountry();
     }
 
-    public Tuple<int, int> GetNumPaintersAndUsers()
+    public NumPaintersAndUsers GetNumPaintersAndUsers()
     {
         return _statsRepo.GetNumPaintersAndUsers();
     }
 
-    public Tuple<int, int> GetNumGanAndNormalPaintings()
+    public NumPaintingsAndGan GetNumGanAndNormalPaintings()
     {
         return _statsRepo.GetNumGanAndNormalPaintings();
     }

@@ -27,18 +27,20 @@ public class StatsController : ControllerBase
     [HttpGet]
     [Route("stats-users")]
     // Tuple: Number of Clients , Number of Painters
-    public ActionResult<Tuple<int,int>> GetNumPaintersAndUsers()
+    public ActionResult<NumPaintersAndUsers> GetNumPaintersAndUsers()
     {
-        var pair = _statsService.GetNumPaintersAndUsers();
-        return Ok(pair);
+        var toReturn = _statsService.GetNumPaintersAndUsers();
+
+        return Ok(toReturn);
     }
 
     [HttpGet]
     [Route("stats-paintings")]
     // Tuple: Number of Normal Paintings, Number of Gan Images
-    public ActionResult<Tuple<int,int>> GetNumGanAndNormalPaintings()
+    public ActionResult<NumPaintingsAndGan> GetNumGanAndNormalPaintings()
     {
-        var pair = _statsService.GetNumGanAndNormalPaintings();
-        return Ok(pair);
+        var toReturn = _statsService.GetNumGanAndNormalPaintings();
+        
+        return Ok(toReturn);
     }
 }

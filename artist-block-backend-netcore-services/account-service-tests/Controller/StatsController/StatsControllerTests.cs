@@ -27,7 +27,8 @@ public class StatsControllerTests
     };
 
     // used for both GetNumPaintersAndUsers and GetNumGanAndNormalPaintings tests
-    private readonly Tuple<int, int> _expectedTuple = new Tuple<int, int>(10, 20);
+    private readonly NumPaintersAndUsers _expectedPaintersAndUsers= new (){numPainters = 10, numUsers = 20};
+    private readonly NumPaintingsAndGan _expectedPaintingsAndGan = new() { numGans = 10 , numPaintings = 20};
 
     [Fact]
     public void GetNumPaintersByCountry_ReturnsOkWithEntries()
@@ -51,7 +52,7 @@ public class StatsControllerTests
     {
         // Arrange
         _statsService.Setup(service => service.GetNumPaintersAndUsers())
-            .Returns(_expectedTuple);
+            .Returns(_expectedPaintersAndUsers);
         
         var controller = new account_service.Controllers.StatsController.StatsController( _mapper.Object , _statsService.Object );
         
@@ -60,7 +61,7 @@ public class StatsControllerTests
         var containedValue = (returned.Result as OkObjectResult).Value;
         // Assert 
 
-        containedValue.Should().BeEquivalentTo(_expectedTuple);
+        containedValue.Should().BeEquivalentTo(_expectedPaintersAndUsers);
     }
 
     [Fact]
@@ -68,7 +69,7 @@ public class StatsControllerTests
     {
         // Arrange
         _statsService.Setup(service => service.GetNumGanAndNormalPaintings())
-            .Returns(_expectedTuple);
+            .Returns(_expectedPaintingsAndGan);
         
         var controller = new account_service.Controllers.StatsController.StatsController( _mapper.Object , _statsService.Object );
         
@@ -77,7 +78,7 @@ public class StatsControllerTests
         var containedValue = (returned.Result as OkObjectResult).Value;
         // Assert 
 
-        containedValue.Should().BeEquivalentTo(_expectedTuple);
+        containedValue.Should().BeEquivalentTo(_expectedPaintingsAndGan);
     }
 
 
