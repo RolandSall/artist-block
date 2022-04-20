@@ -11,7 +11,6 @@ namespace account_service.Controllers.GanController;
 [Route("api/v1/account-service")]
 public class GanController : ControllerBase
 {
-
     private readonly IGanService _ganService;
 
     public GanController(IGanService ganService)
@@ -28,15 +27,16 @@ public class GanController : ControllerBase
         {   
             var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             // TODO: Create A Mapper Once The Object Becomes Bigger
-            Guid paintingId = _ganService.ClaimGanImage(claimGanImageDto.Description, auth0UserId);
+            var paintingId = _ganService.ClaimGanImage(claimGanImageDto.Description, auth0UserId);
             //TODO: Same for Read Mapper
-            ReadClaimGanImageDto readClaimGanImageDto = new ReadClaimGanImageDto()
+            var readClaimGanImageDto = new ReadClaimGanImageDto()
             {
                 GanImageId = paintingId
             };
             return Ok(readClaimGanImageDto);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             Console.WriteLine(e);
             return Problem(e.GetBaseException().ToString());
         }
@@ -69,15 +69,15 @@ public class GanController : ControllerBase
     public ActionResult GetAllClaimedGanImagesForClient()
     {
         try
-        {   
-            
+        {
             var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         
             var ganImagesList = _ganService.GetAllClaimedGanImagesForClient(auth0UserId);
             //TODO: READ MAPPER IS NEEDED 
             return Ok(ganImagesList);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             Console.WriteLine(e);
             return Problem(e.GetBaseException().ToString());
         }

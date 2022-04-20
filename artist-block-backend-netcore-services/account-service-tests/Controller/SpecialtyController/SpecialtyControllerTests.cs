@@ -8,7 +8,6 @@ using account_service.Repository.RegistrationRepo;
 using account_service.Service.SpecialityService;
 using AutoMapper;
 using FluentAssertions;
-using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
@@ -124,9 +123,5 @@ public class SpecialtyControllerTests
         var value = controller.GetAllSpecialities();
         value.Should().BeOfType<ObjectResult>();
     }
-    
-    
-    
-    
 }
     
