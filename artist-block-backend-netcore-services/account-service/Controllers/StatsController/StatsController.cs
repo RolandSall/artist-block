@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace account_service.Controllers.StatsController;
 
+[Route("api/v1")]
 public class StatsController : ControllerBase
 {
     private readonly IStatsService _statsService;
