@@ -87,7 +87,7 @@ public class UserRegistrationController: ControllerBase
         }
         catch (RegistrationFailedException e)
         {
-            return Problem(e.message);
+            return Problem(e.Message);
         }
         catch (Exception e) {
             Console.WriteLine(e);

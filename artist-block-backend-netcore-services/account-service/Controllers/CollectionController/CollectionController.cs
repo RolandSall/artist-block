@@ -1,10 +1,7 @@
 ﻿using System.Security.Claims;
 using account_service.CustomException;
-using account_service.DTO.Current;
 using account_service.DTO.Painting;
 using account_service.Service.CollectionService;
-using account_service.Service.CurrentLoggedInService;
-using account_service.ValueObjects;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +34,7 @@ public class CollectionController: ControllerBase
             return Ok(currentLoggedInUserPaintingDto);
         }catch (UserNotFoundException e)
         {
-            return NotFound(e.message);
+            return NotFound(e.Message);
         }
         catch (Exception e) {
             Console.WriteLine(e);
@@ -58,7 +55,7 @@ public class CollectionController: ControllerBase
             return Ok(currentLoggedInUserPaintingDto);
         }catch (UserNotFoundException e)
         {
-            return NotFound(e.message);
+            return NotFound(e.Message);
         }
         catch (Exception e) {
             Console.WriteLine(e);
@@ -78,7 +75,7 @@ public class CollectionController: ControllerBase
             return Ok(currentLoggedInUserPaintingDto);
         }catch (UserNotFoundException e)
         {
-            return NotFound(e.message);
+            return NotFound(e.Message);
         }
         catch (Exception e) {
             Console.WriteLine(e);

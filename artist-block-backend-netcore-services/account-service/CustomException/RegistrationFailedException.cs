@@ -2,14 +2,7 @@
 
 public class RegistrationFailedException : Exception
 {
-    public string? message { get; }
+    public RegistrationFailedException() {}
 
-    public RegistrationFailedException()
-    {
-    }
-
-    public RegistrationFailedException(string? message) : base(message)
-    {
-        this.message = message;
-    }
+    public RegistrationFailedException(string? message) : base(message) {}
 }

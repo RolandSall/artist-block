@@ -55,7 +55,7 @@ public class GanController : ControllerBase
         }
         catch (GanGeneratedImageNotFoundException e)
         {
-            return NotFound(e.message);
+            return NotFound(e.Message);
         }
         catch (Exception e) {
             Console.WriteLine(e);
