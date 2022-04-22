@@ -10,4 +10,5 @@ public interface IPaintingService
     IEnumerable<Painting> GetPaintingsForPainter(Guid painterId);
     Task UploadImage(IFormFile image, string auth0UserId, Guid paintingId);
     IEnumerable<Painting> GetNRandomPaintingsForSale(int number);
+    Painting GetPaintingByPaintingId(Guid paintingId);
 }

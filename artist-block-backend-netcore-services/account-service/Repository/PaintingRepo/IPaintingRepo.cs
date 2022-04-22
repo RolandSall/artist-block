@@ -9,4 +9,5 @@ public interface IPaintingRepo
     Painting GetPaintingInformation(Guid painterId);
     Task AddImageReference(Painting currentPainting, string url);
     IEnumerable<Painting> GetNRandomPaintingsForSale(int number);
+    Painting GetPaintingByPaintingId(Guid paintingId);
 }

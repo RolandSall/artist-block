@@ -63,4 +63,10 @@ public class PaintingRepo : IPaintingRepo
 
         return paintings;
     }
+
+    public Painting GetPaintingByPaintingId(Guid paintingId)
+    {
+        var paintings = _context.Paintings.Where(painting => painting.PaintingId.Equals(paintingId)).FirstOrDefault();
+        return paintings;
+    }
 }
