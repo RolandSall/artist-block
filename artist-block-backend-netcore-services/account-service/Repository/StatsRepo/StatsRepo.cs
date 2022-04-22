@@ -23,13 +23,17 @@ public class StatsRepo : IStatsRepo
         return toReturn;
     }
 
-    public NumPaintersAndUsers GetNumPaintersAndUsers()
+    public IEnumerable<IdAndValue> GetNumPaintersAndUsers()
     {
         var totalUsers = _context.RegisteredUsers.Count();
         var painters = _context.Painters.Count();
         
         // exclusively Users = total - painters
-        return new NumPaintersAndUsers {numPainters = painters, numUsers = totalUsers - painters};
+        return new List<IdAndValue>()
+        {
+            new() {Id = "Client", Value = totalUsers - painters},
+            new() {Id = "Painter", Value = painters}
+        };
     }
 
     public NumPaintingsAndGan GetNumGanAndNormalPaintings()

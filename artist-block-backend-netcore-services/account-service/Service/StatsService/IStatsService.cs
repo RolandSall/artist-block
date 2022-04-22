@@ -5,6 +5,6 @@ namespace account_service.Service.StatsService;
 public interface IStatsService
 {
     public IEnumerable<PaintersByCountry> GetNumPaintersByCountry();
-    NumPaintersAndUsers GetNumPaintersAndUsers();
+    IEnumerable<IdAndValue> GetNumPaintersAndUsers();
     NumPaintingsAndGan GetNumGanAndNormalPaintings();
 }

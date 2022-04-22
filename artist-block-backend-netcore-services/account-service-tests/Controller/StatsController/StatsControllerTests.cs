@@ -13,8 +13,6 @@ namespace account_service_tests.Controller.StatsController;
 public class StatsControllerTests
 {
     // // create an automapper instance
-    // private static readonly List<Profile> Profiles = new() { new PaintingProfile() };
-    // private readonly IMapper _mapper = new MapperConfiguration(mc => mc.AddProfiles(Profiles)).CreateMapper();
 
     private readonly Mock<IMapper> _mapper = new();
     private readonly Mock<IStatsService> _statsService = new();
@@ -27,7 +25,12 @@ public class StatsControllerTests
     };
 
     // used for both GetNumPaintersAndUsers and GetNumGanAndNormalPaintings tests
-    private readonly NumPaintersAndUsers _expectedPaintersAndUsers= new (){numPainters = 10, numUsers = 20};
+    private readonly List<IdAndValue> _expectedPaintersAndUsers= new List<IdAndValue>()
+    {
+        new() {Id = "Client", Value = 20 },
+        new() {Id = "Painter", Value = 10},
+    };
+    
     private readonly NumPaintingsAndGan _expectedPaintingsAndGan = new() { numGans = 10 , numPaintings = 20};
 
     [Fact]
@@ -60,7 +63,7 @@ public class StatsControllerTests
         var returned = controller.GetNumPaintersAndUsers();
         var containedValue = (returned.Result as OkObjectResult).Value;
         // Assert 
-
+    
         containedValue.Should().BeEquivalentTo(_expectedPaintersAndUsers);
     }
 

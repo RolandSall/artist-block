@@ -27,8 +27,7 @@ public class StatsController : ControllerBase
 
     [HttpGet]
     [Route("stats-users")]
-    // Tuple: Number of Clients , Number of Painters
-    public ActionResult<NumPaintersAndUsers> GetNumPaintersAndUsers()
+    public ActionResult<IEnumerable<IdAndValue>> GetNumPaintersAndUsers()
     {
         var toReturn = _statsService.GetNumPaintersAndUsers();
 
@@ -37,7 +36,6 @@ public class StatsController : ControllerBase
 
     [HttpGet]
     [Route("stats-paintings")]
-    // Tuple: Number of Normal Paintings, Number of Gan Images
     public ActionResult<NumPaintingsAndGan> GetNumGanAndNormalPaintings()
     {
         var toReturn = _statsService.GetNumGanAndNormalPaintings();

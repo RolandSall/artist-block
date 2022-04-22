@@ -17,7 +17,7 @@ public class StatsService : IStatsService
         return _statsRepo.GetNumPaintersByCountry();
     }
 
-    public NumPaintersAndUsers GetNumPaintersAndUsers()
+    public IEnumerable<IdAndValue> GetNumPaintersAndUsers()
     {
         return _statsRepo.GetNumPaintersAndUsers();
     }
