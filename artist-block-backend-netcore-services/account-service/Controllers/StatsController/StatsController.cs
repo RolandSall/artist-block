@@ -30,7 +30,6 @@ public class StatsController : ControllerBase
     public ActionResult<IEnumerable<IdAndValue>> GetNumPaintersAndUsers()
     {
         var toReturn = _statsService.GetNumPaintersAndUsers();
-
         return Ok(toReturn);
     }
 
@@ -39,7 +38,14 @@ public class StatsController : ControllerBase
     public ActionResult<NumPaintingsAndGan> GetNumGanAndNormalPaintings()
     {
         var toReturn = _statsService.GetNumGanAndNormalPaintings();
-        
+        return Ok(toReturn);
+    }
+
+    [HttpGet]
+    [Route("stats-specialty")]
+    public ActionResult<IEnumerable<IdAndValue>> GetNumPaintersBySpecialty()
+    {
+        var toReturn = _statsService.GetNumPaintersBySpecialty();
         return Ok(toReturn);
     }
 }

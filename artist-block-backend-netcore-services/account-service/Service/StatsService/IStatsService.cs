@@ -7,4 +7,5 @@ public interface IStatsService
     public IEnumerable<IdAndValue> GetNumPaintersByCountry();
     IEnumerable<IdAndValue> GetNumPaintersAndUsers();
     NumPaintingsAndGan GetNumGanAndNormalPaintings();
+    IEnumerable<IdAndValue> GetNumPaintersBySpecialty();
 }

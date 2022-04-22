@@ -43,4 +43,20 @@ public class StatsRepo : IStatsRepo
 
         return new NumPaintingsAndGan{numGans = numGanImages , numPaintings = numPaintings};
     }
+
+    public IEnumerable<IdAndValue> GetNumPaintersBySpecialty()
+    {
+        var toReturn = (from psp in _context.PainterSpecialities
+            join sp in _context.Specialities on psp.SpecialityId equals sp.SpecialityId
+            join p in _context.Painters on psp.PainterId equals p.PainterId
+            group psp by sp.SpecialityType
+            into newGroup
+            select new IdAndValue()
+            {
+                Id = newGroup.Key,
+                Value = newGroup.Count(),
+            });
+        
+        return toReturn;
+    }
 }

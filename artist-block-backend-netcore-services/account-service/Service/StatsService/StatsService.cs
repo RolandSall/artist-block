@@ -26,4 +26,9 @@ public class StatsService : IStatsService
     {
         return _statsRepo.GetNumGanAndNormalPaintings();
     }
+
+    public IEnumerable<IdAndValue> GetNumPaintersBySpecialty()
+    {
+        return _statsRepo.GetNumPaintersBySpecialty();
+    }
 }
