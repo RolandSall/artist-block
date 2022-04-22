@@ -148,11 +148,13 @@ public class SearchRepository: ISearchRepository
                     ? true
                     : l.PaintingPrice >= filter.RateStart && l.PaintingPrice <= filter.RateEnd
                 );
+             
+          
+            var pagedFilterList = PagedList<Painting>.ToPagedList(paintingQuery, filter.PageNumber,
+                filter.PageSize);
+           
+            return pagedFilterList;
 
-            IQueryable<Painting> filteredPainting = _context.Paintings.Where(l => l.PaintingStatus.Equals("For Sale"));
-            return new PagedList<Painting>(paintingQuery.ToList(),  filteredPainting.Count(),
-                filter.PageNumber, filter.PageSize);
-         
     }
 
     private bool FiltersNotApplied(FindPaintingFilter paintingFilter)
