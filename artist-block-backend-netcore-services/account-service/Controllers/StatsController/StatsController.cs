@@ -19,7 +19,7 @@ public class StatsController : ControllerBase
 
     [HttpGet]
     [Route("stats-country")]
-    public ActionResult<IEnumerable<PaintersByCountry>> GetNumPaintersByCountry()
+    public ActionResult<IEnumerable<IdAndValue>> GetNumPaintersByCountry()
     {
         var entries = _statsService.GetNumPaintersByCountry();
         return Ok(entries);

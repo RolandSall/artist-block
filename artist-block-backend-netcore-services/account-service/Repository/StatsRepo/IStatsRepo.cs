@@ -4,7 +4,7 @@ namespace account_service.Repository.StatsRepo;
 
 public interface IStatsRepo
 {
-    IEnumerable<PaintersByCountry> GetNumPaintersByCountry();
+    IEnumerable<IdAndValue> GetNumPaintersByCountry();
     IEnumerable<IdAndValue> GetNumPaintersAndUsers();
     NumPaintingsAndGan GetNumGanAndNormalPaintings();
 }

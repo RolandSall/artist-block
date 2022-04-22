@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using account_service.Service.StatsService;
 using account_service.ValueObjects;
@@ -17,11 +16,11 @@ public class StatsControllerTests
     private readonly Mock<IMapper> _mapper = new();
     private readonly Mock<IStatsService> _statsService = new();
 
-    private readonly List<PaintersByCountry> _expectedList = new()
+    private readonly List<IdAndValue> _expectedList = new()
     {
-        new PaintersByCountry {Count = 2,Location = "Uzbekistan"},
-        new PaintersByCountry {Count = 10,Location = "Pakistan"},
-        new PaintersByCountry(){Count = 15,Location = "Kazakhstan"},
+        new IdAndValue {Value = 2,Id = "Uzbekistan"},
+        new IdAndValue {Value = 10,Id = "Pakistan"},
+        new IdAndValue(){Value = 15,Id = "Kazakhstan"},
     };
 
     // used for both GetNumPaintersAndUsers and GetNumGanAndNormalPaintings tests
@@ -46,7 +45,7 @@ public class StatsControllerTests
         var returned = controller.GetNumPaintersByCountry();
         var containedValue = (returned.Result as OkObjectResult).Value;
         // Assert 
-
+    
         containedValue.Should().BeEquivalentTo(_expectedList);
     }
 

@@ -11,13 +11,13 @@ public class StatsRepo : IStatsRepo
         _context = context;
     }
     
-    public IEnumerable<PaintersByCountry> GetNumPaintersByCountry()
+    public IEnumerable<IdAndValue> GetNumPaintersByCountry()
     {
         var toReturn = _context.Painters.GroupBy(painter => painter.Location)
-            .Select(group => new PaintersByCountry()
+            .Select(group => new IdAndValue()
             {
-                Location = group.Key,
-                Count = group.Count(),
+                Id = group.Key,
+                Value = group.Count(),
             }).ToList();
 
         return toReturn;

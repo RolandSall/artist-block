@@ -12,7 +12,7 @@ public class StatsService : IStatsService
         _statsRepo = statsRepo;
     }
     
-    public IEnumerable<PaintersByCountry> GetNumPaintersByCountry()
+    public IEnumerable<IdAndValue> GetNumPaintersByCountry()
     {
         return _statsRepo.GetNumPaintersByCountry();
     }
