@@ -3,7 +3,6 @@ using account_service.CustomException;
 using account_service.DTO.Current;
 using account_service.DTO.Registration;
 using account_service.Service.CurrentLoggedInService;
-using account_service.Service.RegistrationService;
 using account_service.ValueObjects;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -38,7 +37,7 @@ public class CurrentLoggedInController: ControllerBase
             return Ok(readPainterDto);
         }catch (UserNotFoundException e)
         {
-            return NotFound(e.message);
+            return NotFound(e.Message);
         }
         catch (Exception e) {
             Console.WriteLine(e);
@@ -59,7 +58,7 @@ public class CurrentLoggedInController: ControllerBase
             return Ok(readCurrentUserDto);
         }catch (UserNotFoundException e)
         {
-            return NotFound(e.message);
+            return NotFound(e.Message);
         }
         catch (Exception e) {
             Console.WriteLine(e);

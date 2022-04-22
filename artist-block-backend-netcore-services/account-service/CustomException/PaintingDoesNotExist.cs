@@ -2,14 +2,7 @@
 
 public class PaintingDoesNotExist : Exception
 {
-    public string? message { get; }
+    public PaintingDoesNotExist() {}
 
-    public PaintingDoesNotExist()
-    {
-    }
-
-    public PaintingDoesNotExist(string? message) : base(message)
-    {
-        this.message = message;
-    }
+    public PaintingDoesNotExist(string? message) : base(message) {}
 }

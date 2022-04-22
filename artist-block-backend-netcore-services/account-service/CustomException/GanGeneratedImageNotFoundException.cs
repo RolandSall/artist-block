@@ -2,14 +2,6 @@
 
 public class GanGeneratedImageNotFoundException : Exception
 {
-    public string? message { get; }
-
-    public GanGeneratedImageNotFoundException()
-    {
-    }
-
-    public GanGeneratedImageNotFoundException(string? message) : base(message)
-    {
-        this.message = message;
-    }
+    public GanGeneratedImageNotFoundException() {}
+    public GanGeneratedImageNotFoundException(string? message) : base(message) {}
 }

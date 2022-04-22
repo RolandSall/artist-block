@@ -20,7 +20,7 @@ public class SpecialityRepo: ISpecialityRepo
 
         if (doesExistBefore != null)
         {
-            throw new SpecialityAlreadyExistException("Speciality Already Exist");
+            throw new SpecialityAlreadyExistsException("Speciality Already Exist");
         }
 
 
