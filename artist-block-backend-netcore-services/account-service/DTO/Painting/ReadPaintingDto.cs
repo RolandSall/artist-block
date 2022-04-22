@@ -23,6 +23,8 @@ public class ReadPaintingDto
     // on sale, sold ...
     public string? PaintingStatus { get; set; }
     
+    public DateTime? BoughtTimeStamp { get; set; }
+    
     public string? PaintingUrl { get; set; }
     
     public DateTime? BuyTimeStamp { get; set; }

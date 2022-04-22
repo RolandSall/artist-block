@@ -136,6 +136,10 @@ namespace account_service.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("PK_painting_id");
 
+                    b.Property<DateTime?>("BoughtTimeStamp")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("bought_timestamp");
+
                     b.Property<DateTime?>("BuyTimeStamp")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("buy_timestamp");

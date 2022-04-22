@@ -35,6 +35,9 @@ public class Painting
     [Column("buy_timestamp")]
     public DateTime? BuyTimeStamp { get; set; }
     
+    [Column("bought_timestamp")]
+    public DateTime? BoughtTimeStamp { get; set; }
+    
     [Column("painting_url")]
     public string? PaintingUrl { get; set; }
     
