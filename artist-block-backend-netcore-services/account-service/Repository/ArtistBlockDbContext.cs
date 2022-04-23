@@ -3,13 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace account_service.Repository;
 
-
 public class ArtistBlockDbContext: DbContext {
-        public ArtistBlockDbContext(DbContextOptions<ArtistBlockDbContext> options): base(options){
-                
-      
-            
-        }
+        public ArtistBlockDbContext(DbContextOptions<ArtistBlockDbContext> options): base(options) { }
         public DbSet<Painter> Painters { get; set; }
         public DbSet<RegisteredUser> RegisteredUsers { get; set; }
         public DbSet<AuthUser> AuthUsers { get; set; }
@@ -19,7 +14,5 @@ public class ArtistBlockDbContext: DbContext {
         public DbSet<Painting> Paintings { get; set; }
         public DbSet<PaintingReview> PaintingReview { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder) { }
 }
