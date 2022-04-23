@@ -4,7 +4,7 @@ using account_service.Controllers.PaintingController;
 using account_service.CustomException;
 using account_service.DTO.Painting;
 using account_service.Models;
-using account_service.Profile.Painting;
+using account_service.Profile.PaintingProfile;
 using account_service.Repository.PaintingRepo;
 using account_service.Service.PaintingService;
 using AutoMapper;

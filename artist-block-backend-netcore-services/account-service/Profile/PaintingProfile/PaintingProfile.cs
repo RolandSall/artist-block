@@ -1,8 +1,6 @@
 ﻿using account_service.DTO.Painting;
-using account_service.DTO.Registration;
-using account_service.Models;
 
-namespace account_service.Profile.Painting;
+namespace account_service.Profile.PaintingProfile;
 
 public class PaintingProfile : AutoMapper.Profile
 {
