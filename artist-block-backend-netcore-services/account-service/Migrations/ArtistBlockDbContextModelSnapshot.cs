@@ -208,12 +208,12 @@ namespace account_service.Migrations
 
                     b.Property<Guid>("PaintingId")
                         .HasColumnType("uuid")
-                        .HasColumnName("FK_painting_id");
+                        .HasColumnName("FK_painting_review_painting_id");
 
                     b.Property<Guid?>("RegisteredUserId")
                         .IsRequired()
                         .HasColumnType("uuid")
-                        .HasColumnName("FK_registered_user_id");
+                        .HasColumnName("FK_painting_review_registered_user_id");
 
                     b.Property<DateTime?>("Timestamp")
                         .IsRequired()
@@ -221,6 +221,10 @@ namespace account_service.Migrations
                         .HasColumnName("timestamp");
 
                     b.HasKey("PaintingReviewId");
+
+                    b.HasIndex("PaintingId");
+
+                    b.HasIndex("RegisteredUserId");
 
                     b.ToTable("PaintingReview");
                 });
@@ -350,6 +354,25 @@ namespace account_service.Migrations
                     b.HasOne("account_service.Models.RegisteredUser", null)
                         .WithMany("PaintingsBought")
                         .HasForeignKey("RegisteredUserId");
+                });
+
+            modelBuilder.Entity("account_service.Models.PaintingReview", b =>
+                {
+                    b.HasOne("account_service.Models.Painting", "Painting")
+                        .WithMany()
+                        .HasForeignKey("PaintingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("account_service.Models.RegisteredUser", "RegisteredUser")
+                        .WithMany()
+                        .HasForeignKey("RegisteredUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Painting");
+
+                    b.Navigation("RegisteredUser");
                 });
 
             modelBuilder.Entity("account_service.Models.Painter", b =>
