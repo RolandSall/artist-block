@@ -24,7 +24,7 @@ public class CollectionController: ControllerBase
     [HttpGet]
     [Route("current/paintings")]
     [Authorize]
-    public ActionResult GetCurrentLoggedInUserPaintingCollection()
+    public ActionResult<IEnumerable<ReadPaintingDto>> GetCurrentLoggedInUserPaintingCollection()
     {
         try
         {
@@ -32,11 +32,13 @@ public class CollectionController: ControllerBase
             var currentLoggedInUserPainting = _collectionService.GetCurrentLoggedInUserPaintingCollection(auth0UserId);
             var currentLoggedInUserPaintingDto = _mapper.Map<IEnumerable<ReadPaintingDto>>(currentLoggedInUserPainting);
             return Ok(currentLoggedInUserPaintingDto);
-        }catch (UserNotFoundException e)
+        }
+        catch (UserNotFoundException e)
         {
             return NotFound(e.Message);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             Console.WriteLine(e);
             return Problem(e.GetBaseException().ToString());
         }
@@ -45,7 +47,7 @@ public class CollectionController: ControllerBase
     [HttpGet]
     [Route("current-painter/paintings")]
     [Authorize]
-    public ActionResult GetCurrentPainterOwnedPaintings()
+    public ActionResult<IEnumerable<ReadPaintingDto>> GetCurrentPainterOwnedPaintings()
     {
         try
         {
@@ -53,11 +55,13 @@ public class CollectionController: ControllerBase
             var currentLoggedInUserPainting = _collectionService.GetCurrentPainterOwnedPaintings(auth0UserId);
             var currentLoggedInUserPaintingDto = _mapper.Map<IEnumerable<ReadPaintingDto>>(currentLoggedInUserPainting);
             return Ok(currentLoggedInUserPaintingDto);
-        }catch (UserNotFoundException e)
+        }
+        catch (UserNotFoundException e)
         {
             return NotFound(e.Message);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             Console.WriteLine(e);
             return Problem(e.GetBaseException().ToString());
         }
@@ -66,18 +70,20 @@ public class CollectionController: ControllerBase
     [HttpGet]
     [Route("collection/paintings/{userId}")]
     [Authorize]
-    public ActionResult GetPaintingCollectionByUserId(Guid userId)
+    public ActionResult<IEnumerable<ReadPaintingDto>> GetPaintingCollectionByUserId(Guid userId)
     {
         try
         {
             var currentLoggedInUserPainting = _collectionService.GetPaintingCollectionByUserId(userId);
             var currentLoggedInUserPaintingDto = _mapper.Map<IEnumerable<ReadPaintingDto>>(currentLoggedInUserPainting);
             return Ok(currentLoggedInUserPaintingDto);
-        }catch (UserNotFoundException e)
+        }
+        catch (UserNotFoundException e)
         {
             return NotFound(e.Message);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             Console.WriteLine(e);
             return Problem(e.GetBaseException().ToString());
         }
