@@ -39,7 +39,8 @@ public class GanRepo: IGanRepo
 
     public GanGeneratedImage GetGanImageById(Guid id)
     {
-        var ganImage = _context.GanGeneratedImages.First(image => image.GanImageId == id);
+        
+        var ganImage = _context.GanGeneratedImages.FirstOrDefault(image => image.GanImageId.Equals(id));
 
         if (ganImage == null)
             throw new ContentNotFoundById($"could not find gan image with id: {id} !");

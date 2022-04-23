@@ -86,12 +86,12 @@ public class GanController : ControllerBase
     }
 
     [HttpGet]
-    [Route("gan-image/{id}")]
-    public ActionResult<GanGeneratedImage> GetGanImageById(Guid id)
+    [Route("gan-image/{ganImageId}")]
+    public ActionResult<GanGeneratedImage> GetGanImageById(Guid ganImageId)
     {
         try
         {
-            var ganImage = _ganService.GetGanImageById(id);
+            var ganImage = _ganService.GetGanImageById(ganImageId);
             return Ok(ganImage);
         }
         catch (ContentNotFoundById exc)
