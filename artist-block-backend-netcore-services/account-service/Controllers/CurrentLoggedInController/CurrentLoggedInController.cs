@@ -35,11 +35,13 @@ public class CurrentLoggedInController: ControllerBase
             var registeredPainter = _currentLoggedInService.GetCurrentLoggedInPainterInfo(auth0UserId);
             var readPainterDto = _mapper.Map<ReadPainterDto>(registeredPainter);
             return Ok(readPainterDto);
-        }catch (UserNotFoundException e)
+        }
+        catch (UserNotFoundException e)
         {
             return NotFound(e.Message);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             Console.WriteLine(e);
             return Problem(e.GetBaseException().ToString());
         }
@@ -56,11 +58,13 @@ public class CurrentLoggedInController: ControllerBase
             var currentLoggedInUser = _currentLoggedInService.GetCurrentLoggedInUser(auth0UserId);
             var readCurrentUserDto = _mapper.Map<CurrentUser, ReadCurrentLoggedInUserDto>(currentLoggedInUser);
             return Ok(readCurrentUserDto);
-        }catch (UserNotFoundException e)
+        }
+        catch (UserNotFoundException e)
         {
             return NotFound(e.Message);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             Console.WriteLine(e);
             return Problem(e.GetBaseException().ToString());
         }
