@@ -1,4 +1,5 @@
 using account_service.Models;
+using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.Mapping;
 
 namespace account_service.Repository.PaintingRepo;
@@ -66,7 +67,9 @@ public class PaintingRepo : IPaintingRepo
 
     public Painting GetPaintingByPaintingId(Guid paintingId)
     {
-        var paintings = _context.Paintings.Where(painting => painting.PaintingId.Equals(paintingId)).FirstOrDefault();
+        var paintings = _context.Paintings
+            .Include(painting => painting.Painter.RegisteredUser)
+            .Where(painting => painting.PaintingId.Equals(paintingId)).FirstOrDefault();
         return paintings;
     }
 }

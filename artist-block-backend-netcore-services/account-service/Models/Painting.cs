@@ -47,4 +47,7 @@ public class Painting
     [Column("FK_painting_painter_id")]
     [Required]
     public Guid PainterId { get; set; }
+    
+    
+    public virtual Painter? Painter { get; set; }
 }
