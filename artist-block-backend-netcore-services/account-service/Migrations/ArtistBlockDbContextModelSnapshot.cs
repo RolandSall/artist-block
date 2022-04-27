@@ -341,7 +341,7 @@ namespace account_service.Migrations
 
             modelBuilder.Entity("account_service.Models.Painting", b =>
                 {
-                    b.HasOne("account_service.Models.Painter", null)
+                    b.HasOne("account_service.Models.Painter", "Painter")
                         .WithMany("Paintings")
                         .HasForeignKey("PainterId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -350,6 +350,8 @@ namespace account_service.Migrations
                     b.HasOne("account_service.Models.RegisteredUser", null)
                         .WithMany("PaintingsBought")
                         .HasForeignKey("RegisteredUserId");
+
+                    b.Navigation("Painter");
                 });
 
             modelBuilder.Entity("account_service.Models.Painter", b =>
