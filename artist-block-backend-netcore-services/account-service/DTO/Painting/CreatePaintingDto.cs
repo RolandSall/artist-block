@@ -19,4 +19,8 @@ public class CreatePaintingDto
     [Required]
     // on sale, sold ...
     public string? PaintingStatus { get; set; }
+    
+    
+    public DateTime? BuyTimeStamp { get; set; }
+    
 }

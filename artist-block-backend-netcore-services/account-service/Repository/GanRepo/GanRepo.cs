@@ -1,4 +1,5 @@
-﻿using account_service.Models;
+﻿using account_service.CustomException;
+using account_service.Models;
 
 namespace account_service.Repository.GanRepo;
 
@@ -34,5 +35,16 @@ public class GanRepo: IGanRepo
     {
         var ganList = _context.GanGeneratedImages.Where(ganImg => ganImg.RegisteredUserId.Equals(userId));
         return ganList;
+    }
+
+    public GanGeneratedImage GetGanImageById(Guid id)
+    {
+        
+        var ganImage = _context.GanGeneratedImages.FirstOrDefault(image => image.GanImageId.Equals(id));
+
+        if (ganImage == null)
+            throw new ContentNotFoundById($"could not find gan image with id: {id} !");
+
+        return ganImage;
     }
 }

@@ -50,4 +50,5 @@ public class Painting
     
     public virtual ICollection<PaintingReview>? Reviews { get; set; }
     
+    public virtual Painter? Painter { get; set; }
 }
