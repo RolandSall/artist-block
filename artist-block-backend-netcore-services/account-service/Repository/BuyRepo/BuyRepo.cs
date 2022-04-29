@@ -29,6 +29,8 @@ public class BuyRepo: IBuyRepo
         }
         
         painting.RegisteredUserId = userId;
+        painting.PaintingStatus = "Sold";
+        painting.BoughtTimeStamp = DateTime.Now;
 
         _context.Paintings.Update(painting);
         _context.SaveChanges();

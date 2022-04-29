@@ -43,13 +43,11 @@ public class RegisteredUser {
     [Column("birth_date")]
     public DateTime? BirthDate { get; set; }
     
-    
     public virtual Painter Painter { get; set; }
-
     
     public virtual ICollection<Painting>? PaintingsBought { get; set; }
     
     public virtual ICollection<GanGeneratedImage>? ClaimedGanImages { get; set; }
-
-        
+    
+    public virtual ICollection<PaintingReview>? Reviews { get; set; }
 }

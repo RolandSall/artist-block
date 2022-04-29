@@ -3,6 +3,7 @@ using System.Text.Json;
 using account_service.Models;
 using account_service.Service.SearchService;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace account_service.Controllers.SearchController;

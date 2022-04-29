@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using account_service.DTO.Registration;
 
 namespace account_service.DTO.Painting;
 
@@ -23,6 +24,8 @@ public class ReadPaintingDto
     // on sale, sold ...
     public string? PaintingStatus { get; set; }
     
+    public DateTime? BoughtTimeStamp { get; set; }
+    
     public string? PaintingUrl { get; set; }
     
     public DateTime? BuyTimeStamp { get; set; }
@@ -34,6 +37,7 @@ public class ReadPaintingDto
     public Guid PainterId { get; set; }
     
 
+    public ReadPainterDto? painterInfo { get; set; }
 
     //
     // [Column("FK_painting_registered_user_id")]

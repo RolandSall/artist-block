@@ -79,7 +79,7 @@ public class SearchRepository: ISearchRepository
             )
             .Select(x => new PaintingSearchHeader()
             {
-                PaintingId = x.PainterId,
+                PaintingId = x.PaintingId,
                 PaintingName = x.PaintingName,
                 PaintingYear = x.PaintedYear,
                 PaintingUrl = x.PaintingUrl
@@ -132,7 +132,6 @@ public class SearchRepository: ISearchRepository
                 
                    var pagedList = PagedList<Painting>.ToPagedList(queryWithoutFilters, filter.PageNumber,
                        filter.PageSize);
-               pagedList.TotalPages = 1;
                return pagedList;
             }
 
@@ -149,11 +148,13 @@ public class SearchRepository: ISearchRepository
                     ? true
                     : l.PaintingPrice >= filter.RateStart && l.PaintingPrice <= filter.RateEnd
                 );
+             
+          
+            var pagedFilterList = PagedList<Painting>.ToPagedList(paintingQuery, filter.PageNumber,
+                filter.PageSize);
+           
+            return pagedFilterList;
 
-            IQueryable<Painting> filteredPainting = _context.Paintings.Where(l => l.PaintingStatus.Equals("For Sale"));
-            return new PagedList<Painting>(paintingQuery.ToList(),  filteredPainting.Count(),
-                filter.PageNumber, filter.PageSize);
-         
     }
 
     private bool FiltersNotApplied(FindPaintingFilter paintingFilter)

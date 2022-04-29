@@ -9,4 +9,5 @@ public interface IGanRepo
     Task AddGanImageReference(GanGeneratedImage currentGanImage, string url);
     Guid ClaimGanImage(GanGeneratedImage ganGeneratedImage);
     IEnumerable<GanGeneratedImage> GetAllClaimedGanImagesForClient(Guid userId);
+    GanGeneratedImage GetGanImageById(Guid id);
 }

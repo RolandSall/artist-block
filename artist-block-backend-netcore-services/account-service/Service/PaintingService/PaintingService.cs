@@ -73,4 +73,9 @@ public class PaintingService : IPaintingService
       var paintings = _paintingRepo.GetNRandomPaintingsForSale(number);
       return paintings;
   }
+
+  public Painting GetPaintingByPaintingId(Guid paintingId)
+  {
+      return _paintingRepo.GetPaintingByPaintingId(paintingId);
+  }
 }

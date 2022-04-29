@@ -75,4 +75,9 @@ public class GanService: IGanService
         var userId = _currentLoggedInService.GetCurrentLoggedInUser(auth0UserId).RegisteredUser.RegisteredUserId;
         return _ganRepo.GetAllClaimedGanImagesForClient(userId);
     }
+
+    public GanGeneratedImage GetGanImageById(Guid id)
+    {
+        return _ganRepo.GetGanImageById(id);
+    }
 }

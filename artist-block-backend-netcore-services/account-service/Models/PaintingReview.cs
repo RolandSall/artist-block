@@ -21,11 +21,14 @@ public class PaintingReview
     [Column("comment")]
     public string? Comment { get; set; }
     
-    [Column("FK_registered_user_id")]
+    [Column("FK_painting_review_registered_user_id")]
     [Required]
     public Guid? RegisteredUserId { get; set; }
     
-    [Column("FK_painting_id")]
+    [Column("FK_painting_review_painting_id")]
     [Required]
     public Guid PaintingId { get; set; }
+    
+    public virtual RegisteredUser? RegisteredUser { get; set; }
+    public virtual Painting? Painting { get; set; }
 }

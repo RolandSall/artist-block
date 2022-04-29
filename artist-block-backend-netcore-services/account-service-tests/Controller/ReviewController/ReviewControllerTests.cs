@@ -131,7 +131,7 @@ public class ReviewControllerTests
         var containedValue = (IEnumerable<ReadPaintingReviewDto>) ((value.Result as OkObjectResult).Value);
 
         // Assert
-        containedValue.Should().BeEquivalentTo(_mapper.Map<IEnumerable<PaintingReview>>(_expectedList));
+        containedValue.Should().BeEquivalentTo(_mapper.Map<IEnumerable<ReadPaintingReviewDto>>(_expectedList));
     }
     
     [Fact]
