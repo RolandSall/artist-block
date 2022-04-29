@@ -48,6 +48,7 @@ public class Painting
     [Required]
     public Guid PainterId { get; set; }
     
+    public virtual ICollection<PaintingReview>? Reviews { get; set; }
     
     public virtual Painter? Painter { get; set; }
 }
