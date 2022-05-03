@@ -6,25 +6,28 @@ import CustomPie from "../Charts/pie";
 import CustomRadar from "../Charts/radar";
 import CustomBar from "../Charts/radar";
 import axios from 'axios'
+import iso from 'iso-3166-1'
 
-const usersBaseUrl = "http:/localhost:5111/api/v1/stats-users"
+const usersBaseUrl = "http://localhost:5111/api/v1/stats-users"
 const paintingsBaseUrl = "http://localhost:5111/api/v1/stats-paintings"
+const countryBaseUrl = "http://localhost:5111/api/v1/stats-country"
 
 const View1 = () => {
 
 const [piData , setPiData] = useState([]);
 const [barData, setBardata] = useState([]);
+const [mapData, setmapData] = useState([]);
 
-    const data = [
-        {
-            "id": "LBN",
-            "value": 500
-        },
-        {
-            "id": "AGO",
-            "value": 1
-        },
-    ]
+    // const data = [
+    //     {
+    //         "id": "LBN",
+    //         "value": 500
+    //     },
+    //     {
+    //         "id": "AGO",
+    //         "value": 1
+    //     },
+    // ]
 
 // const   piData =     [
 //         {
@@ -70,9 +73,21 @@ const getBarData = async() => {
     setBardata(data) // update bar graph component
 }
 
+const getMapData = async() => {
+    const res = await axios.get(countryBaseUrl)
+
+    // change the country NAMEs to 3 letter ISO-3166
+    res.data.forEach(element => {
+        element.id = iso.whereCountry(element.id).alpha3;
+    });
+
+    setmapData(res.data)
+}
+
 useEffect( () => {
     getPiData();
     getBarData();
+    getMapData();
 }
 , [] );
 
@@ -84,7 +99,7 @@ useEffect( () => {
              Painters Location
          </Typography>
          <br/>
-         <CustomMap data={data}/>
+         <CustomMap data={mapData}/>
          <Grid container spacing={2}>
              <Grid item xs={6}>
                  <div   style={{height: 500}}>
