@@ -27,9 +27,12 @@ public class DeploymentService: IDeploymentService
         
         _repo.AddDeploymentStat(Deployment);
        }
+       else
+       {
 
-       depl.count += 1;
-       _repo.UpdateDeploymentCounter(depl);
+           depl.count += 1;
+           _repo.UpdateDeploymentCounter(depl);
+       }
 
     }
 
