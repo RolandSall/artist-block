@@ -7,12 +7,15 @@ import CustomRadar from "../Charts/radar";
 import CustomBar from "../Charts/radar";
 import axios from 'axios'
 import iso from 'iso-3166-1'
+import ReleaseGithubCalender from "../Charts/github";
 
 const baseUrl = "https://artist-block-account-service.herokuapp.com/api/v1/"
 const usersBaseUrl = baseUrl + "stats-users"
 const paintingsBaseUrl = baseUrl + "stats-paintings"
 const countryBaseUrl = baseUrl + "stats-country"
 const statsSpecialityUrl = baseUrl + "stats-specialty"
+const statsDataReleaseUrl = baseUrl + "deployments"
+
 
 const View1 = () => {
 
@@ -20,6 +23,7 @@ const [piData , setPiData] = useState([]);
 const [barData, setBardata] = useState([]);
 const [mapData, setmapData] = useState([]);
 const [specData, setSpecData] = useState([]);
+const [releaseData, setReleaseData] = useState([]);
 
     // const data = [
     //     {
@@ -59,9 +63,55 @@ const [specData, setSpecData] = useState([]);
 //         ]
 
 
+const githubData = [
+    {
+        "value": 214,
+        "day": "2016-11-02"
+    },
+    {
+        "value": 10,
+        "day": "2022-05-04"
+    }
+    ]
+
 const getPiData = async() => {
     const res = await axios.get(usersBaseUrl);
     setPiData(res.data) // update pie chart component
+}
+
+const githubReleaseData = async() => {
+    const res = await axios.get(statsDataReleaseUrl);
+
+
+
+    res.data.forEach(element => {
+
+        const [day, month, year] = element.timestamp.split('/');
+
+        const result = [year, month, day].join('-');
+
+        element.timestamp = result
+
+        var obj = {
+
+            "value": element.count,
+            "day": result
+
+        }
+
+        releaseData.push(obj)
+
+
+    });
+
+    //setReleaseData(res.data)
+
+    console.log("rrr" , releaseData)
+
+
+
+
+
 }
 
 const getBarData = async() => {
@@ -92,7 +142,7 @@ const getMapData = async() => {
         element.id = iso.whereCountry(element.id).alpha3;
     });
 
-    console.log(res.data)
+    //console.log(res.data)
     setmapData(res.data)
 }
 
@@ -101,6 +151,7 @@ useEffect( () => {
     getBarData();
     getMapData();
     getStatsSpecialityData();
+    githubReleaseData();
 }
 , [] );
 
@@ -131,6 +182,9 @@ useEffect( () => {
          </Typography>
          <div   style={{height: 500}}>
              <CustomPie data={specData}/>
+         </div>
+         <div   style={{height: 500}}>
+             <ReleaseGithubCalender data={releaseData}/>
          </div>
           </div>
 

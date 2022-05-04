@@ -3,8 +3,8 @@ import { ResponsivePie } from '@nivo/pie'
 
 const CustomPie = ({data}) => {
 
-    console.log("helo from inside customPie");
-    console.log(data)
+    //console.log("helo from inside customPie");
+    //console.log(data)
 
 
     return (
