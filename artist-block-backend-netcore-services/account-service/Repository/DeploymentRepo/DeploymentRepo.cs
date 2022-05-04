@@ -7,7 +7,6 @@ public class DeploymentRepo: IDeploymentRepo
 {
     private readonly ArtistBlockDbContext _context;
 
-
     public DeploymentRepo(ArtistBlockDbContext context)
     {
         _context = context;
