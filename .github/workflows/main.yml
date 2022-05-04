@@ -37,6 +37,14 @@ jobs:
       - 
         name: Run Test
         run: cd .. && dotnet test
+        
+      -
+        name: "Send Request For Release Date"
+        run: | 
+          curl -X 'POST' \
+          'https://artist-block-account-service.herokuapp.com/api/v1/deployments' \
+          -H 'accept: */*' \
+          -d ''
 
       -  
         name: Log in to Docker Hub
@@ -84,11 +92,5 @@ jobs:
         name: Release Version
         run: heroku container:release web -a artist-block-account-service
             
-      -
-        name: "Send Request For Release Date"
-        run: | 
-          curl -X 'POST' \
-          'https://artist-block-account-service.herokuapp.com/api/v1/deployments' \
-          -H 'accept: */*' \
-          -d ''
+
         
