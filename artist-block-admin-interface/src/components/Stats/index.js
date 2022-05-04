@@ -12,6 +12,7 @@ const baseUrl = "https://artist-block-account-service.herokuapp.com/api/v1/"
 const usersBaseUrl = baseUrl + "stats-users"
 const paintingsBaseUrl = baseUrl + "stats-paintings"
 const countryBaseUrl = baseUrl + "stats-country"
+const statsSpecialityUrl = baseUrl + "stats-specialty"
 
 const View1 = () => {
 
@@ -75,6 +76,14 @@ const getBarData = async() => {
     setBardata(data) // update bar graph component
 }
 
+const getStatsSpecialityData = async() => {
+        const res = await axios.get(statsSpecialityUrl)
+        // format the data correctly
+        setSpecData(res.data)
+
+
+    }
+
 const getMapData = async() => {
     const res = await axios.get(countryBaseUrl)
 
@@ -91,6 +100,7 @@ useEffect( () => {
     getPiData();
     getBarData();
     getMapData();
+    getStatsSpecialityData();
 }
 , [] );
 
@@ -114,8 +124,14 @@ useEffect( () => {
                  <CustomBar data={barData}/>
                  </div>
              </Grid>
-         </Grid>
 
+         </Grid>
+         <Typography style={{display:"flex", justifyContent: "center", fontSize: "30px"}} variant="overline" display="block" gutterBottom>
+             Our Painters Painting Specialities
+         </Typography>
+         <div   style={{height: 500}}>
+             <CustomPie data={specData}/>
+         </div>
           </div>
 
     );
