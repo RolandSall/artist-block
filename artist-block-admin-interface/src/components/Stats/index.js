@@ -183,7 +183,10 @@ useEffect( () => {
          <div   style={{height: 500}}>
              <CustomPie data={specData}/>
          </div>
-         <div   style={{height: 500}}>
+         <Typography style={{display:"flex", justifyContent: "center", fontSize: "30px"}} variant="overline" display="block" gutterBottom>
+             Releases Dates     
+         </Typography>
+         <div   style={{height: 250}}>
              <ReleaseGithubCalender data={releaseData}/>
          </div>
           </div>
