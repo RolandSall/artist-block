@@ -32,4 +32,21 @@ public class DeploymentController: ControllerBase
             return Problem(e.Message);
         }
     }
+    
+    
+    [HttpGet]
+    [Route("deployments")]
+    public ActionResult DeploymentStatList()
+    {
+        try
+        {
+
+            var listOfDeploy  = _service.DeploymentStatList();
+            return Ok(listOfDeploy);
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
+    }
 }

@@ -29,4 +29,9 @@ public class DeploymentRepo: IDeploymentRepo
         _context.Update(depl);
         _context.SaveChanges();
     }
+
+    public IEnumerable<Deployment> DeploymentStatList()
+    {
+        return _context.Deployments.ToList();
+    }
 }

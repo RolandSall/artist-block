@@ -32,4 +32,9 @@ public class DeploymentService: IDeploymentService
        _repo.UpdateDeploymentCounter(depl);
 
     }
+
+    public IEnumerable<Deployment> DeploymentStatList()
+    {
+        return _repo.DeploymentStatList();
+    }
 }
