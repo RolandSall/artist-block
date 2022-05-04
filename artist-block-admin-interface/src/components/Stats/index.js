@@ -8,15 +8,17 @@ import CustomBar from "../Charts/radar";
 import axios from 'axios'
 import iso from 'iso-3166-1'
 
-const usersBaseUrl = "http://localhost:5111/api/v1/stats-users"
-const paintingsBaseUrl = "http://localhost:5111/api/v1/stats-paintings"
-const countryBaseUrl = "http://localhost:5111/api/v1/stats-country"
+const baseUrl = "https://artist-block-account-service.herokuapp.com/api/v1/"
+const usersBaseUrl = baseUrl + "stats-users"
+const paintingsBaseUrl = baseUrl + "stats-paintings"
+const countryBaseUrl = baseUrl + "stats-country"
 
 const View1 = () => {
 
 const [piData , setPiData] = useState([]);
 const [barData, setBardata] = useState([]);
 const [mapData, setmapData] = useState([]);
+const [specData, setSpecData] = useState([]);
 
     // const data = [
     //     {
@@ -81,6 +83,7 @@ const getMapData = async() => {
         element.id = iso.whereCountry(element.id).alpha3;
     });
 
+    console.log(res.data)
     setmapData(res.data)
 }
 
