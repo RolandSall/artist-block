@@ -13,6 +13,7 @@ public class ArtistBlockDbContext: DbContext {
         public DbSet<GanGeneratedImage> GanGeneratedImages { get; set; }
         public DbSet<Painting> Paintings { get; set; }
         public DbSet<PaintingReview> PaintingReview { get; set; }
+        public DbSet<Deployment> Deployments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) { }
 }

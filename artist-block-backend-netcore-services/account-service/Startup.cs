@@ -4,7 +4,7 @@ using account_service.Repository;
 using account_service.Repository.CollectionRepo;
 using account_service.Repository.GanRepo;
 using account_service.Repository.BuyRepo;
-
+using account_service.Repository.DeploymentRepo;
 using account_service.Repository.PaintingRepo;
 using account_service.Repository.RegistrationRepo;
 using account_service.Repository.ReviewRepo;
@@ -14,6 +14,7 @@ using account_service.Repository.StatsRepo;
 using account_service.Service.CollectionService;
 using account_service.Service.BuyController;
 using account_service.Service.CurrentLoggedInService;
+using account_service.Service.DeploymentService;
 using account_service.Service.GanService;
 using account_service.Service.PaintingService;
 using account_service.Service.RegistrationService;
@@ -74,6 +75,9 @@ namespace account_service{
 
             services.AddScoped<IStatsService, StatsService>();
             services.AddScoped<IStatsRepo, StatsRepo>();
+            
+            services.AddScoped<IDeploymentService, DeploymentService>();
+            services.AddScoped<IDeploymentRepo, DeploymentRepo>();
             
             services.AddCors(options => {
                 options.AddPolicy(name: _CORSPolicy,
