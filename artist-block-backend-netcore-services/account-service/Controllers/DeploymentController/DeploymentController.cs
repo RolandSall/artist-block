@@ -14,9 +14,7 @@ public class DeploymentController: ControllerBase
     {
         _service = service;
     }
-
-
-
+    
     [HttpPost]
     [Route("deployments")]
     public ActionResult AddDeploymentStat()
