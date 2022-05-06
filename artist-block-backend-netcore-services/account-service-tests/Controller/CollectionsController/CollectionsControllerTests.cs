@@ -19,7 +19,7 @@ public class CollectionsControllerTests
     private readonly IMapper _mapper = new MapperConfiguration(mc => mc.AddProfiles(Profiles)).CreateMapper();
     private readonly Mock<ICollectionService> _collectionService = new();
 
-    private readonly List<Painting> _expectedPaintings = new List<Painting>()
+    private readonly List<Painting> _expectedPaintings = new()
     {  
         new(){PainterId = Guid.NewGuid(),PaintingId = Guid.NewGuid(),PaintingName = "hello beautiful 0"},
         new(){PainterId = Guid.NewGuid(),PaintingId = Guid.NewGuid(),PaintingName = "hello beautiful 1"},
@@ -47,7 +47,7 @@ public class CollectionsControllerTests
         value.Result.Should().BeOfType<OkObjectResult>();
         var containedValue = (value.Result as OkObjectResult).Value;
 
-        containedValue.Should().BeEquivalentTo(_expectedPaintings);
+        containedValue.Should().BeEquivalentTo(_expectedPaintings , options => options.ExcludingMissingMembers());
     }
 
     [Fact]
@@ -111,7 +111,7 @@ public class CollectionsControllerTests
         value.Result.Should().BeOfType<OkObjectResult>();
         var containedValue = (value.Result as OkObjectResult).Value;
 
-        containedValue.Should().BeEquivalentTo(_expectedPaintings);
+        containedValue.Should().BeEquivalentTo(_expectedPaintings , options => options.ExcludingMissingMembers());
     }
     
     [Fact]
@@ -175,7 +175,7 @@ public class CollectionsControllerTests
         value.Result.Should().BeOfType<OkObjectResult>();
         var containedValue = (value.Result as OkObjectResult).Value;
 
-        containedValue.Should().BeEquivalentTo(_expectedPaintings);
+        containedValue.Should().BeEquivalentTo(_expectedPaintings , options => options.ExcludingMissingMembers());
     }
     
     [Fact]
