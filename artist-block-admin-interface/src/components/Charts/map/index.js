@@ -2,7 +2,7 @@ import { ResponsiveChoropleth } from '@nivo/geo'
 import {features} from "./feature";
 
 const CustomMap = ({ data }) => {
-    console.log(data)
+    // console.log(data)
 
     return (
 
@@ -11,8 +11,8 @@ const CustomMap = ({ data }) => {
             projectionScale={200}
             features= {features}
             margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
-            colors="PuBu"
-            domain={[ 0, 1000000 ]}
+            colors="nivo"
+            domain={[ 0, 1000 ]}
             unknownColor="#666666"
             label="properties.name"
             valueFormat=".2s"

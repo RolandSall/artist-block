@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using account_service.Repository;
@@ -11,9 +12,10 @@ using account_service.Repository;
 namespace account_service.Migrations
 {
     [DbContext(typeof(ArtistBlockDbContext))]
-    partial class ArtistBlockDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220504124837_depl-table")]
+    partial class depltable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,9 +52,8 @@ namespace account_service.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("deployment_count");
 
-                    b.Property<string>("timestamp")
-                        .IsRequired()
-                        .HasColumnType("text")
+                    b.Property<DateTime>("timestamp")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("deployment_timestamp");
 
                     b.HasKey("DeploymentId");
