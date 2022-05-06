@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using account_service.Repository;
@@ -11,9 +12,10 @@ using account_service.Repository;
 namespace account_service.Migrations
 {
     [DbContext(typeof(ArtistBlockDbContext))]
-    partial class ArtistBlockDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220427144553_painting-to-painter")]
+    partial class paintingtopainter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,27 +39,6 @@ namespace account_service.Migrations
                     b.HasIndex("RegisteredUserId");
 
                     b.ToTable("auth_user");
-                });
-
-            modelBuilder.Entity("account_service.Models.Deployment", b =>
-                {
-                    b.Property<Guid>("DeploymentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("deployment_id");
-
-                    b.Property<int>("count")
-                        .HasColumnType("integer")
-                        .HasColumnName("deployment_count");
-
-                    b.Property<string>("timestamp")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("deployment_timestamp");
-
-                    b.HasKey("DeploymentId");
-
-                    b.ToTable("deployment");
                 });
 
             modelBuilder.Entity("account_service.Models.GanGeneratedImage", b =>
@@ -229,12 +210,12 @@ namespace account_service.Migrations
 
                     b.Property<Guid>("PaintingId")
                         .HasColumnType("uuid")
-                        .HasColumnName("FK_painting_review_painting_id");
+                        .HasColumnName("FK_painting_id");
 
                     b.Property<Guid?>("RegisteredUserId")
                         .IsRequired()
                         .HasColumnType("uuid")
-                        .HasColumnName("FK_painting_review_registered_user_id");
+                        .HasColumnName("FK_registered_user_id");
 
                     b.Property<DateTime?>("Timestamp")
                         .IsRequired()
@@ -242,10 +223,6 @@ namespace account_service.Migrations
                         .HasColumnName("timestamp");
 
                     b.HasKey("PaintingReviewId");
-
-                    b.HasIndex("PaintingId");
-
-                    b.HasIndex("RegisteredUserId");
 
                     b.ToTable("PaintingReview");
                 });
@@ -379,35 +356,11 @@ namespace account_service.Migrations
                     b.Navigation("Painter");
                 });
 
-            modelBuilder.Entity("account_service.Models.PaintingReview", b =>
-                {
-                    b.HasOne("account_service.Models.Painting", "Painting")
-                        .WithMany("Reviews")
-                        .HasForeignKey("PaintingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("account_service.Models.RegisteredUser", "RegisteredUser")
-                        .WithMany("Reviews")
-                        .HasForeignKey("RegisteredUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Painting");
-
-                    b.Navigation("RegisteredUser");
-                });
-
             modelBuilder.Entity("account_service.Models.Painter", b =>
                 {
                     b.Navigation("PainterSpecialities");
 
                     b.Navigation("Paintings");
-                });
-
-            modelBuilder.Entity("account_service.Models.Painting", b =>
-                {
-                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("account_service.Models.RegisteredUser", b =>
@@ -418,8 +371,6 @@ namespace account_service.Migrations
                         .IsRequired();
 
                     b.Navigation("PaintingsBought");
-
-                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("account_service.Models.Speciality", b =>

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using account_service.Repository;
@@ -11,9 +12,10 @@ using account_service.Repository;
 namespace account_service.Migrations
 {
     [DbContext(typeof(ArtistBlockDbContext))]
-    partial class ArtistBlockDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220423104103_FixPaintingReview")]
+    partial class FixPaintingReview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,27 +39,6 @@ namespace account_service.Migrations
                     b.HasIndex("RegisteredUserId");
 
                     b.ToTable("auth_user");
-                });
-
-            modelBuilder.Entity("account_service.Models.Deployment", b =>
-                {
-                    b.Property<Guid>("DeploymentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("deployment_id");
-
-                    b.Property<int>("count")
-                        .HasColumnType("integer")
-                        .HasColumnName("deployment_count");
-
-                    b.Property<string>("timestamp")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("deployment_timestamp");
-
-                    b.HasKey("DeploymentId");
-
-                    b.ToTable("deployment");
                 });
 
             modelBuilder.Entity("account_service.Models.GanGeneratedImage", b =>
@@ -366,7 +347,7 @@ namespace account_service.Migrations
 
             modelBuilder.Entity("account_service.Models.Painting", b =>
                 {
-                    b.HasOne("account_service.Models.Painter", "Painter")
+                    b.HasOne("account_service.Models.Painter", null)
                         .WithMany("Paintings")
                         .HasForeignKey("PainterId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -375,20 +356,18 @@ namespace account_service.Migrations
                     b.HasOne("account_service.Models.RegisteredUser", null)
                         .WithMany("PaintingsBought")
                         .HasForeignKey("RegisteredUserId");
-
-                    b.Navigation("Painter");
                 });
 
             modelBuilder.Entity("account_service.Models.PaintingReview", b =>
                 {
                     b.HasOne("account_service.Models.Painting", "Painting")
-                        .WithMany("Reviews")
+                        .WithMany()
                         .HasForeignKey("PaintingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("account_service.Models.RegisteredUser", "RegisteredUser")
-                        .WithMany("Reviews")
+                        .WithMany()
                         .HasForeignKey("RegisteredUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -405,11 +384,6 @@ namespace account_service.Migrations
                     b.Navigation("Paintings");
                 });
 
-            modelBuilder.Entity("account_service.Models.Painting", b =>
-                {
-                    b.Navigation("Reviews");
-                });
-
             modelBuilder.Entity("account_service.Models.RegisteredUser", b =>
                 {
                     b.Navigation("ClaimedGanImages");
@@ -418,8 +392,6 @@ namespace account_service.Migrations
                         .IsRequired();
 
                     b.Navigation("PaintingsBought");
-
-                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("account_service.Models.Speciality", b =>

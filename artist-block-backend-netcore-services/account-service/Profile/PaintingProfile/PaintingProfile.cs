@@ -10,7 +10,8 @@ public class PaintingProfile : AutoMapper.Profile
         CreateMap<CreatePaintingDto, Models.Painting>();
             // .ForMember(p => p.RegisteredUser, opts => opts.MapFrom(pdto => pdto.CreateClientDto));
 
-        CreateMap<Models.Painting, ReadPaintingDto>();
+        CreateMap<Models.Painting, ReadPaintingDto>()
+            .ForMember(rdto => rdto.painterInfo, opts => opts.MapFrom(p => p.Painter));
             // .ForMember(rpd => rpd.readClientDto, opts => opts.MapFrom(p => p.RegisteredUser));
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using account_service.CustomException;
 using account_service.DTO.Gan;
+using account_service.Models;
 using account_service.Service.GanService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,14 +18,14 @@ public class GanController : ControllerBase
     {
         _ganService = ganService;
     }
-    
+
     [HttpPost]
     [Route("gan-image/claim")]
     [Authorize]
     public ActionResult ClaimImage(ClaimGanImageDto claimGanImageDto)
     {
         try
-        {   
+        {
             var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             // TODO: Create A Mapper Once The Object Becomes Bigger
             var paintingId = _ganService.ClaimGanImage(claimGanImageDto.Description, auth0UserId);
@@ -57,12 +58,13 @@ public class GanController : ControllerBase
         {
             return NotFound(e.Message);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             Console.WriteLine(e);
             return Problem(e.GetBaseException().ToString());
         }
-    } 
-    
+    }
+
     [HttpGet]
     [Route("gan-image/collection")]
     [Authorize]
@@ -71,7 +73,7 @@ public class GanController : ControllerBase
         try
         {
             var auth0UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        
+
             var ganImagesList = _ganService.GetAllClaimedGanImagesForClient(auth0UserId);
             //TODO: READ MAPPER IS NEEDED 
             return Ok(ganImagesList);
@@ -82,4 +84,21 @@ public class GanController : ControllerBase
             return Problem(e.GetBaseException().ToString());
         }
     }
+
+    [HttpGet]
+    [Route("gan-image/{ganImageId}")]
+    public ActionResult<GanGeneratedImage> GetGanImageById(Guid ganImageId)
+    {
+        try
+        {
+            var ganImage = _ganService.GetGanImageById(ganImageId);
+            return Ok(ganImage);
+        }
+        catch (ContentNotFoundById exc)
+        {
+            return NotFound(exc.Message);
+        }
+    }
+        
+
 }

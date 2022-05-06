@@ -79,7 +79,7 @@ public class SearchRepository: ISearchRepository
             )
             .Select(x => new PaintingSearchHeader()
             {
-                PaintingId = x.PainterId,
+                PaintingId = x.PaintingId,
                 PaintingName = x.PaintingName,
                 PaintingYear = x.PaintedYear,
                 PaintingUrl = x.PaintingUrl
