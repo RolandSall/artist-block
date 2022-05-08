@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using account_service.DTO.PainterSpecialityDto;
 
 namespace account_service.DTO.Registration;

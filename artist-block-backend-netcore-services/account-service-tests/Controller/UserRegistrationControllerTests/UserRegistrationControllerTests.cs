@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using account_service.Controllers.UserRegistrationController;
+using account_service.CustomException;
 using account_service.DTO.PainterSpecialityDto;
 using account_service.DTO.Registration;
 using account_service.Models;
@@ -13,6 +14,7 @@ using AutoMapper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Moq;
 using Xunit;
 
@@ -236,5 +238,50 @@ public class UserRegistrationControllerTests
 
         // Assert
         returnedValue.Should().BeOfType<ObjectResult>();
+    }
+
+    private static readonly Painter _expectedPainter = new Painter()
+    {
+        Bio = Guid.NewGuid().ToString(),
+        Location = Guid.NewGuid().ToString(),
+        YearsOfExperience = Guid.NewGuid().ToString(),
+        PainterId = Guid.NewGuid(),
+        RegisteredUserId = Guid.NewGuid(),
+    };
+
+    [Fact]
+    public void GetPainterById_ValidPainterId_ReturnsOkWithReadPainterDto()
+    {
+        // Arrange
+        _registrationServiceStub.Setup(
+                service => service.GetPainterById( It.IsAny<Guid>()))
+            .Returns(_expectedPainter);
+
+        var controller = new UserRegistrationController(_mapper, _registrationServiceStub.Object);
+        // Act
+
+        var returnedValue = controller.GetPainterById( Guid.NewGuid() );
+
+        // Assert
+        returnedValue.Result.Should().BeOfType<OkObjectResult>();
+        var containedValue = (ReadPainterDto)(returnedValue.Result as OkObjectResult).Value;
+        containedValue.Should().BeEquivalentTo(_mapper.Map<ReadPainterDto>(_expectedPainter));
+    }
+    
+    [Fact]
+    public void GetPainterById_InvalidPainterId_ReturnsNotFound()
+    {
+        // Arrange
+        _registrationServiceStub.Setup(
+                service => service.GetPainterById( It.IsAny<Guid>()))
+            .Throws(new ContentNotFoundById("could not find painter with Id"));
+
+        var controller = new UserRegistrationController(_mapper, _registrationServiceStub.Object);
+        // Act
+
+        var returnedValue = controller.GetPainterById( Guid.NewGuid() );
+
+        // Assert
+        returnedValue.Result.Should().BeOfType<NotFoundObjectResult>();
     }
 }
