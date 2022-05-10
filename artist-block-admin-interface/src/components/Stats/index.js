@@ -100,7 +100,6 @@ const githubReleaseData = async() => {
         }
 
 
-        console.log(obj)
         releaseData.push(obj)
 
 
@@ -138,6 +137,9 @@ const getStatsSpecialityData = async() => {
 
 const getMapData = async() => {
     const res = await axios.get(countryBaseUrl)
+
+
+    console.log(res)
 
     // change the country NAMEs to 3 letter ISO-3166
     res.data.forEach(element => {
