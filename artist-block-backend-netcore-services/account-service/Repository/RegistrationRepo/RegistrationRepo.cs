@@ -59,10 +59,11 @@ public class RegistrationRepo: IRegistrationRepo
             .Include(painter => painter.RegisteredUser)
             .Include(painter => painter.PainterSpecialities)
             .ThenInclude(ps => ps.Speciality)
-            
-            
-            
             .FirstOrDefault();
+
+        if (painter == null)
+            throw new ContentNotFoundById($"could not find painter with Id:{painterId}");
+        
         return painter;
     }
     

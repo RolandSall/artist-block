@@ -47,29 +47,37 @@ public class CreatePaintingController : ControllerBase
         }
     }
 
-    // TODO: add try and catch please
     [HttpGet]
     [Route("paintings/by/{painterId}")]
     public ActionResult<IEnumerable<ReadPaintingDto>> GetPaintingsForPainter( Guid painterId )
     {
-        var paintings = _paintingService.GetPaintingsForPainter(painterId);
-        
-        var paintingDto = _mapper.Map<IEnumerable<ReadPaintingDto>>(paintings);
-
-        return Ok(paintingDto);
+        try
+        {
+            var paintings = _paintingService.GetPaintingsForPainter(painterId);
+            var paintingDto = _mapper.Map<IEnumerable<ReadPaintingDto>>(paintings);
+            return Ok(paintingDto);
+        }
+        catch (ContentNotFoundById exc)
+        {
+            return NotFound(exc.Message);
+        }
     }
     
     
-    // TODO: add try and catch please
     [HttpGet]
     [Route("paintings/{paintingId}")]
-    public ActionResult<IEnumerable<ReadPaintingDto>> GetPaintingByPaintingId( Guid paintingId )
+    public ActionResult<ReadPaintingDto> GetPaintingByPaintingId( Guid paintingId )
     {
-        var paintings = _paintingService.GetPaintingByPaintingId(paintingId);
-        
-        var paintingDto = _mapper.Map<ReadPaintingDto>(paintings);
-
-        return Ok(paintingDto);
+        try
+        {
+            var paintings = _paintingService.GetPaintingByPaintingId(paintingId);
+            var paintingDto = _mapper.Map<ReadPaintingDto>(paintings);
+            return Ok(paintingDto);
+        }
+        catch (ContentNotFoundById exc)
+        {
+            return NotFound(exc.Message);
+        }
     }
 
     [HttpPost]

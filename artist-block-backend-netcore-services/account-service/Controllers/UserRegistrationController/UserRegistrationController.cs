@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using account_service.CustomException;
+using account_service.DTO.Painting;
 using account_service.DTO.Registration;
 using account_service.Models;
 using account_service.Repository.RegistrationRepo;
@@ -73,7 +74,7 @@ public class UserRegistrationController: ControllerBase
     [HttpGet]
     [Route("register-painter/{painterId}")]
     [Authorize]
-    public ActionResult GetPainterById(Guid painterId)
+    public ActionResult<ReadPainterDto> GetPainterById(Guid painterId)
     {
         try
         {
@@ -81,17 +82,9 @@ public class UserRegistrationController: ControllerBase
             var readPainterDto = _mapper.Map<ReadPainterDto>(painter);
             return Ok(readPainterDto);
         }
-        catch (ClientAlreadyExistException e)
+        catch (ContentNotFoundById exc)
         {
-            return Conflict(e.message);
-        }
-        catch (RegistrationFailedException e)
-        {
-            return Problem(e.Message);
-        }
-        catch (Exception e) {
-            Console.WriteLine(e);
-            return Problem(e.Message);
+            return NotFound(exc.Message);
         }
     }
     

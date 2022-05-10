@@ -38,13 +38,7 @@ jobs:
         name: Run Test
         run: cd .. && dotnet test
         
-      -
-        name: "Send Request For Release Date"
-        run: | 
-          curl -X 'POST' \
-          'https://artist-block-account-service.herokuapp.com/api/v1/deployments' \
-          -H 'accept: */*' \
-          -d ''
+
 
       -  
         name: Log in to Docker Hub
@@ -68,6 +62,14 @@ jobs:
         name: login to heroku container
         run: docker login --username=_ --password=${{ secrets.HEROKU_API_KEY }} registry.heroku.com
         
+      -
+        name: "Send Request For Release Date"
+        run: | 
+          curl -X 'POST' \
+          'https://artist-block-account-service.herokuapp.com/api/v1/deployments' \
+          -H 'accept: */*' \
+          -d ''
+
       -
         name: Tag Image for heroku deployement
         run: docker tag rolandsall24/artist-block-account-service:2.0.0 registry.heroku.com/artist-block-account-service/web

@@ -4,11 +4,12 @@ using account_service.Controllers.PaintingController;
 using account_service.CustomException;
 using account_service.DTO.Painting;
 using account_service.Models;
-using account_service.Profile.Painting;
+using account_service.Profile.PaintingProfile;
 using account_service.Repository.PaintingRepo;
 using account_service.Service.PaintingService;
 using AutoMapper;
 using FluentAssertions;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -44,6 +45,7 @@ public class PaintingController
         PaintingPrice = 2000,
         PaintingStatus = "For Sale",
     };
+    
     
     [Fact]
     public void CreatePainting_ValidPaintingDtoWithExistingPainter_ReturnsOkReadPaintingDto()
@@ -153,4 +155,100 @@ public class PaintingController
         value.Result.Should().BeOfType<OkObjectResult>();
     }
 
+    private static readonly Painting _randomPaintingOne = new Painting()
+    {
+        PaintedYear = Guid.NewGuid().ToString(),
+        PainterId = Guid.NewGuid(),
+        PaintingDescription = Guid.NewGuid().ToString(),
+        PaintingId = Guid.NewGuid(),
+        PaintingName = Guid.NewGuid().ToString(),
+        PaintingPrice = 1000,
+        PaintingStatus = Guid.NewGuid().ToString(),
+        PaintingUrl = Guid.NewGuid().ToString(),
+        RegisteredUserId = Guid.NewGuid(),
+        BuyTimeStamp = DateTime.Now,
+        BoughtTimeStamp = DateTime.Now,
+    };
+        
+    private static readonly Painting _randomPaintingTwo = new Painting()
+    {
+        PaintedYear = Guid.NewGuid().ToString(),
+        PainterId = Guid.NewGuid(),
+        PaintingDescription = Guid.NewGuid().ToString(),
+        PaintingId = Guid.NewGuid(),
+        PaintingName = Guid.NewGuid().ToString(),
+        PaintingPrice = 1000,
+        PaintingStatus = Guid.NewGuid().ToString(),
+        PaintingUrl = Guid.NewGuid().ToString(),
+        RegisteredUserId = Guid.NewGuid(),
+        BuyTimeStamp = DateTime.Now,
+        BoughtTimeStamp = DateTime.Now,
+    };
+    
+    private readonly List<Painting> _expectedPaintingList = new List<Painting>() {  _randomPaintingOne , _randomPaintingTwo }; 
+
+    [Fact]
+    public void GetPaintingsForPainter_ValidPainterId_ReturnOkWithReadPaintingDtos()
+    {
+        // Arrange
+        _paintingServiceStub.Setup(service => service.GetPaintingsForPainter(It.IsAny<Guid>()))
+            .Returns(_expectedPaintingList);
+        
+        var controller = new CreatePaintingController(_mapper, _paintingServiceStub.Object);
+        // Act
+        var value = controller.GetPaintingsForPainter(Guid.NewGuid());
+
+        // Assert
+        value.Result.Should().BeOfType<OkObjectResult>();
+        var actualValue = (value.Result as OkObjectResult).Value;
+        actualValue.Should().BeEquivalentTo(_mapper.Map<IEnumerable<ReadPaintingDto>>(_expectedPaintingList));
+    }
+
+    [Fact]
+    public void GetPaintingsForPainter_InValidPainterId_ReturnsNotFound()
+    {
+        // Arrange
+        _paintingServiceStub.Setup(service => service.GetPaintingsForPainter(It.IsAny<Guid>()))
+            .Throws(new ContentNotFoundById("could find the painter by painterId"));
+        
+        var controller = new CreatePaintingController(_mapper, _paintingServiceStub.Object);
+        // Act
+        var value = controller.GetPaintingsForPainter(Guid.NewGuid());
+
+        // Assert
+        value.Result.Should().BeOfType<NotFoundObjectResult>();
+    }
+
+    [Fact]
+    public void GetPaintingByPaintingId_ValidPaintingId_ReturnOkWithReadPaintingDto()
+    {
+        // Arrange
+        _paintingServiceStub.Setup(service => service.GetPaintingByPaintingId(It.IsAny<Guid>()))
+            .Returns(_randomPaintingOne);
+        
+        var controller = new CreatePaintingController(_mapper, _paintingServiceStub.Object);
+        // Act
+        var value = controller.GetPaintingByPaintingId(Guid.NewGuid());
+
+        // Assert
+        value.Result.Should().BeOfType<OkObjectResult>();
+        var actualValue = (value.Result as OkObjectResult).Value;
+        actualValue.Should().BeEquivalentTo(_mapper.Map<ReadPaintingDto>(_randomPaintingOne));
+    }
+    
+    [Fact]
+    public void GetPaintingByPaintingId_InvalidPaintingId_ReturnNotFound()
+    {
+        // Arrange
+        _paintingServiceStub.Setup(service => service.GetPaintingByPaintingId(It.IsAny<Guid>()))
+            .Throws(new ContentNotFoundById("painting not found by painting Id"));
+        
+        var controller = new CreatePaintingController(_mapper, _paintingServiceStub.Object);
+        // Act
+        var value = controller.GetPaintingByPaintingId(Guid.NewGuid());
+
+        // Assert
+        value.Result.Should().BeOfType<NotFoundObjectResult>();
+    }
+    
 }
