@@ -3,7 +3,7 @@ import {Avatar, Box, Button, Grid, MenuItem, Modal, TextField, Typography} from 
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterMoment from '@mui/lab/AdapterMoment';
 import styled from "@emotion/styled";
-import {COUNTRIES, ARTIST_GREEN, HOME_ROUTE, REGISTRATION_LAWYER_ROUTE, TITLES} from "../../utils/constants";
+import {COUNTRIES, ARTIST_GREEN, HOME_ROUTE, REGISTRARTION, TITLES} from "../../utils/constants";
 import {useAuth0} from "@auth0/auth0-react";
 import {Autocomplete, DatePicker} from "@mui/lab";
 
@@ -189,7 +189,7 @@ const RegistrationCustomer = () => {
 
                         <Typography variant={"h6"} sx={{color: '#808080'}}>
                             Please note that you are registering as a member, if you're an artist register <Link
-                            to={REGISTRATION_LAWYER_ROUTE.path} style={{color: ARTIST_GREEN}}>here</Link>
+                            to={REGISTRARTION.path} style={{color: ARTIST_GREEN}}>here</Link>
                         </Typography>
                     </Grid>
                 </Grid>

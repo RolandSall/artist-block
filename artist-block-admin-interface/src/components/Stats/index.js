@@ -88,7 +88,7 @@ const githubReleaseData = async() => {
 
         const [day, month, year] = element.timestamp.split('/');
 
-        const result = [year, month, day].join('-');
+        const result = [year, day, month].join('-');
 
         element.timestamp = result
 
@@ -98,6 +98,7 @@ const githubReleaseData = async() => {
             "day": result
 
         }
+
 
         releaseData.push(obj)
 
@@ -136,6 +137,9 @@ const getStatsSpecialityData = async() => {
 
 const getMapData = async() => {
     const res = await axios.get(countryBaseUrl)
+
+
+    console.log(res)
 
     // change the country NAMEs to 3 letter ISO-3166
     res.data.forEach(element => {

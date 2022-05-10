@@ -1,7 +1,8 @@
-# artist-block.
+# Artist Block
 
 
-This is application is part of the software engineering class. The application objective is to apply software engineering practices by implementing a software solution for a specific topic.
+This application is part of the final project of the Software Engineering class at the Lebanese American University. The application aims to apply software engineering practices by implementing a software solution for a specific topic. <br>
+In this project, we created **Artist Block**, an AI-powered platform that connects people interested in buying artistic works with aspiring artists around the world. Clients can use the tools offered by the platform to produce AI-generated painting designs, which they will then share with painters interested to collaborate with them. Clients can check out the painters’ profiles and previous works before engaging in any agreement. Moreover, painters can also use the platform to sell their original works. 
 
 
 # Application Architecture
@@ -21,7 +22,7 @@ To run the front-end application, simply navigate to the desired directory. Ther
 Each of the backend services is equiped with a docker file. To run the services run the following commands
 
 ```
-docker built -t <image-name> .
+docker build -t <image-name> .
 docker run <image-name>
 ```
 Or you could simply run a spring boot application from command file by exectuing the jar file or with the help of an [IDE](https://www.jetbrains.com/help/idea/spring-boot.html)
@@ -32,17 +33,25 @@ First you to have [.NET CORE 6](https://dotnet.microsoft.com/en-us/download/dotn
 the two environements
 ```
 Staging envrionment --> Linked To Staging DB (if you have access to the credentials)
-Local envrionment --> Linked To Staging DB
+Local envrionment --> Linked To dev DB
 ```
 You could also run the application using docker.
 
 ## GAN service
 
-The gan service runs on [Google Colab](https://colab.research.google.com/drive/1Ee1g8QbZ6nCtN56c4-rdEVexkC8tBuV0#scrollTo=80lSTTCevP_s). No need to instal any dependencies just run the block and you will a result similir to
+The gan service runs on [Google Colab](https://github.com/anisdismail/AI-Art-Generator-API). No need to install any dependencies just run the block and you will have a result similar to
 ```
-ngrok:....
+ngrok: ....
 ```
-The latter means that your FastAPI application is exposed on this specific IP and Port
+The latter means that your FastAPI application is exposed on this specific IP and Port.
+
+**Demo can be provided upon Request**
+
+# Acknowledgments
+
+- [Roland Salloum](https://www.linkedin.com/in/roland-salloum-09687b188/)
+- [Robin Karaa](https://www.linkedin.com/in/robin-karaa-a6ab51232/)
+- [Anis Ismail](https://www.linkedin.com/in/anisdismail)
 
 
 
