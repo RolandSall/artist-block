@@ -88,7 +88,7 @@ const githubReleaseData = async() => {
 
         const [day, month, year] = element.timestamp.split('/');
 
-        const result = [year, month, day].join('-');
+        const result = [year, day, month].join('-');
 
         element.timestamp = result
 
@@ -99,6 +99,8 @@ const githubReleaseData = async() => {
 
         }
 
+
+        console.log(obj)
         releaseData.push(obj)
 
 
