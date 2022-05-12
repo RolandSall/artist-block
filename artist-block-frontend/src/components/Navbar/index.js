@@ -1,11 +1,11 @@
-import React, { useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {
     AppBar,
     Box,
     List,
     ListItem,
     ListItemText,
-    SwipeableDrawer,
+    SwipeableDrawer, TextField,
     Toolbar, Typography,
     useMediaQuery,
     useTheme
@@ -23,6 +23,11 @@ import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import useAuth0Query from "../../hooks/useAuth0Query";
 import MyArtistButton from "./MyArtistButton";
+import { Popover } from "react-tiny-popover";
+import SearchPopover from "../SearchPopover";
+import {hooks} from "../../query";
+import {CustomTextField} from "../../pages/RegisterCustomer";
+import {useResizeObserver} from "beautiful-react-hooks";
 
 const Navbar = () => {
 
@@ -31,6 +36,8 @@ const Navbar = () => {
 
     const { pathname } = useLocation()
 
+    const searchRef = useRef();
+    const searchSize = useResizeObserver(searchRef);
 
     const { isAuthenticated } = useAuth0();
     const { token } = useAuth0Query();
@@ -38,6 +45,9 @@ const Navbar = () => {
     const theme = useTheme();
 
     const matchesMd = useMediaQuery(theme.breakpoints.up('md'));
+    const [search, setSearch] = useState('');
+
+    const { data, refetch, isRefetching } = hooks.useHomeSearch({ search })
 
     const toggleDrawer = (openE) => (event) => {
         if (
@@ -51,6 +61,17 @@ const Navbar = () => {
         setOpen(openE)
     };
 
+
+    useEffect(() => {
+        if (search !== '') {
+            refetch()
+        }
+    }, [search])
+
+    const handleSearchChange = (e) => {
+        setSearch(e.target.value)
+        setOpen(e.target.value !== "")
+    }
 
     const desktopRoutes = () => {
         return NAVBAR_ROUTES_DESKTOP.map((e) => {
@@ -71,6 +92,7 @@ const Navbar = () => {
                                         >
                                             {name}
                                         </NavLink>
+
                                     </li>
                                 ))
                             }
@@ -110,7 +132,51 @@ const Navbar = () => {
                         {/*    style={{pointerEvents: "all", cursor: 'pointer'}}*/}
                         {/*/>*/}
                     </Link>
-                    <Box sx={{flexGrow: 1}}/>
+                    <div ref={searchRef}style={{
+                        flexGrow:1
+                    }}>
+                        <Popover
+                            isOpen={open}
+                            positions={["bottom"]} // preferred positions by priority
+                            align={"start"}
+                            padding={20}
+                            onClickOutside={() => setOpen(false)}
+                            containerStyle={{
+                                zIndex: "100000000",
+                            }}
+                            content={
+                                <SearchPopover
+                                    searchSize={searchSize}
+                                    search={search}
+                                    setOpen={setOpen}
+                                />
+                            }
+                        >
+                            <CustomTextField
+                                variant={"filled"}
+                                label={"Painters, Paintings,..."}
+                                fullWidth
+                                onFocus={() => {
+                                    if (search !== "") {
+                                        setOpen(true)
+                                    }
+                                }}
+                                autoComplete="new-password"
+                                autocomplete="new-password"
+                                inputProps={{
+                                    autocomplete: 'new-password',
+                                    form: {
+                                        autocomplete: 'new-password',
+                                    }
+                                }
+                                }
+                                value={search}
+                                onChange={handleSearchChange}
+                                className={"text-field-custom"}
+
+                            />
+                        </Popover>
+                    </div>
                     {matchesMd ?
                         <div className={"nav-container"}>
                             <ul className={"nav-container-ul"}>

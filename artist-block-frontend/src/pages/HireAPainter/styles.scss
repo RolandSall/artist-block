@@ -1,0 +1,39 @@
+@import "src/assets/styles/variables.scss";
+
+.side-panel-filters {
+  width: 0;
+  opacity: 0;
+  padding: 10% 0;
+  transition: all 400ms ease-in-out;
+  > div {
+    transition: all 400ms ease-in-out;
+    transform: translateX(400px);
+  }
+  &.open {
+    padding: 10%;
+    width: 400px;
+    opacity: 1;
+    > div {
+      transform: translateX(0);
+    }
+  }
+}
+
+.mobile-drawer {
+  .MuiDrawer-paper {
+    background: transparent !important;
+  }
+}
+
+.filterIcon {
+  font-size: 30px;
+  transition: all 500ms ease-in-out;
+  &.open {
+    transform: rotateY(-180deg);
+    transition: all 500ms ease-in-out;
+  }
+}
+
+.PrivatePickersYear-modeDesktop {
+  background: rgb(248,248,248) !important;
+}

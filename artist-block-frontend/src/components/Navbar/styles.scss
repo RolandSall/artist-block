@@ -116,7 +116,7 @@
       width: 0;
       content: '.';
       color: transparent;
-      background: $artist-pink;
+      background: $artist_green;
       border-radius: 20px;
       height: 3px;
       transition: all .5s;
@@ -172,7 +172,7 @@
       width: 0;
       content: '.';
       color: transparent;
-      background: $artist-pink;
+      background: $artist_green;
       border-radius: 100px;
       height: 10px;
       transition: all .5s;
@@ -238,6 +238,16 @@
 
 .drawer-active {
   .drawer-item {
+    background: white !important;
+  }
+}
+
+.text-field-custom {
+  .Mui-focused {
+    background: white !important;
+  }
+
+  .MuiFilledInput-root:hover {
     background: white !important;
   }
 }
