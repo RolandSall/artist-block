@@ -19,9 +19,10 @@ public class GatewayServiceApplication {
     @Bean
     public RouteLocator staticRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route(r -> r.path("/api/v1/account-service/**")
-                        .uri("https://artist-block-gateway-service.herokuapp.com/")
-                       )
+                .route(r -> r.path("/api/v1/**")
+                        .uri("https://artist-block-account-service.herokuapp.com/")
+                )
+
                 .build();
     }
 }
