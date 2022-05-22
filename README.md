@@ -21,7 +21,7 @@ To run the front-end application, simply navigate to the desired directory. Ther
 Each of the backend services is equiped with a docker file. To run the services run the following commands
 
 ```
-docker built -t <image-name> .
+docker build -t <image-name> .
 docker run <image-name>
 ```
 Or you could simply run a spring boot application from command file by exectuing the jar file or with the help of an [IDE](https://www.jetbrains.com/help/idea/spring-boot.html)
@@ -32,7 +32,7 @@ First you to have [.NET CORE 6](https://dotnet.microsoft.com/en-us/download/dotn
 the two environements
 ```
 Staging envrionment --> Linked To Staging DB (if you have access to the credentials)
-Local envrionment --> Linked To Staging DB
+Local envrionment --> Linked To dev DB
 ```
 You could also run the application using docker.
 
