@@ -70,7 +70,7 @@ jobs:
 
       -
         name: "Tag Image for heroku deployement"
-        run: docker tag rolandsall24/artist-block-account-service:2.0.0 registry.heroku.com/artist-block-account-service/web
+        run: docker tag rolandsall24/artist-block-account-service:4.0.0 registry.heroku.com/artist-block-account-service/web
 
       -  
         name: "Check for current images"
