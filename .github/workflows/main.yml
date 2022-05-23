@@ -35,31 +35,29 @@ jobs:
         run: ls
 
       - 
-        name: Run Test
+        name: "Run Test"
         run: cd .. && dotnet test
         
-
-
-      -  
-        name: Log in to Docker Hub
+      -
+        name: "Log in to Docker Hub"
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN  }}   
 
       -
-        name: Extract metadata for Docker
+        name: "Extract metadata for Docker"
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: ${{ secrets.DOCKER_HUB_USERNAME }}/artist-block-account-service
 
       - 
-        name: Run Bat file
+        name: "Run Bat file"
         run: ./account-service-heroku-deployement-workflow.bat
           
       - 
-        name: login to heroku container
+        name: "login to heroku container"
         run: docker login --username=_ --password=${{ secrets.HEROKU_API_KEY }} registry.heroku.com
         
       -
@@ -71,19 +69,19 @@ jobs:
           -d ''
 
       -
-        name: Tag Image for heroku deployement
+        name: "Tag Image for heroku deployement"
         run: docker tag rolandsall24/artist-block-account-service:2.0.0 registry.heroku.com/artist-block-account-service/web
 
       -  
-        name: Check for current images
+        name: "Check for current images"
         run: docker images
      
       -
-        name: Push Registry
+        name: "Push Registry"
         run: docker push registry.heroku.com/artist-block-account-service/web
       
       -
-        name: Log In As User
+        name: "Log In As User"
         uses: akhileshns/heroku-deploy@v3.12.12 
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -91,8 +89,7 @@ jobs:
           justlogin: true
       
       -
-        name: Release Version
+        name: "Release Version"
         run: heroku container:release web -a artist-block-account-service
             
 
-        
