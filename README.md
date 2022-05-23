@@ -47,8 +47,8 @@ The latter means that your FastAPI application is exposed on this specific IP an
 
 # Acknowledgments
 
-- [Roland Salloum]()
-- [Robin Karaa]()
+- [Roland Salloum](https://www.linkedin.com/in/roland-salloum-09687b188/)
+- [Robin Karaa](https://www.linkedin.com/in/robin-karaa-a6ab51232/)
 - [Anis Ismail](https://www.linkedin.com/in/anisdismail)
 
 
