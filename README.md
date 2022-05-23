@@ -47,6 +47,8 @@ The latter means that your FastAPI application is exposed on this specific IP an
 
 **Demo can be provided upon Request**
 
+_NOTE: Some of the logic might be hidden to current viewers. for full access contact any of the project admins_
+
 # Acknowledgments
 
 - [Roland Salloum](https://www.linkedin.com/in/roland-salloum-09687b188/)
