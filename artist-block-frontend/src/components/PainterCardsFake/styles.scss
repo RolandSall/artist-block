@@ -1,0 +1,42 @@
+@import "src/assets/styles/variables.scss";
+
+.painting-card-container {
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 270px;
+  margin: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .grey-area {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    padding: 10px;
+    background: $artist-light-grey;
+  }
+
+  .view-painting {
+    transform: translateY(-50%);
+    background: white;
+    color: black;
+    border: 2px solid $artist_green !important;
+  }
+  .painting-description {
+    margin: 5px 0;
+    width: 100%;
+  }
+
+  .painting-image {
+    max-width: 250px;
+    border-radius: 5px;
+    width: 100%;
+    aspect-ratio:1;
+    height: unset;
+  }
+
+  .artist-page-specialities .MuiChip-root{
+    width: 30% !important;
+  }
+}

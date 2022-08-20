@@ -9,7 +9,7 @@ import Facebook from '../../assets/logos/facebook.svg'
 import Twitter from '../../assets/logos/twitter.svg'
 import App from '../../assets/logos/app.png'
 
-const CustomTextField = styled(TextField)({
+export const CustomTextField = styled(TextField)({
     width: '100%',
     '&:hover': {
         borderColor: 'white',

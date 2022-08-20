@@ -1,0 +1,90 @@
+@import "src/assets/styles/_variables";
+
+.registration-introduction-section {
+  text-align: center;
+  background: $artist-background;
+  padding: 5% 30%;
+}
+
+.registration-section{
+  padding: 0 35% 5%;
+}
+
+@media only screen and (max-width: 1100px) {
+  .registration-section{
+    padding: 0 35% 5%;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .registration-section{
+    padding: 0 20% 5%;
+  }
+}
+
+
+.registration-steps-circles{
+  display: flex;
+  place-content: space-around;
+  text-align: center;
+  width: 40%;
+  margin: auto;
+}
+
+.circle {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  line-height: 50px;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  background: $artist-light-grey;
+  &.purple {
+    background: $artist_green !important;
+  }
+}
+
+.circle-description {
+  flex-grow: 1;
+}
+
+.circle-info {
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  width: 150px;
+}
+
+.circle-divider {
+  height: 4px;
+  width: 30px;
+  border-radius: 20px;
+  background: $artist-light-grey;
+  margin: auto;
+  &.purple {
+    background: $artist_green;
+  }
+}
+
+.phone-field {
+  .MuiFilledInput-root {
+    border-radius: 10px !important;
+    &:before{
+      border-bottom: unset !important;
+    }
+    &:after{
+      border-bottom: unset !important;
+    }
+  }
+}
+
+.billable-text-field {
+  .MuiFilledInput-root{
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+}

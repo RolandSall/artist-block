@@ -9,6 +9,11 @@ import {ThemeProvider} from "@emotion/react";
 import {BrowserRouter as Router} from "react-router-dom";
 import {ARTIST_GREEN, ARTIST_PINK} from "./utils/constants";
 import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history";
+import {
+    QueryClientProvider,
+    queryClient,
+    ReactQueryDevtools,
+} from "./query";
 
 const Theme = createTheme({
     palette: {
@@ -42,10 +47,18 @@ const Theme = createTheme({
 ReactDOM.render(
     <Router>
         <Auth0ProviderWithHistory>
-            <ThemeProvider theme={Theme}>
-                <CssBaseline />
-                <App/>
-            </ThemeProvider>
+            <QueryClientProvider client={queryClient}>
+                {
+                    process.env.REACT_APP_ENV!=="production"
+                    &&
+                    <ReactQueryDevtools initialIsOpen />
+
+                }
+                <ThemeProvider theme={Theme}>
+                    <CssBaseline />
+                    <App/>
+                </ThemeProvider>
+            </QueryClientProvider>
         </Auth0ProviderWithHistory>
     </Router>,
     document.getElementById('root')
