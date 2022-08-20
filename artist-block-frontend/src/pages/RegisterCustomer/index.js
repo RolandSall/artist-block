@@ -3,7 +3,7 @@ import {Avatar, Box, Button, Grid, MenuItem, Modal, TextField, Typography} from 
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterMoment from '@mui/lab/AdapterMoment';
 import styled from "@emotion/styled";
-import {COUNTRIES, ARTIST_GREEN, HOME_ROUTE, REGISTRARTION, TITLES} from "../../utils/constants";
+import {COUNTRIES, ARTIST_GREEN, HOME_ROUTE, REGISTRATION_ARTIST_ROUTE, TITLES} from "../../utils/constants";
 import {useAuth0} from "@auth0/auth0-react";
 import {Autocomplete, DatePicker} from "@mui/lab";
 
@@ -84,25 +84,25 @@ const RegistrationCustomer = () => {
         touched,
 
     } = useFormik({
-        validationSchema: customerSchema,
-        initialValues: customerInitialValue,
-        onSubmit: (values) => {
-            // setUploaded(true)
+            validationSchema: customerSchema,
+            initialValues: customerInitialValue,
+            onSubmit: (values) => {
+                // setUploaded(true)
 
-            console.log("efveveve",values)
-            // console.log({
-            //         payload: {
-            //             "firstName": values.firstName,
-            //             "lastName": values.lastName,
-            //             "title": values.title,
-            //             "nationality": values.nationality,
-            //             // "email": user.email,
-            //             // "phoneNumber": values.phoneNumber.number,
-            //             // "birthDate": moment(values.birthDate).format("YYYY-MM-DD"),
-            //             }
-            //     })
-        }
-    });
+                console.log("efveveve",values)
+                // console.log({
+                //         payload: {
+                //             "firstName": values.firstName,
+                //             "lastName": values.lastName,
+                //             "title": values.title,
+                //             "nationality": values.nationality,
+                //             // "email": user.email,
+                //             // "phoneNumber": values.phoneNumber.number,
+                //             // "birthDate": moment(values.birthDate).format("YYYY-MM-DD"),
+                //             }
+                //     })
+                }
+            });
 
     const updateCropPreview = useCallback(() => {
         if (completedCrop && previewCanvasRef.current && imgRef.current && previewCanvasPageRef.current) {
@@ -189,7 +189,7 @@ const RegistrationCustomer = () => {
 
                         <Typography variant={"h6"} sx={{color: '#808080'}}>
                             Please note that you are registering as a member, if you're an artist register <Link
-                            to={REGISTRARTION.path} style={{color: ARTIST_GREEN}}>here</Link>
+                            to={REGISTRATION_ARTIST_ROUTE.path} style={{color: ARTIST_GREEN}}>here</Link>
                         </Typography>
                     </Grid>
                 </Grid>
@@ -264,21 +264,21 @@ const RegistrationCustomer = () => {
 
                                     <div style={{display:'flex', placeContent:'space-around'}}>
                                         <ArtistButton style={{margin: '10px auto'}} variant={"outlined"}
-                                                      onClick={() => {
-                                                          setImgSrc('')
-                                                          handleClose()
-                                                      }}>
+                                                    onClick={() => {
+                                                        setImgSrc('')
+                                                        handleClose()
+                                                    }}>
                                             Cancel
                                         </ArtistButton>
                                         <ArtistButton style={{margin: '10px auto'}} variant={"contained"}
-                                                      onClick={() => {
-                                                          previewCanvasPageRef.current.toBlob(function (blob) {
-                                                              let formData = new FormData();
-                                                              formData.append("image", blob);
-                                                              setPreviewCanvasState(formData)
-                                                          },"image/jpeg",0.6)
-                                                          handleClose()
-                                                      }}>
+                                                    onClick={() => {
+                                                        previewCanvasPageRef.current.toBlob(function (blob) {
+                                                            let formData = new FormData();
+                                                            formData.append("image", blob);
+                                                            setPreviewCanvasState(formData)
+                                                        },"image/jpeg",0.6)
+                                                        handleClose()
+                                                    }}>
                                             Save Image
                                         </ArtistButton>
                                     </div>
@@ -410,7 +410,7 @@ const RegistrationCustomer = () => {
                                 label={"Email"}
                                 fullWidth
                                 value={user?.email}
-
+                                
                                 disabled
                             />
                         </Grid>
@@ -491,25 +491,25 @@ const RegistrationCustomer = () => {
                                                   mutate({
                                                       token:token(),
                                                       payload:  {
-                                                          "firstName": values.firstName,
-                                                          "lastName": values.lastName,
-                                                          "title": values.title,
-                                                          "nationality": values.nationality,
-                                                          "email": user.email,
-                                                          "phoneNumber": values.phoneNumber.number,
-                                                          "birthDate": moment(values.birthDate).format("YYYY-MM-DD"),
+                                                                  "firstName": values.firstName,
+                                                                  "lastName": values.lastName,
+                                                                  "title": values.title,
+                                                                  "nationality": values.nationality,
+                                                                  "email": user.email,
+                                                                  "phoneNumber": values.phoneNumber.number,
+                                                                  "birthDate": moment(values.birthDate).format("YYYY-MM-DD"),
                                                       }
                                                   })
                                               }}
-                                              disabled={
-                                                  !(values.firstName &&
-                                                      values.lastName &&
-                                                      values.birthDate &&
-                                                      values.title &&
-                                                      values.nationality &&
-                                                      values.phoneNumber &&
-                                                      isValid)
-                                              }
+                                            disabled={
+                                                !(values.firstName &&
+                                                values.lastName &&
+                                                values.birthDate &&
+                                                values.title &&
+                                                values.nationality &&
+                                                values.phoneNumber &&
+                                                    isValid)
+                                            }
                                 >
                                     Submit
                                 </ArtistButton>

@@ -21,7 +21,8 @@ public class GatewayServiceApplication {
         return builder.routes()
                 .route(r -> r.path("/api/v1/**")
                         .uri("https://artist-block-account-service.herokuapp.com/")
-                        .uri("lb://gan_model/")
+                       .uri("lb://gan_model/")
+
                 )
 
                 .build();

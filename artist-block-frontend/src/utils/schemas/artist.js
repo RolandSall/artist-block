@@ -55,7 +55,6 @@ export const painterSchema = {
             .string()
             .required('Please enter your Address')
         ,
-
         phoneNumber: yup.object()
             .test("phoneNumber",
                 "This Phone Number isn't Valid",
@@ -95,7 +94,5 @@ export const painterInitialValue = {
         number:'',
         metadata:{}
     },
-    "languages":[],
-    "firstSpecialization":"",
-    "secondSpecialization":"",
+    "languages":[]
 }

@@ -4,7 +4,7 @@ import LoginButton from "../LoginButton";
 import MyArtistButton from "../MyArtistButton";
 import {Avatar, CircularProgress, Fade, Menu, MenuItem} from "@mui/material";
 import './styles.scss';
-import {ARTIST_GREEN} from "../../../utils/constants";
+import {ARTIST_GREEN, USER_PROFILE_ROUTE} from "../../../utils/constants";
 import {useHistory} from "react-router-dom";
 
 const AuthNav = ({authButton=true}) => {
@@ -12,7 +12,7 @@ const AuthNav = ({authButton=true}) => {
 
     const auth = () => isAuthenticated ? <MyArtistButton /> : <LoginButton />;
 
-    const { push} = useHistory()
+    const { push } = useHistory()
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -30,6 +30,10 @@ const AuthNav = ({authButton=true}) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleAccount = () => {
+        push(USER_PROFILE_ROUTE.path)
+    }
 
     if(isLoading){
         return (
@@ -68,7 +72,7 @@ const AuthNav = ({authButton=true}) => {
                         {/*<MenuItem onClick={() => {*/}
                         {/*    handleClose()*/}
                         {/*}} sx={{color: ARTIST_GREEN}}>Setting</MenuItem>*/}
-                        {/*<MenuItem onClick={handleClose}>My account</MenuItem>*/}
+                        <MenuItem onClick={handleAccount}>My account</MenuItem>
                         <MenuItem
                             onClick={logoutButton}
                             sx={{backgroundColor:'rgba(255, 0, 0, 0.1)',color:'#FF0000'}}

@@ -1,0 +1,40 @@
+
+//.popover {
+//  width: 40vw;
+//
+//  @media (max-width: 991px) {
+//    width: 97vw;
+//  }
+//}
+
+.category {
+  margin-bottom: 20px;
+}
+
+.list-item-container {
+  display: flex;
+  height:50px;
+  cursor: pointer;
+  &.loading {
+    animation: blinker 1.5s linear infinite;
+  }
+  &:hover{
+    background: #efefef
+  }
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.more {
+  display:flex;
+  place-content:center !important;
+  cursor:pointer;
+  padding: 5px 0;
+  &:hover{
+    background: #efefef
+  }
+}
