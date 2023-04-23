@@ -45,6 +45,12 @@ ngrok: ....
 ```
 The latter means that your FastAPI application is exposed on this specific IP and Port.
 
+## Samples 
+This service allows the other services to interact with the GAN model and provide it with text and the desired image size to generate paintings.
+
+![image](https://github.com/anisdismail/AI-Art-Generator-API/blob/main/images/progress_img.PNG)
+
+
 **Demo can be provided upon Request**
 
 _NOTE: Some of the logic (UI,AI,BE services) might be hidden to current viewers. for full access contact any of the project admins_
